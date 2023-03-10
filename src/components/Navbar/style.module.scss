@@ -1,0 +1,38 @@
+.container {
+  background: #f1f1f1;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+  @media only screen and (min-width: 992px) {
+    padding: 12px 0 0;
+  }
+}
+
+.wrapper {
+  background: black;
+  margin-left: auto;
+  margin-right: auto;
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+  @media (min-width: 992px) {
+    width: 750px;
+  }
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+}
+
+.row-1 {
+  display: flex;
+  width: 100%;
+  background: red;
+  .left {
+    flex: 3;
+    background: blue;
+  }
+  .center {
+    flex: 5;
+  }
+  .right {
+    flex: 4;
+  }
+}

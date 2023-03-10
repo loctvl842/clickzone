@@ -1,7 +1,13 @@
+import styles from "./style.module.scss";
+import classNames from "classnames/bind";
+import { Navbar } from "~/components";
+
+let cx = classNames.bind(styles);
+
 const Home = () => {
   return (
-    <div>
-      <p>Home page</p>
+    <div className={cx("container")}>
+      <Navbar />
     </div>
   );
 };
