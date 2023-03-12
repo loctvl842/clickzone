@@ -8,13 +8,23 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import CallIcon from "@mui/icons-material/Call";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const Navbar = () => {
+  const [isFloat, setIsFloat] = useState(false);
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 106) {
+      setIsFloat(true)
+    }
+    else {
+      setIsFloat(false)
+    }
+  });
   return (
-    <div className={cx("container")}>
+    <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
         <div className={cx("row-1")}>
           <div className={cx("left")}>
@@ -125,7 +135,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
