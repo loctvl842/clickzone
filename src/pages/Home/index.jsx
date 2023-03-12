@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Navbar } from "~/components";
+import { Navbar, HomeNav } from "~/components";
 
 let cx = classNames.bind(styles);
 
@@ -8,6 +8,7 @@ const Home = () => {
   return (
     <div className={cx("container")}>
       <Navbar />
+      <HomeNav />
       <div className="content">
         <div>
           Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit
