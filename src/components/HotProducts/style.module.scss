@@ -1,0 +1,19 @@
+.container {
+  .swiper-wrapper {
+    .title {
+      background-color: #f0f0f0;
+      margin-top: 15px;
+      margin-bottom: 18px;
+      h4 {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 36px;
+        background-color: #df0000;
+        color: #fff;
+        display: inline-block;
+        padding: 0 15px;
+        border-radius: 3px;
+      }
+    }
+  }
+}

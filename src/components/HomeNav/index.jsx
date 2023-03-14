@@ -1,61 +1,33 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
+import { v4 as uuidv4 } from "uuid";
+
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import { Autoplay } from "swiper";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 
 let cx = classNames.bind(styles);
 
 const HomeNav = () => {
+  const links = ["./Banner.png", "./akko3061.png"];
+
   return (
     <div className={cx("container")}>
-      <div className={cx("wrapper")}>
-        <Swiper modules={[Autoplay]} autoplay={{ delay: 1000, running: true }}>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./Banner.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./akko3061.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./Banner.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./akko3061.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./Banner.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./akko3061.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./Banner.png" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("item")}>
-              <img src="./akko3061.png" alt="" />
-            </div>
-          </SwiperSlide>
+      <div className={cx("swiper-wrapper")}>
+        <Swiper
+          modules={[Autoplay]}
+          autoplay={{ delay: 1000, running: true }}
+          loop={true}
+        >
+          {links.map((link) => (
+            <SwiperSlide key={uuidv4()}>
+              <div className={cx("img-wrapper")}>
+                <img src={link} alt="" />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>

@@ -1,9 +1,7 @@
 .container {
   background: #f1f1f1;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
-  @media (min-width: 992px) {
-    padding: 12px 0 0;
-  }
+  padding: 12px 0 0;
 }
 
 .wrapper {
@@ -13,7 +11,7 @@
     width: 750px;
   }
   @media (min-width: 992px) {
-    width: 750px;
+    width: 970px;
   }
   @media (min-width: 1200px) {
     width: 1170px;
@@ -25,6 +23,16 @@
   width: 100%;
   .left {
     flex: 3;
+    .menu__mobile {
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+    .user__mobile {
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
     a {
       text-decoration: none;
       .logo {
@@ -155,6 +163,11 @@
           margin-left: 10px;
         }
       }
+      li:first-child {
+        @media (min-width: 992px) and (max-width: 1199px) {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -193,6 +206,55 @@
     }
     .col-2 {
       .support-policy {
+        display: none;
+      }
+    }
+  }
+}
+
+.container {
+  @media (max-width: 991px) {
+    padding: 12px 5% 0;
+    .wrapper {
+      .row-1 {
+        flex-direction: column;
+        align-items: center;
+        .left {
+          width: 100%;
+          text-align: center;
+          .menu__mobile {
+            float: left;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            cursor: pointer;
+          }
+          .logo {
+            display: inline-block;
+          }
+          .user__mobile {
+            float: right;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            cursor: pointer;
+          }
+        }
+        .center {
+          margin: 15px 0 5px;
+          width: 100%;
+        }
+        .right {
+          display: none;
+        }
+      }
+      .row-2 {
         display: none;
       }
     }

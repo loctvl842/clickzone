@@ -2,14 +2,18 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { NavLink } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
-import CallIcon from "@mui/icons-material/Call";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { useState } from "react";
+
+import {
+  Menu,
+  Logout,
+  ShoppingCart,
+  AccountCircle,
+  Call,
+  AccessTime,
+  HelpOutline,
+  ArrowDropDown,
+} from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
 
@@ -17,10 +21,9 @@ const Navbar = () => {
   const [isFloat, setIsFloat] = useState(false);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 106) {
-      setIsFloat(true)
-    }
-    else {
-      setIsFloat(false)
+      setIsFloat(true);
+    } else {
+      setIsFloat(false);
     }
   });
   return (
@@ -28,12 +31,18 @@ const Navbar = () => {
       <div className={cx("wrapper")}>
         <div className={cx("row-1")}>
           <div className={cx("left")}>
+            <div className={cx("menu__mobile")}>
+              <Menu />
+            </div>
             <NavLink to="/home">
               <h1 className={cx("logo")}>
                 <span>C</span>
                 <span>lickZone</span>
               </h1>
             </NavLink>
+            <div className={cx("user__mobile")}>
+              <ArrowDropDown />
+            </div>
           </div>
           <div className={cx("center")}>
             <form className={cx("header-search")} action="" method="GET">
@@ -55,24 +64,24 @@ const Navbar = () => {
           <div className={cx("right")}>
             <div className={cx("user")}>
               <span>
-                <ShoppingCartIcon />
+                <ShoppingCart />
               </span>
               <div className={cx("badge")}>5</div>
             </div>
             <div className={cx("user")}>
               <span>
-                <LogoutIcon />
+                <Logout />
               </span>
             </div>
             <div className={cx("user")}>
-              <AccountCircleIcon />
+              <AccountCircle />
             </div>
           </div>
         </div>
         <div className={cx("row-2")}>
           <div className={cx("col-1")}>
             <NavLink className={cx("categories")}>
-              <MenuIcon />
+              <Menu />
               <h2>All Categories</h2>
             </NavLink>
           </div>
@@ -80,7 +89,7 @@ const Navbar = () => {
             <ul className={cx("support-policy")}>
               <li>
                 <span>
-                  <CallIcon style={{ width: 16 }} />
+                  <Call style={{ width: 16 }} />
                 </span>
                 <span>HOTLINE:</span>
                 <span>
@@ -103,7 +112,7 @@ const Navbar = () => {
               </li>
               <li>
                 <span>
-                  <AccessTimeIcon style={{ width: 16 }} />
+                  <AccessTime style={{ width: 16 }} />
                 </span>
                 <span>OPEN:</span>
                 <span>
@@ -118,7 +127,7 @@ const Navbar = () => {
               </li>
               <li>
                 <span>
-                  <HelpOutlineIcon style={{ width: 16 }} />
+                  <HelpOutline style={{ width: 16 }} />
                 </span>
                 <span>TECHNICAL SUPPORT:</span>
                 <span>

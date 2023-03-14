@@ -1,23 +1,27 @@
 .container {
-  .wrapper {
-    display: flex;
-    margin: 0 auto;
-    @media (min-width: 768px) {
-      width: 750px;
-    }
-    @media (min-width: 992px) {
-      width: 970px;
-    }
-    @media (min-width: 1200px) {
-      width: 1170px;
-    }
-    .item {
-      object-fit: cover;
+  display: flex;
+  margin: 0 auto;
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+  .swiper-wrapper {
+    width: 100%;
+    margin-top: 15px;
+    .img-wrapper {
       user-select: none;
       display: flex;
       justify-content: center;
       img {
+        width: 100%;
+        object-fit: cover;
         max-height: 350px;
+        min-height: 350px;
       }
     }
   }
