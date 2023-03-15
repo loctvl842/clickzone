@@ -13,6 +13,7 @@ import {
   AccessTime,
   HelpOutline,
   ArrowDropDown,
+  Search,
 } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
@@ -30,19 +31,19 @@ const Navbar = () => {
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
         <div className={cx("row-1")}>
+          <div className={cx("menu__mobile")}>
+            <Menu />
+          </div>
+          <div className={cx("user__mobile")}>
+            <ArrowDropDown />
+          </div>
           <div className={cx("left")}>
-            <div className={cx("menu__mobile")}>
-              <Menu />
-            </div>
             <NavLink to="/home">
               <h1 className={cx("logo")}>
                 <span>C</span>
                 <span>lickZone</span>
               </h1>
             </NavLink>
-            <div className={cx("user__mobile")}>
-              <ArrowDropDown />
-            </div>
           </div>
           <div className={cx("center")}>
             <form className={cx("header-search")} action="" method="GET">
@@ -56,6 +57,7 @@ const Navbar = () => {
                 <span className={cx("input-group-btn")}>
                   <button className={cx("btn")} type="submit">
                     <span>Search</span>
+                    <Search className={cx("search-icon")}/>
                   </button>
                 </span>
               </div>

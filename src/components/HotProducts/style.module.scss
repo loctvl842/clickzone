@@ -1,19 +1,50 @@
-.container {
-  .swiper-wrapper {
-    .title {
-      background-color: #f0f0f0;
-      margin-top: 15px;
-      margin-bottom: 18px;
-      h4 {
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 36px;
-        background-color: #df0000;
-        color: #fff;
-        display: inline-block;
-        padding: 0 15px;
-        border-radius: 3px;
-      }
+.title {
+  background-color: #f0f0f0;
+  margin-top: 15px;
+  margin-bottom: 18px;
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 36px;
+    background-color: #df0000;
+    color: #fff;
+    display: inline-block;
+    padding: 0 15px;
+    border-radius: 3px;
+  }
+}
+
+.swiper-wrapper {
+  position: relative;
+  .btn {
+    position: absolute;
+    background: red;
+    z-index: 2;
+    top: 50%;
+    height: 0px;
+    width: 100%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    .btn__frame {
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid #e1e1e1;
+      background: #fff;
+      color: #454545;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+      width: 32px;
+      padding: 20px 0;
+      margin: 0 -5px;
+    }
+    .btn--prev {
+      float: left;
+      transform: translate(-100%, -50%);
+    }
+    .btn--next {
+      float: right;
+      transform: translate(100%, -50%);
     }
   }
 }

@@ -2,6 +2,9 @@
   background: #f1f1f1;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
   padding: 12px 0 0;
+  @media (max-width: 991px) {
+    padding: 12px 5% 0;
+  }
 }
 
 .wrapper {
@@ -21,17 +24,37 @@
 .row-1 {
   display: flex;
   width: 100%;
+  position: relative;
+  @media (max-width: 991px) {
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .menu__mobile {
+    display: none;
+    @media (max-width: 991px) {
+      cursor: pointer;
+      display: table;
+      position: absolute;
+      top: 8px;
+      left: 20px;
+    }
+  }
+  .user__mobile {
+    display: none;
+    @media (max-width: 991px) {
+      cursor: pointer;
+      display: table;
+      position: absolute;
+      top: 8px;
+      right: 20px;
+    }
+  }
   .left {
     flex: 3;
-    .menu__mobile {
-      @media (min-width: 768px) {
-        display: none;
-      }
-    }
-    .user__mobile {
-      @media (min-width: 768px) {
-        display: none;
-      }
+    @media (max-width: 991px) {
+      width: 100%;
+      text-align: center;
     }
     a {
       text-decoration: none;
@@ -56,6 +79,10 @@
   .center {
     flex: 5;
     margin-left: 50px;
+    @media (max-width: 991px) {
+      margin: 15px 0 7px;
+      width: 100%;
+    }
     .header-search {
       .input-group {
         display: flex;
@@ -73,20 +100,28 @@
         .btn {
           box-shadow: 0px 1px 4px rgb(0 0 0 / 20%);
           border-radius: 3px;
-          padding: 6px 20px;
+          padding: 6px 10px;
           background: #df0000;
           height: 100%;
           cursor: pointer;
           border: none;
           outline: none;
+          font-size: 14px;
+          font-weight: 700;
+          color: #fff;
+          text-transform: uppercase;
           &:hover {
             opacity: 0.8;
           }
+          .search-icon {
+            @media (min-width: 992px) {
+              display: none;
+            }
+          }
           span {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
+            @media (max-width: 991px) {
+              display: none;
+            }
           }
         }
       }
@@ -97,6 +132,9 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    @media (max-width: 991px) {
+      display: none;
+    }
     .user + .user {
       margin-left: 20px;
     }
@@ -124,6 +162,9 @@
 .row-2 {
   display: flex;
   margin-top: 10px;
+  @media (max-width: 991px) {
+    display: none;
+  }
   .col-1 {
     flex: 3;
     position: relative;
@@ -180,11 +221,20 @@
   background: #fff;
   box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
   transition: none;
-  animation: header-affix 0.5s ease 1;
+  animation: header-affix 0.6s ease 1;
+  @media (max-width: 991px) {
+    padding-top: 7px;
+  }
   .row-1 {
     .left {
       a {
         display: none;
+      }
+    }
+    .center {
+      @media (max-width: 991px) {
+        margin-top: 0;
+        width: 80%;
       }
     }
     .center .header-search .input-group .form-control {
@@ -195,7 +245,6 @@
     }
   }
   .row-2 {
-    height: 1px;
     .col-1 {
       .categories {
         position: absolute;
@@ -206,55 +255,6 @@
     }
     .col-2 {
       .support-policy {
-        display: none;
-      }
-    }
-  }
-}
-
-.container {
-  @media (max-width: 991px) {
-    padding: 12px 5% 0;
-    .wrapper {
-      .row-1 {
-        flex-direction: column;
-        align-items: center;
-        .left {
-          width: 100%;
-          text-align: center;
-          .menu__mobile {
-            float: left;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            cursor: pointer;
-          }
-          .logo {
-            display: inline-block;
-          }
-          .user__mobile {
-            float: right;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            cursor: pointer;
-          }
-        }
-        .center {
-          margin: 15px 0 5px;
-          width: 100%;
-        }
-        .right {
-          display: none;
-        }
-      }
-      .row-2 {
         display: none;
       }
     }

@@ -7,6 +7,9 @@ import { ProductCard } from "~/components";
 // key index
 import { v4 as uuidv4 } from "uuid";
 
+// icons
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+
 // Slide show
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,13 +27,15 @@ const HotProdcuts = () => {
 
   return (
     <div className={cx("container")}>
+      <div className={cx("title")}>
+        <h4>Hot Product</h4>
+      </div>
       <div className={cx("swiper-wrapper")}>
-        <div className={cx("title")}>
-          <h4>Hot Product</h4>
-        </div>
         <Swiper
           modules={[Navigation]}
           slidesPerView={4}
+          // centeredSlidesBounds={true}
+          spaceBetween={45}
           navigation={{
             prevEl: navigationPrevRef.current,
             nextEl: navigationNextRef.current,
@@ -41,13 +46,16 @@ const HotProdcuts = () => {
               <ProductCard data={card} />
             </SwiperSlide>
           ))}
-          <button type="button" ref={navigationNextRef}>
-            next
-          </button>
-          <button type="button" ref={navigationPrevRef}>
-            prev
-          </button>
         </Swiper>
+        <div className={cx("btn")}>
+          <div className={cx("btn__frame", "btn--prev")}>
+            <ArrowBackIosNew style={{ fontSize: 32 }} />
+          </div>
+          {/* <div style={{ width: "100%", height: 1 }}></div> */}
+          <div className={cx("btn__frame", "btn--next")}>
+            <ArrowForwardIos style={{ fontSize: 32 }} />
+          </div>
+        </div>
       </div>
     </div>
   );
