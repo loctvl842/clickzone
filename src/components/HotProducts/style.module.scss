@@ -1,3 +1,8 @@
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .title {
   background-color: #f0f0f0;
   margin-top: 15px;
@@ -37,14 +42,28 @@
       width: 32px;
       padding: 20px 0;
       margin: 0 -5px;
+      transition: all 0.2s;
+      &:hover {
+        padding: 20px 30px;
+        color: #D90000;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+      }
     }
     .btn--prev {
-      float: left;
-      transform: translate(-100%, -50%);
+      position: absolute;
+      left: -28px;
+      transform: translateY(-50%);
+      @media (max-width: 991px) {
+        display: none;
+      }
     }
     .btn--next {
-      float: right;
-      transform: translate(100%, -50%);
+      position: absolute;
+      right: -28px;
+      transform: translateY(-50%);
+      @media (max-width: 991px) {
+        display: none;
+      }
     }
   }
 }

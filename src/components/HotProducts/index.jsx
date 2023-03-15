@@ -20,8 +20,8 @@ import { useRef } from "react";
 let cx = classNames.bind(styles);
 
 const HotProdcuts = () => {
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   const cards = [1, 2, 3, 4, 5, 6];
 
@@ -33,12 +33,27 @@ const HotProdcuts = () => {
       <div className={cx("swiper-wrapper")}>
         <Swiper
           modules={[Navigation]}
-          slidesPerView={4}
+          slidesPerView={3}
           // centeredSlidesBounds={true}
-          spaceBetween={45}
+          spaceBetween={28}
           navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          onBeforeInit={(swiper) => {
+            // Override prevEl & nextEl now that refs are defined
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+            // Re-init navigation
+            swiper.navigation.destroy();
+            swiper.navigation.init();
+            swiper.navigation.update();
+          }}
+          breakpoints={{
+            992: {
+              slidesPerView: 4,
+              spaceBetween: 28,
+            },
           }}
         >
           {cards.map((card) => (
@@ -48,12 +63,11 @@ const HotProdcuts = () => {
           ))}
         </Swiper>
         <div className={cx("btn")}>
-          <div className={cx("btn__frame", "btn--prev")}>
-            <ArrowBackIosNew style={{ fontSize: 32 }} />
+          <div className={cx("btn__frame", "btn--prev")} ref={prevRef}>
+            <ArrowBackIosNew style={{ fontSize: 24 }} />
           </div>
-          {/* <div style={{ width: "100%", height: 1 }}></div> */}
-          <div className={cx("btn__frame", "btn--next")}>
-            <ArrowForwardIos style={{ fontSize: 32 }} />
+          <div className={cx("btn__frame", "btn--next")} ref={nextRef}>
+            <ArrowForwardIos style={{ fontSize: 24 }} />
           </div>
         </div>
       </div>
