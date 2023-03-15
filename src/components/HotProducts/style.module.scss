@@ -51,7 +51,7 @@
     }
     .btn--prev {
       position: absolute;
-      left: -28px;
+      left: -25px;
       transform: translateY(-50%);
       @media (max-width: 991px) {
         display: none;
@@ -59,7 +59,7 @@
     }
     .btn--next {
       position: absolute;
-      right: -28px;
+      right: -25px;
       transform: translateY(-50%);
       @media (max-width: 991px) {
         display: none;

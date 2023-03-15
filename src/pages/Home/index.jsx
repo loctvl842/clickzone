@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Navbar, HomeNav, HotProduct } from "~/components";
+import { Navbar, HomeNav, HotProduct, NewProdcuts } from "~/components";
 
 let cx = classNames.bind(styles);
 
@@ -11,6 +11,7 @@ const Home = () => {
       <div className={cx("content-wrapper")}>
         <HomeNav />
         <HotProduct />
+        <NewProdcuts />
       </div>
     </div>
   );
