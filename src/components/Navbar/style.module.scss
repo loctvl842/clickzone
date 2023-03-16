@@ -140,33 +140,57 @@
   flex: 3;
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 3px;
   @media (max-width: 991px) {
     display: none;
   }
   .action + .action {
     margin-left: 20px;
   }
-  .action {
-    color: #555;
-    cursor: pointer;
-    position: relative;
-    .badge {
-      border: 1px solid #eee;
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #f00;
-      border-radius: 50%;
-      color: #fff;
-      width: 16px;
-      height: 16px;
-      text-align: center;
-      font-size: 12px;
+}
+
+.action {
+  color: #555;
+  cursor: pointer;
+  position: relative;
+  .badge {
+    border: 1px solid #eee;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #f00;
+    border-radius: 50%;
+    color: #fff;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    font-size: 12px;
+  }
+  &:hover .action__menu {
+    display: block;
+  }
+  &__menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    // transform: translateX(50%);
+    width: 220px;
+    background: #474747;
+    ul {
+      list-style-type: none;
+      li .item {
+        padding: 15px 5px 15px 11px;
+        color: #fff;
+        transition: all 0.5s ease;
+        border-bottom: 1px solid #5a5a5a;
+        &:hover {
+          background: #2b2b2b;
+        }
+      }
     }
   }
 }
-
 // ------------ ROW 2 -------------------
 .row-2 {
   display: flex;
@@ -264,7 +288,6 @@
         ul {
           list-style-type: none;
           li .item-1 {
-            border-bottom: 1px solid #5a5a5a;
             padding: 15px 5px 15px 11px;
             font-size: 13px;
             text-decoration: none;
@@ -272,8 +295,9 @@
             display: block;
             cursor: pointer;
             position: relative;
-            transition: all 0.5s ease;
             outline: none;
+            transition: all 0.5s ease;
+            border-bottom: 1px solid #5a5a5a;
             &:hover {
               background: #2b2b2b;
             }

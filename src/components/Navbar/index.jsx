@@ -169,6 +169,21 @@ const menu_0 = [
   },
 ];
 
+const ActionMenu = () => {
+  return (
+    <div className={cx("action__menu")}>
+      <ul>
+        <li>
+          <div className={cx("item")}>Account</div>
+        </li>
+        <li>
+          <div className={cx("item")}>Log out</div>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isFloat, setIsFloat] = useState(false);
   window.addEventListener("scroll", () => {
@@ -186,7 +201,10 @@ const Navbar = () => {
             <Menu />
           </div>
           <div className={cx("user__mobile")}>
-            <ArrowDropDown />
+            <div className={cx("action")}>
+              <ArrowDropDown />
+              <ActionMenu />
+            </div>
           </div>
           <div className={cx("left")}>
             <NavLink to="/home">
@@ -222,12 +240,8 @@ const Navbar = () => {
               <div className={cx("badge")}>5</div>
             </div>
             <div className={cx("action")}>
-              <span>
-                <Logout />
-              </span>
-            </div>
-            <div className={cx("action")}>
               <AccountCircle />
+              <ActionMenu />
             </div>
           </div>
         </div>
