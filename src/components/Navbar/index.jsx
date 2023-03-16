@@ -4,6 +4,9 @@ import classNames from "classnames/bind";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
+// icons
 import {
   Menu,
   Logout,
@@ -14,9 +17,157 @@ import {
   Help,
   ArrowDropDown,
   Search,
+  NavigateNext,
 } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
+
+const menu_0 = [
+  {
+    title: "Mechanical Keyboard",
+    link: "/",
+    menu_1: [
+      {
+        title: "AKKO keyboard",
+        link: "/",
+      },
+      {
+        title: "Dareu keyboard",
+        link: "/",
+      },
+      {
+        title: "Anne Pro 2 keyboard",
+        link: "/",
+      },
+      {
+        title: "iKBC keyboard",
+        link: "/",
+      },
+      {
+        title: "Keydous keyboard",
+        link: "/",
+      },
+      {
+        title: "Ajazz keyboard",
+        link: "/",
+      },
+      {
+        title: "Keywalker keyboard",
+        link: "/",
+      },
+      {
+        title: "Royal Kludge keyboard",
+        link: "/",
+      },
+      {
+        title: "Fuhlen keyboard",
+        link: "/",
+      },
+    ],
+  },
+  {
+    title: "Gaming Mouse",
+    link: "/",
+    menu_1: [
+      {
+        title: "AKKO mouse",
+        link: "/",
+      },
+      {
+        title: "Fuhlen mouse",
+        link: "/",
+      },
+      {
+        title: "Dareu mouse",
+        link: "/",
+      },
+      {
+        title: "Ajazz mouse",
+        link: "/",
+      },
+      {
+        title: "Wireless mouse",
+        link: "/",
+      },
+      {
+        title: "Logitech mouse",
+        link: "/",
+      },
+      {
+        title: "Edra mouse",
+        link: "/",
+      },
+    ],
+  },
+  {
+    title: "Switch",
+    link: "/",
+  },
+  {
+    title: "Mouse Pad",
+    link: "/",
+    menu_1: [
+      {
+        title: "Doraemon Mouse pad",
+        link: "/",
+      },
+      {
+        title: "One Piece Mouse pad",
+        link: "/",
+      },
+      {
+        title: "Dota 2 Mouse pad",
+        link: "/",
+      },
+      {
+        title: "LOL Mouse pad",
+        link: "/",
+      },
+      {
+        title: "Dragon Ball Mouse pad",
+        link: "/",
+      },
+      {
+        title: "Naruto Mouse pad",
+        link: "/",
+      },
+      {
+        title: "Led RGB Mouse pad",
+        link: "/",
+      },
+    ],
+  },
+  {
+    title: "Keycap",
+    link: "/",
+  },
+  {
+    title: "Gadgets",
+    link: "/",
+    menu_1: [
+      {
+        title: "Earphone",
+        link: "/",
+      },
+      {
+        title: "Figure",
+        link: "/",
+      },
+      {
+        title: "Laptop screen",
+        link: "/",
+      },
+      {
+        title: "Gaming chair",
+        link: "/",
+      },
+    ],
+  },
+  {
+    title: "Repair, Mod tools",
+    link: "/",
+  },
+];
 
 const Navbar = () => {
   const [isFloat, setIsFloat] = useState(false);
@@ -64,30 +215,65 @@ const Navbar = () => {
             </form>
           </div>
           <div className={cx("right")}>
-            <div className={cx("user")}>
+            <div className={cx("action")}>
               <span>
                 <ShoppingCart />
               </span>
               <div className={cx("badge")}>5</div>
             </div>
-            <div className={cx("user")}>
+            <div className={cx("action")}>
               <span>
                 <Logout />
               </span>
             </div>
-            <div className={cx("user")}>
+            <div className={cx("action")}>
               <AccountCircle />
             </div>
           </div>
         </div>
         <div className={cx("row-2")}>
-          <div className={cx("col-1")}>
-            <NavLink className={cx("categories")}>
-              <Menu />
-              <h2>All Categories</h2>
-            </NavLink>
+          <div className={cx("categories-wrapper")}>
+            <div className={cx("categories")}>
+              <div className={cx("categories__title")}>
+                <Menu />
+                <h2>All Categories</h2>
+              </div>
+              <div className={cx("categories__menu-0")}>
+                <ul>
+                  {menu_0.map((item_0) => (
+                    <li key={uuidv4()}>
+                      <NavLink to={item_0.link} className={cx("item-0")}>
+                        <span className={cx("active-bar")}></span>
+                        <span>{item_0.title}</span>
+                        {item_0.menu_1 && (
+                          <div className={cx("nav-icon")}>
+                            <NavigateNext fontSize="small" />
+                          </div>
+                        )}
+                      </NavLink>
+                      {item_0.menu_1 && (
+                        <div className={cx("menu-1")}>
+                          <ul>
+                            {item_0.menu_1.map((item_1) => (
+                              <li key={uuidv4()}>
+                                <NavLink
+                                  to={item_1.link}
+                                  className={cx("item-1")}
+                                >
+                                  <span>{item_1.title}</span>
+                                </NavLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
-          <div className={cx("col-2")}>
+          <div className={cx("support-policy-wrapper")}>
             <ul className={cx("support-policy")}>
               <li>
                 <span>
