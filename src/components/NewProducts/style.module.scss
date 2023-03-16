@@ -51,17 +51,41 @@
         border-radius: 3px;
         padding: 6px 13px;
         text-decoration: none;
-        color: #333;
+        vertical-align: middle;
+        &:hover {
+          background: #eee;
+          span {
+            color: #df0000;
+          }
+        }
+        span {
+          font-weight: 600;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          line-height: 1.5rem;
+          height: 1.5rem;
+          width: 1rem;
+          color: #333;
+        }
       }
     }
-    .negative {
+    .disappear {
       display: none;
     }
     .active {
       a {
         background: #df0000;
         border: 1px solid #d92e2e;
-        color: #fff;
+        span {
+          color: #fff;
+        }
+        &:hover {
+          background: #df0000;
+          span {
+            color: #fff;
+          }
+        }
       }
     }
     li + li {

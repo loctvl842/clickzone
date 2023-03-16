@@ -10,8 +10,8 @@ import {
   ShoppingCart,
   AccountCircle,
   Call,
-  AccessTime,
-  HelpOutline,
+  AccessTimeFilled,
+  Help,
   ArrowDropDown,
   Search,
 } from "@mui/icons-material";
@@ -57,7 +57,7 @@ const Navbar = () => {
                 <span className={cx("input-group-btn")}>
                   <button className={cx("btn")} type="submit">
                     <span>Search</span>
-                    <Search className={cx("search-icon")}/>
+                    <Search className={cx("search-icon")} />
                   </button>
                 </span>
               </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
             <ul className={cx("support-policy")}>
               <li>
                 <span>
-                  <Call style={{ width: 16 }} />
+                  <Call style={{ width: 18 }} />
                 </span>
                 <span>HOTLINE:</span>
                 <span>
@@ -114,7 +114,7 @@ const Navbar = () => {
               </li>
               <li>
                 <span>
-                  <AccessTime style={{ width: 16 }} />
+                  <AccessTimeFilled style={{ width: 18 }} />
                 </span>
                 <span>OPEN:</span>
                 <span>
@@ -129,7 +129,7 @@ const Navbar = () => {
               </li>
               <li>
                 <span>
-                  <HelpOutline style={{ width: 16 }} />
+                  <Help style={{ width: 18 }} />
                 </span>
                 <span>TECHNICAL SUPPORT:</span>
                 <span>

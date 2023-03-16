@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Navbar, HomeNav, HotProduct, NewProdcuts } from "~/components";
+import { Navbar, HomeNav, HotProduct, NewProdcuts, Footer } from "~/components";
 
 let cx = classNames.bind(styles);
 
@@ -13,6 +13,9 @@ const Home = () => {
         <HotProduct />
         <NewProdcuts />
       </div>
+      <Footer />
+      <br/>
+      <br/>
     </div>
   );
 };
