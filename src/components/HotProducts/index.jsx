@@ -10,6 +10,9 @@ import { v4 as uuidv4 } from "uuid";
 // icons
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
+// fake data
+import productCards from "./fakeData.json";
+
 // Slide show
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,43 +26,7 @@ const HotProdcuts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const cards = [
-    {
-      link: "./assets/durgod-v90-pro.jpg",
-      id: 1871,
-      newPrice: 245000,
-      oldPrice: 490000,
-      name: "Chuột Gaming Durgod V90 Pro - 10.000 DPI",
-    },
-    {
-      link: "./assets/dareu-ek87-v2.jpg",
-      id: 2313,
-      newPrice: 495000,
-      oldPrice: 595000,
-      name: "Bàn phím cơ Dareu EK87 V2 (Multi-Led)",
-    },
-    {
-      link: "./assets/rk918-white.jpg",
-      id: 2750,
-      newPrice: 1090000,
-      name: "Bàn phím cơ RK918 White - Kèm kê tay",
-    },
-    {
-      link: "./assets/dareu-ek807g-wireless-2-4ghz.jpg",
-      id: 2589,
-      newPrice: 545000,
-      oldPrice: 645000,
-      name: "Bàn phím cơ Dareu EK807G - Wireless 2.4ghz",
-    },
-    {
-      link: "./assets/product_card_akko_3061.jpg",
-      // link: "./assets/akko3061.png",
-      id: 2429,
-      newPrice: 1500000,
-      oldPrice: 1650000,
-      name: "Bàn phím cơ AKKO 3061s RGB - Neon (Bluetooth 5.0)",
-    },
-  ];
+  const cards = productCards.data;
 
   return (
     <div className={cx("container")}>
@@ -69,9 +36,9 @@ const HotProdcuts = () => {
       <div className={cx("swiper-wrapper")}>
         <Swiper
           modules={[Navigation]}
-          slidesPerView={3}
-          // centeredSlidesBounds={true}
+          slidesPerView={2}
           spaceBetween={0}
+          // centeredSlidesBounds={true}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
@@ -86,6 +53,10 @@ const HotProdcuts = () => {
             swiper.navigation.update();
           }}
           breakpoints={{
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 7,
+            },
             992: {
               slidesPerView: 4,
               spaceBetween: 14,

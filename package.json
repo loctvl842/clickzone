@@ -47,6 +47,7 @@
   "devDependencies": {
     "babel-plugin-module-resolver": "^5.0.0",
     "customize-cra": "^1.0.0",
+    "json-loader": "^0.5.7",
     "react-app-rewired": "^2.2.1"
   }
 }

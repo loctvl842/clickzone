@@ -1,3 +1,33 @@
 .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
+.title {
+  background-color: #f0f0f0;
+  margin-top: 15px;
+  margin-bottom: 18px;
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 36px;
+    background-color: #df0000;
+    color: #fff;
+    display: inline-block;
+    padding: 0 15px;
+    border-radius: 3px;
+  }
+}
+
+.product-list{
+  .product-item {
+    float: left;
+    width: 25%;
+    @media (max-width: 991px) {
+      width: 33.3333%;
+    }
+    @media (max-width: 767px) {
+      width: 50%;
+    }
+  }
 }
