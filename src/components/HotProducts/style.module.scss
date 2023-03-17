@@ -3,23 +3,7 @@
   padding-right: 15px;
 }
 
-.title {
-  background-color: #f0f0f0;
-  margin-top: 15px;
-  margin-bottom: 18px;
-  h4 {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 36px;
-    background-color: #df0000;
-    color: #fff;
-    display: inline-block;
-    padding: 0 15px;
-    border-radius: 3px;
-  }
-}
-
-.swiper-wrapper {
+.wrapper {
   position: relative;
   .btn {
     position: absolute;
@@ -45,7 +29,7 @@
       transition: all 0.2s;
       &:hover {
         padding: 20px 30px;
-        color: #D90000;
+        color: #d90000;
         box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
       }
     }

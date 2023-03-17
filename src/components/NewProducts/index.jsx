@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 // components
@@ -17,27 +17,32 @@ import {
 
 // fake data
 import productCards from "./fakeData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const NUM_PAGE = 7;
 
 const NewProducts = () => {
+  const [params] = useSearchParams();
+  const [current, setCurrent] = useState(params.get("page") || 0);
+  const sortType = params.get("sort");
+
   const cards = productCards.data;
-  const [current, setCurrent] = useState(0);
 
   const handleNavClick = (pageNumber) => {
     setCurrent(pageNumber);
   };
+  useEffect(() => {
+    setCurrent(0);
+  }, [sortType]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [current]);
 
   return (
     <div className={cx("container")}>
-      <div className={cx("title")}>
-        <NavLink to="/all-products">
-          <h4>New Products</h4>
-        </NavLink>
-      </div>
       <div className={cx("product-list")}>
         {cards.map((card) => (
           <div key={uuidv4()} className={cx("product-item")}>
@@ -50,7 +55,15 @@ const NewProducts = () => {
           <div className={cx("pagination-wrapper")}>
             <ul className={cx("pagination")}>
               <li className={cx({ disappear: current < 2 })}>
-                <NavLink to={"/"} onClick={() => { }}>
+                <NavLink
+                  to={{
+                    pathname: "/all-products",
+                    search: sortType ? `?sort=${sortType}&page=0` : `?page=0`,
+                  }}
+                  onClick={() => {
+                    setCurrent(0);
+                  }}
+                >
                   <span>
                     <KeyboardDoubleArrowLeft fontSize="small" />
                   </span>
@@ -58,7 +71,12 @@ const NewProducts = () => {
               </li>
               <li className={cx({ disappear: current <= 0 })}>
                 <NavLink
-                  to={"/"}
+                  to={{
+                    pathname: "all-products",
+                    search: sortType
+                      ? `?sort=${sortType}&page=${current - 1}`
+                      : `?page=${current - 1}`,
+                  }}
                   onClick={() => setCurrent((current) => current - 1)}
                 >
                   <span>
@@ -78,7 +96,12 @@ const NewProducts = () => {
                   })}
                 >
                   <NavLink
-                    to={`all-products?page=${page}`}
+                    to={{
+                      pathname: "/all-products",
+                      search: sortType
+                        ? `?sort=${sortType}&page=${page}`
+                        : `?page=${page}`,
+                    }}
                     onClick={() => {
                       handleNavClick(page);
                     }}
@@ -89,7 +112,12 @@ const NewProducts = () => {
               ))}
               <li>
                 <NavLink
-                  to={`/all-products?page=${current + 1}`}
+                  to={{
+                    pathname: "all-products",
+                    search: sortType
+                      ? `?sort=${sortType}&page=${current + 1}`
+                      : `?page=${current + 1}`,
+                  }}
                   onClick={() => setCurrent((current) => current + 1)}
                 >
                   <span>
@@ -98,7 +126,7 @@ const NewProducts = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/"} onClick={() => { }}>
+                <NavLink to={"/"} onClick={() => {}}>
                   <span>
                     <KeyboardDoubleArrowRight fontSize="small" />
                   </span>

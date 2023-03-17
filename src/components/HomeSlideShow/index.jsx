@@ -10,7 +10,7 @@ import "swiper/css/autoplay";
 
 let cx = classNames.bind(styles);
 
-const HomeNav = () => {
+const HomeSlideShow = () => {
   const links = ["./assets/Banner.png", "./assets/akko3061.png"];
 
   return (
@@ -34,4 +34,4 @@ const HomeNav = () => {
   );
 };
 
-export default HomeNav;
+export default HomeSlideShow;

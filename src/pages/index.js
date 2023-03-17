@@ -1,11 +1,15 @@
-import Home from "./Home";
-import Login from "./Login";
-import AllProducts from "./AllProducts";
+import { DefaultLayout } from "~/layout";
+import Home from "~/pages/Home";
+import AllProducts from "~/pages/AllProducts";
 
 const pages = [
-  { path: ["/", "/home"], element: <Home /> },
-  { path: "/login", element: <Login /> },
-  { path: "/all-products", element: <AllProducts /> },
+  {
+    path: ["/", "/home"],
+    components: <Home />,
+    layout: DefaultLayout,
+  },
+  { path: "/all-products", components: <AllProducts />, layout: DefaultLayout },
+  // { path: "/login", element: <Login /> },
 ];
 
 export default pages;

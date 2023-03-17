@@ -22,7 +22,7 @@ import { useRef } from "react";
 
 let cx = classNames.bind(styles);
 
-const HotProdcuts = () => {
+const HotProducts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -30,10 +30,7 @@ const HotProdcuts = () => {
 
   return (
     <div className={cx("container")}>
-      <div className={cx("title")}>
-        <h4>Hot Product</h4>
-      </div>
-      <div className={cx("swiper-wrapper")}>
+      <div className={cx("wrapper")}>
         <Swiper
           modules={[Navigation]}
           slidesPerView={2}
@@ -82,4 +79,4 @@ const HotProdcuts = () => {
   );
 };
 
-export default HotProdcuts;
+export default HotProducts;
