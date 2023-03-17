@@ -8,7 +8,7 @@ import { Navbar, Footer } from "~/components";
 
 let cx = classNames.bind(styles);
 
-const DefaultLayout = ({ components }) => {
+const MainLayout = ({ components }) => {
   return (
     <div className={cx("container")}>
       <Navbar />
@@ -24,4 +24,4 @@ const DefaultLayout = ({ components }) => {
   );
 };
 
-export default DefaultLayout;
+export default MainLayout;
