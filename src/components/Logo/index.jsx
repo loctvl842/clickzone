@@ -1,0 +1,17 @@
+import styles from "./style.module.scss";
+import classNames from "classnames/bind";
+
+let cx = classNames.bind(styles);
+
+const Logo = () => {
+  return (
+    <div className={cx("container")}>
+      <h1 className={cx("logo")}>
+        <span>C</span>
+        <span>lickZone</span>
+      </h1>
+    </div>
+  );
+};
+
+export default Logo;

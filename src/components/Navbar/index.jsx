@@ -1,6 +1,9 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
+// components
+import { Logo } from "~/components";
+
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -208,10 +211,7 @@ const Navbar = () => {
           </div>
           <div className={cx("left")}>
             <NavLink to="/home">
-              <h1 className={cx("logo")}>
-                <span>C</span>
-                <span>lickZone</span>
-              </h1>
+              <Logo />
             </NavLink>
           </div>
           <div className={cx("center")}>

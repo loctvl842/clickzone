@@ -4,3 +4,4 @@ export { default as HotProduct } from "~/components/HotProducts";
 export { default as ProductCard } from "~/components/ProductCard";
 export { default as NewProducts } from "~/components/NewProducts";
 export { default as Footer } from "~/components/Footer";
+export { default as Logo } from "~/components/Logo";
