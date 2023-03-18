@@ -45,30 +45,32 @@ const Login = () => {
             <h2>Log in</h2>
           </div>
           <form className={cx("form-login")}>
-            <div className={cx("form-control")}>
+            <label for="email" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Mail />
               </div>
               <input
+                id="email"
                 type="email"
                 name="email"
                 value={auth.email}
                 onChange={handleFormCtrlChange}
                 placeholder="Your email"
               />
-            </div>
-            <div className={cx("form-control")}>
+            </label>
+            <label for="password" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Key />
               </div>
               <input
+                id="password"
                 type="password"
                 name="password"
                 value={auth.password}
                 onChange={handleFormCtrlChange}
                 placeholder="Your password"
               />
-            </div>
+            </label>
             <button className={cx("login-btn")} onClick={handleLogin}>
               <span>Log In</span>
             </button>

@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 // components
 import { Logo } from "~/components";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
@@ -173,6 +173,10 @@ const menu_0 = [
 ];
 
 const ActionMenu = () => {
+  const navigate = useNavigate()
+  const handleLogoutClick = () => {
+    navigate('/login')
+  }
   return (
     <div className={cx("action__menu")}>
       <ul>
@@ -180,7 +184,7 @@ const ActionMenu = () => {
           <div className={cx("item")}>Account</div>
         </li>
         <li>
-          <div className={cx("item")}>Log out</div>
+          <div className={cx("item")} onClick={handleLogoutClick}>Log out</div>
         </li>
       </ul>
     </div>

@@ -19,24 +19,28 @@ const SignUp = () => {
             <h2>Create An Account</h2>
           </div>
           <form className={cx("form-login")}>
-            <div className={cx("form-control")}>
+            <label for="username" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <AccountCircle />
               </div>
-              <input type="text" placeholder="Your name" />
-            </div>
-            <div className={cx("form-control")}>
+              <input id="username" type="text" placeholder="Your name" />
+            </label>
+            <label for="email" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Mail />
               </div>
-              <input type="text" placeholder="Your email" />
-            </div>
-            <div className={cx("form-control")}>
+              <input id="email" type="text" placeholder="Your email" />
+            </label>
+            <label for="password" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Key />
               </div>
-              <input type="password" placeholder="Your password" />
-            </div>
+              <input
+                id="password"
+                type="password"
+                placeholder="Your password"
+              />
+            </label>
             <button className={cx("login-btn")}>
               <span>Sign up</span>
             </button>
