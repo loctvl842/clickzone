@@ -5,7 +5,7 @@ import { Logo } from "~/components";
 import { NavLink } from "react-router-dom";
 
 // icons
-import { Mail, Key, West } from "@mui/icons-material";
+import { AccountCircle, Mail, Key, West } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
 
@@ -19,6 +19,12 @@ const SignUp = () => {
             <h2>Create An Account</h2>
           </div>
           <form className={cx("form-login")}>
+            <div className={cx("form-control")}>
+              <div className={cx("icon")}>
+                <AccountCircle />
+              </div>
+              <input type="text" placeholder="Your name" />
+            </div>
             <div className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Mail />
@@ -60,7 +66,7 @@ const SignUp = () => {
         <div className={cx("create-account-link")}>
           <NavLink to="/login">
             <span>
-              <West fontSize="small"/>
+              <West fontSize="small" />
             </span>
             Back to Login
           </NavLink>

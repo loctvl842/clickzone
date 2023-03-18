@@ -2,19 +2,43 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 import { Logo } from "~/components";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios"
 
 // icons
 import { Mail, Key } from "@mui/icons-material";
+import { useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [auth, setAuth] = useState({ email: "", password: "" });
+
+  const handleFormCtrlChange = (e) => {
+    setAuth({
+      ...auth,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost/php/clickzone/api/users/login.php", auth)
+      if (res.data.message == "success") {
+        navigate('/')
+      }
+      console.log(res)
+    } catch(err) {
+      console.error(err)
+    }
+  };
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
         <div className={cx("logo-wrapper")}>
-          <Logo size={45}/>
+          <Logo size={45} />
         </div>
         <div className={cx("form-wrapper")}>
           <div className={cx("header")}>
@@ -25,15 +49,27 @@ const Login = () => {
               <div className={cx("icon")}>
                 <Mail />
               </div>
-              <input type="text" placeholder="Your email" />
+              <input
+                type="email"
+                name="email"
+                value={auth.email}
+                onChange={handleFormCtrlChange}
+                placeholder="Your email"
+              />
             </div>
             <div className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Key />
               </div>
-              <input type="password" placeholder="Your password" />
+              <input
+                type="password"
+                name="password"
+                value={auth.password}
+                onChange={handleFormCtrlChange}
+                placeholder="Your password"
+              />
             </div>
-            <button className={cx("login-btn")}>
+            <button className={cx("login-btn")} onClick={handleLogin}>
               <span>Log In</span>
             </button>
             <div className={cx("password-recovery-link")}>
