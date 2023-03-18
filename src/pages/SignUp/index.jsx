@@ -5,20 +5,18 @@ import { Logo } from "~/components";
 import { NavLink } from "react-router-dom";
 
 // icons
-import { Mail, Key } from "@mui/icons-material";
+import { Mail, Key, West } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
 
-const Login = () => {
+const SignUp = () => {
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
-        <div className={cx("logo-wrapper")}>
-          <Logo size={45}/>
-        </div>
+        <div className={cx("logo-wrapper")}></div>
         <div className={cx("form-wrapper")}>
           <div className={cx("header")}>
-            <h2>Log in</h2>
+            <h2>Create An Account</h2>
           </div>
           <form className={cx("form-login")}>
             <div className={cx("form-control")}>
@@ -34,11 +32,8 @@ const Login = () => {
               <input type="password" placeholder="Your password" />
             </div>
             <button className={cx("login-btn")}>
-              <span>Log In</span>
+              <span>Sign up</span>
             </button>
-            <div className={cx("password-recovery-link")}>
-              <NavLink>Forgot password?</NavLink>
-            </div>
           </form>
           <div className={cx("separator-wrapper")}>
             <span className={cx("sep-line")}></span>
@@ -63,11 +58,16 @@ const Login = () => {
           </div>
         </div>
         <div className={cx("create-account-link")}>
-          Don't have an account? <NavLink to="/signup">Sign Up</NavLink>
+          <NavLink to="/login">
+            <span>
+              <West fontSize="small"/>
+            </span>
+            Back to Login
+          </NavLink>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;

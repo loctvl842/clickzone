@@ -177,6 +177,13 @@
   letter-spacing: 0.1px;
   font-size: 15px;
   a {
+    span {
+      padding-right: 10px;
+      svg {
+        vertical-align: middle;
+        margin-bottom: 3px;
+      }
+    }
     color: #df0000;
     text-decoration: none;
     outline: none;
