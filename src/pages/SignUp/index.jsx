@@ -22,28 +22,13 @@ const SignUp = () => {
           </div>
           <form className={cx("form-login")}>
             <div className={cx("form-control-wrapper")}>
-              <FormControl
-                name="signup_username"
-                label={<AccountCircle />}
-                type="text"
-                placeholder="Your name"
-              />
+              <FormControl name="signup_username" label={<AccountCircle />} type="text" placeholder="Your name" />
             </div>
             <div className={cx("form-control-wrapper")}>
-              <FormControl
-                name="signup_email"
-                label={<Mail />}
-                type="email"
-                placeholder="Your email"
-              />
+              <FormControl name="signup_email" label={<Mail />} type="email" placeholder="Your email" />
             </div>
             <div className={cx("form-control-wrapper")}>
-              <FormControl
-                name="signup_password"
-                label={<Key />}
-                type="password"
-                placeholder="Your password"
-              />
+              <FormControl name="signup_password" label={<Key />} type="password" placeholder="Your password" />
             </div>
             <button className={cx("login-btn")}>
               <span>Sign up</span>

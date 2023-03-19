@@ -92,7 +92,7 @@ const NewProducts = () => {
                   key={uuidv4()}
                   className={cx({
                     disappear: page < 0,
-                    active: page == current,
+                    active: page === current,
                   })}
                 >
                   <NavLink

@@ -7,11 +7,41 @@ import axios from "axios";
 
 // icons
 import { Mail, Key } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const Login = () => {
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const dataArray = [...formData];
+    const data = Object.fromEntries(dataArray);
+    try {
+      const res = await axios.post("/users/login.php", {
+        email: data.login_email,
+        password: data.login_password,
+      });
+      navigate("/");
+      console.log(res);
+    } catch (err) {
+      // handle error
+      // console.log(err.response);
+      setMessage(err.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setMessage("");
+    }, 3000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [message]);
 
   return (
     <div className={cx("container")}>
@@ -20,32 +50,22 @@ const Login = () => {
           <Logo size={45} />
         </div>
         <div className={cx("form-wrapper")}>
+          {message && (
+            <div className={cx("message-wrapper")}>
+              <p className={cx("message")}>{message}</p>
+            </div>
+          )}
           <div className={cx("header")}>
             <h2>Log in</h2>
           </div>
-          <form className={cx("form-login")}>
+          <form className={cx("form-login")} onSubmit={handleLogin}>
             <div className={cx("form-control-wrapper")}>
-              <FormControl
-                label={<Mail />}
-                name="login_email"
-                placeholder="Your email"
-                type="text"
-              />
+              <FormControl label={<Mail />} name="login_email" placeholder="Your email" type="text" required={true} />
             </div>
             <div className={cx("form-control-wrapper")}>
-              <FormControl
-                label={<Key />}
-                name="login_password"
-                placeholder="Your password"
-                type="password"
-              />
+              <FormControl label={<Key />} name="login_password" placeholder="Your password" type="password" />
             </div>
-            <button
-              className={cx("login-btn")}
-              onSubmit={(data) => {
-                console.log(data);
-              }}
-            >
+            <button type="submit" className={cx("login-btn")}>
               <span>Log In</span>
             </button>
             <div className={cx("password-recovery-link")}>
@@ -83,3 +103,10 @@ const Login = () => {
 };
 
 export default Login;
+
+// "proxy": {
+//   "/": {
+//     "target": "http://localhost",
+//     "changeOrigin": true
+//   }
+// },
