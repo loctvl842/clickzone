@@ -1,39 +1,18 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Logo } from "~/components";
+import { Logo, FormControl } from "~/components";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 // icons
 import { Mail, Key } from "@mui/icons-material";
-import { useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [auth, setAuth] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
-  const handleFormCtrlChange = (e) => {
-    setAuth({
-      ...auth,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_API}/users/login.php`, auth)
-      if (res.data.message == "success") {
-        navigate('/')
-      }
-      console.log(res)
-    } catch(err) {
-      console.error(err)
-    }
-  };
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
@@ -45,33 +24,28 @@ const Login = () => {
             <h2>Log in</h2>
           </div>
           <form className={cx("form-login")}>
-            <label htmlFor="email" className={cx("form-control")}>
-              <div className={cx("icon")}>
-                <Mail />
-              </div>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={auth.email}
-                onChange={handleFormCtrlChange}
+            <div className={cx("form-control-wrapper")}>
+              <FormControl
+                label={<Mail />}
+                name="login_email"
                 placeholder="Your email"
+                type="text"
               />
-            </label>
-            <label htmlFor="password" className={cx("form-control")}>
-              <div className={cx("icon")}>
-                <Key />
-              </div>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={auth.password}
-                onChange={handleFormCtrlChange}
+            </div>
+            <div className={cx("form-control-wrapper")}>
+              <FormControl
+                label={<Key />}
+                name="login_password"
                 placeholder="Your password"
+                type="password"
               />
-            </label>
-            <button className={cx("login-btn")} onClick={handleLogin}>
+            </div>
+            <button
+              className={cx("login-btn")}
+              onSubmit={(data) => {
+                console.log(data);
+              }}
+            >
               <span>Log In</span>
             </button>
             <div className={cx("password-recovery-link")}>

@@ -6,6 +6,9 @@ import { NavLink } from "react-router-dom";
 // icons
 import { AccountCircle, Mail, Key, West } from "@mui/icons-material";
 
+// components
+import { FormControl } from "~/components";
+
 let cx = classNames.bind(styles);
 
 const SignUp = () => {
@@ -18,28 +21,30 @@ const SignUp = () => {
             <h2>Create An Account</h2>
           </div>
           <form className={cx("form-login")}>
-            <label htmlFor="username" className={cx("form-control")}>
-              <div className={cx("icon")}>
-                <AccountCircle />
-              </div>
-              <input id="username" type="text" placeholder="Your name" />
-            </label>
-            <label htmlFor="email" className={cx("form-control")}>
-              <div className={cx("icon")}>
-                <Mail />
-              </div>
-              <input id="email" type="text" placeholder="Your email" />
-            </label>
-            <label htmlFor="password" className={cx("form-control")}>
-              <div className={cx("icon")}>
-                <Key />
-              </div>
-              <input
-                id="password"
+            <div className={cx("form-control-wrapper")}>
+              <FormControl
+                name="signup_username"
+                label={<AccountCircle />}
+                type="text"
+                placeholder="Your name"
+              />
+            </div>
+            <div className={cx("form-control-wrapper")}>
+              <FormControl
+                name="signup_email"
+                label={<Mail />}
+                type="email"
+                placeholder="Your email"
+              />
+            </div>
+            <div className={cx("form-control-wrapper")}>
+              <FormControl
+                name="signup_password"
+                label={<Key />}
                 type="password"
                 placeholder="Your password"
               />
-            </label>
+            </div>
             <button className={cx("login-btn")}>
               <span>Sign up</span>
             </button>
