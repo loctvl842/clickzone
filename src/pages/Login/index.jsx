@@ -25,7 +25,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost/php/clickzone/api/users/login.php", auth)
+      const res = await axios.post(`${process.env.REACT_APP_API}/users/login.php`, auth)
       if (res.data.message == "success") {
         navigate('/')
       }
@@ -45,7 +45,7 @@ const Login = () => {
             <h2>Log in</h2>
           </div>
           <form className={cx("form-login")}>
-            <label for="email" className={cx("form-control")}>
+            <label htmlFor="email" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Mail />
               </div>
@@ -58,7 +58,7 @@ const Login = () => {
                 placeholder="Your email"
               />
             </label>
-            <label for="password" className={cx("form-control")}>
+            <label htmlFor="password" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Key />
               </div>

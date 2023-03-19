@@ -1,6 +1,5 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Logo } from "~/components";
 
 import { NavLink } from "react-router-dom";
 
@@ -19,19 +18,19 @@ const SignUp = () => {
             <h2>Create An Account</h2>
           </div>
           <form className={cx("form-login")}>
-            <label for="username" className={cx("form-control")}>
+            <label htmlFor="username" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <AccountCircle />
               </div>
               <input id="username" type="text" placeholder="Your name" />
             </label>
-            <label for="email" className={cx("form-control")}>
+            <label htmlFor="email" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Mail />
               </div>
               <input id="email" type="text" placeholder="Your email" />
             </label>
-            <label for="password" className={cx("form-control")}>
+            <label htmlFor="password" className={cx("form-control")}>
               <div className={cx("icon")}>
                 <Key />
               </div>
