@@ -1,26 +1,68 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // icons
 import { AccountCircle, Mail, Key, West } from "@mui/icons-material";
 
 // components
 import { FormControl } from "~/components";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 let cx = classNames.bind(styles);
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const dataArray = [...formData];
+    const data = Object.fromEntries(dataArray);
+    try {
+      const res = await axios.post("/api/users/signup.php", {
+        username: data.signup_username,
+        email: data.signup_email,
+        password: data.signup_password,
+      });
+      if (res.data.registered) {
+        navigate("/login");
+      } else {
+        setMessage(res.data.message);
+      }
+    } catch (err) {
+      setMessage(err.response.data.message);
+    }
+
+    // const res = axios.post("/users/register.php");
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setMessage("");
+    }, 3000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [message]);
+
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
         <div className={cx("logo-wrapper")}></div>
         <div className={cx("form-wrapper")}>
+          {message && (
+            <div className={cx("message-wrapper")}>
+              <p className={cx("message")}>{message}</p>
+            </div>
+          )}
           <div className={cx("header")}>
             <h2>Create An Account</h2>
           </div>
-          <form className={cx("form-login")}>
+          <form onSubmit={handleSignUp} className={cx("form-login")}>
             <div className={cx("form-control-wrapper")}>
               <FormControl name="signup_username" label={<AccountCircle />} type="text" placeholder="Your name" />
             </div>
@@ -30,7 +72,7 @@ const SignUp = () => {
             <div className={cx("form-control-wrapper")}>
               <FormControl name="signup_password" label={<Key />} type="password" placeholder="Your password" />
             </div>
-            <button className={cx("login-btn")}>
+            <button type="submit" className={cx("login-btn")}>
               <span>Sign up</span>
             </button>
           </form>

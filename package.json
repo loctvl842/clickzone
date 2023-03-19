@@ -2,7 +2,7 @@
   "name": "Beast_React",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost/php/clickzone/api/",
+  "proxy": "http://localhost/php/clickzone/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

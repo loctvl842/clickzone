@@ -21,15 +21,16 @@ const Login = () => {
     const dataArray = [...formData];
     const data = Object.fromEntries(dataArray);
     try {
-      const res = await axios.post("/users/login.php", {
+      const res = await axios.post("/api/users/login.php", {
         email: data.login_email,
         password: data.login_password,
       });
-      navigate("/");
-      console.log(res);
+      if (res.data.loggedIn) {
+        navigate("/");
+      } else {
+        setMessage(res.data.message);
+      }
     } catch (err) {
-      // handle error
-      // console.log(err.response);
       setMessage(err.response.data.message);
     }
   };
