@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   transition: box-shadow 0.3s ease;
+  position: relative;
   &:focus-within {
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px #af0000;
     border-color: #df0000;
@@ -26,5 +27,20 @@
     font-size: 14px;
     color: #444;
     letter-spacing: 0.1px;
+  }
+  .visibility {
+    margin-right: 20px;
+    color: #aaa;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #eee;
+    }
   }
 }

@@ -61,7 +61,7 @@ const Login = () => {
           </div>
           <form className={cx("form-login")} onSubmit={handleLogin}>
             <div className={cx("form-control-wrapper")}>
-              <FormControl label={<Mail />} name="login_email" placeholder="Your email" type="text" required={true} />
+              <FormControl label={<Mail />} name="login_email" placeholder="Your email" type="email" required={true} />
             </div>
             <div className={cx("form-control-wrapper")}>
               <FormControl label={<Key />} name="login_password" placeholder="Your password" type="password" />
