@@ -1,0 +1,173 @@
+.container {
+  margin-top: 20px;
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+  .wrapper {
+    display: table;
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+.col-5 {
+  float: left;
+  width: calc(100% / 12 * 5);
+}
+
+.col-7 {
+  float: left;
+  width: calc(100% / 12 * 7);
+}
+
+.col-12 {
+  float: left;
+  width: 100%;
+  h3 {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+}
+
+.img-wrapper {
+  position: relative;
+  padding-bottom: 100%;
+  .img-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 15px;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.product {
+  margin-left: 10px;
+  &__info {
+    .name {
+      margin: 20px 0px 10px;
+      padding-top: 10px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      h1 {
+        font-size: 25px;
+        font-weight: 400;
+        color: #333;
+        line-height: 30px;
+      }
+    }
+    p.old-price {
+      margin-bottom: 10px;
+    }
+    p span.new-price {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+  &__options {
+    margin-top: 10px;
+    display: inline-block;
+    .btn-group {
+      padding-top: 10px;
+      .btn {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #c3c3c3;
+        box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+        position: relative;
+        cursor: pointer;
+        transition: all 0.6s ease;
+        &:hover {
+          background-color: #eee;
+          border-bottom: 2px solid #2a2a2a;
+        }
+        &.active {
+          background: #545454;
+          color: #fff;
+          border-bottom: 2px solid #f00;
+        }
+      }
+      .btn + .btn {
+        margin-left: 5px;
+      }
+    }
+    .quantity-buy {
+      margin-top: 10px;
+      .quantity-box {
+        margin-right: 20px;
+        display: inline-block;
+        width: 6em;
+        position: relative;
+        input.count {
+          width: 3em;
+          height: 3em;
+          text-align: center;
+          outline: none;
+          border-radius: 3px;
+          border-width: 1px;
+          font-size: 18px;
+        }
+        input.quantity-btn {
+          right: 0em;
+          position: absolute;
+          width: 1.5em;
+          height: 1.5em;
+          outline: none;
+          border-radius: 2px;
+          background-color: #454545;
+          color: #fff;
+          border-width: 1px;
+          cursor: pointer;
+          &:hover {
+            background-color: #000;
+          }
+        }
+        input.plus {
+          top: 0;
+        }
+        input.minus {
+          bottom: 0;
+        }
+      }
+      .buy-btn {
+        display: inline-block;
+        height: 50px;
+        outline: none;
+        background-color: #df0000;
+        border: 1px solid #ce1c1c;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+        min-width: 220px;
+        border-radius: 3px;
+        transition: all 0.5s ease;
+        cursor: pointer;
+        color: #fff;
+        vertical-align: middle;
+        font-size: 16px;
+        &:hover {
+          background-color: #af0000;
+        }
+        .btn-wrapper {
+          line-height: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          span {
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+  }
+}

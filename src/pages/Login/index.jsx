@@ -7,42 +7,58 @@ import axios from "axios";
 
 // icons
 import { Mail, Key } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+// actions
+import { authStart, authSuccess, authFail, authReset } from "~/store/authSlice";
+
+import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { PulseLoader } from "react-spinners";
 
 let cx = classNames.bind(styles);
 
 const Login = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const dataArray = [...formData];
-    const data = Object.fromEntries(dataArray);
+    const input_data = Object.fromEntries(dataArray);
     try {
-      const res = await axios.post("/api/users/login.php", {
-        email: data.login_email,
-        password: data.login_password,
+      dispatch(authStart());
+      const res = await axios.post("/api/user/login.php", {
+        email: input_data.login_email,
+        password: input_data.login_password,
       });
-      if (res.data.loggedIn) {
-        navigate("/");
-      } else {
-        setMessage(res.data.message);
+      const data = res.data;
+      if (data.loggedIn) {
+        dispatch(authSuccess(data.message));
+        Cookies.set("token", data.token, { expires: 1 });
+        navigate(-1);
       }
     } catch (err) {
-      setMessage(err.response.data.message);
+      dispatch(authFail(err.response.data.message));
     }
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setMessage("");
-    }, 3000);
+      dispatch(authReset());
+    }, 5000);
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [message]);
+  }, [authState.error, dispatch]);
+
+  useEffect(() => {
+    if (Cookies.get("token") !== undefined) {
+      navigate(-1);
+    }
+  }, [navigate]);
 
   return (
     <div className={cx("container")}>
@@ -51,9 +67,9 @@ const Login = () => {
           <Logo size={45} />
         </div>
         <div className={cx("form-wrapper")}>
-          {message && (
+          {authState.error && (
             <div className={cx("message-wrapper")}>
-              <p className={cx("message")}>{message}</p>
+              <p className={cx("message")}>{authState.message}</p>
             </div>
           )}
           <div className={cx("header")}>
@@ -67,7 +83,8 @@ const Login = () => {
               <FormControl label={<Key />} name="login_password" placeholder="Your password" type="password" />
             </div>
             <button type="submit" className={cx("login-btn")}>
-              <span>Log In</span>
+              {!authState.fetching && <span>Log In</span>}
+              <PulseLoader color="#fff" size={5} loading={authState.fetching} />
             </button>
             <div className={cx("password-recovery-link")}>
               <NavLink>Forgot password?</NavLink>

@@ -4,15 +4,18 @@ import classNames from "classnames/bind";
 // components
 import { Logo } from "~/components";
 
+// actions
+import { authReset } from "~/store/authSlice";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
+import { menu_0 } from "./menu";
 
 // icons
 import {
   Menu,
-  Logout,
   ShoppingCart,
   AccountCircle,
   Call,
@@ -22,161 +25,25 @@ import {
   Search,
   NavigateNext,
 } from "@mui/icons-material";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 let cx = classNames.bind(styles);
 
-const menu_0 = [
-  {
-    title: "Mechanical Keyboard",
-    link: "/",
-    menu_1: [
-      {
-        title: "AKKO keyboard",
-        link: "/",
-      },
-      {
-        title: "Dareu keyboard",
-        link: "/",
-      },
-      {
-        title: "Anne Pro 2 keyboard",
-        link: "/",
-      },
-      {
-        title: "iKBC keyboard",
-        link: "/",
-      },
-      {
-        title: "Keydous keyboard",
-        link: "/",
-      },
-      {
-        title: "Ajazz keyboard",
-        link: "/",
-      },
-      {
-        title: "Keywalker keyboard",
-        link: "/",
-      },
-      {
-        title: "Royal Kludge keyboard",
-        link: "/",
-      },
-      {
-        title: "Fuhlen keyboard",
-        link: "/",
-      },
-    ],
-  },
-  {
-    title: "Gaming Mouse",
-    link: "/",
-    menu_1: [
-      {
-        title: "AKKO mouse",
-        link: "/",
-      },
-      {
-        title: "Fuhlen mouse",
-        link: "/",
-      },
-      {
-        title: "Dareu mouse",
-        link: "/",
-      },
-      {
-        title: "Ajazz mouse",
-        link: "/",
-      },
-      {
-        title: "Wireless mouse",
-        link: "/",
-      },
-      {
-        title: "Logitech mouse",
-        link: "/",
-      },
-      {
-        title: "Edra mouse",
-        link: "/",
-      },
-    ],
-  },
-  {
-    title: "Switch",
-    link: "/",
-  },
-  {
-    title: "Mouse Pad",
-    link: "/",
-    menu_1: [
-      {
-        title: "Doraemon Mouse pad",
-        link: "/",
-      },
-      {
-        title: "One Piece Mouse pad",
-        link: "/",
-      },
-      {
-        title: "Dota 2 Mouse pad",
-        link: "/",
-      },
-      {
-        title: "LOL Mouse pad",
-        link: "/",
-      },
-      {
-        title: "Dragon Ball Mouse pad",
-        link: "/",
-      },
-      {
-        title: "Naruto Mouse pad",
-        link: "/",
-      },
-      {
-        title: "Led RGB Mouse pad",
-        link: "/",
-      },
-    ],
-  },
-  {
-    title: "Keycap",
-    link: "/",
-  },
-  {
-    title: "Gadgets",
-    link: "/",
-    menu_1: [
-      {
-        title: "Earphone",
-        link: "/",
-      },
-      {
-        title: "Figure",
-        link: "/",
-      },
-      {
-        title: "Laptop screen",
-        link: "/",
-      },
-      {
-        title: "Gaming chair",
-        link: "/",
-      },
-    ],
-  },
-  {
-    title: "Repair, Mod tools",
-    link: "/",
-  },
-];
-
 const ActionMenu = () => {
-  const navigate = useNavigate()
-  const handleLogoutClick = () => {
-    navigate('/login')
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogoutClick = async () => {
+    Cookies.remove("token");
+    try {
+      await axios.post("/api/user/logout.php", {});
+      dispatch(authReset());
+      navigate("/login");
+    } catch (e) {
+      console.log({ logout: e });
+    }
+  };
   return (
     <div className={cx("action__menu")}>
       <ul>
@@ -184,7 +51,9 @@ const ActionMenu = () => {
           <div className={cx("item")}>Account</div>
         </li>
         <li>
-          <div className={cx("item")} onClick={handleLogoutClick}>Log out</div>
+          <div className={cx("item")} onClick={handleLogoutClick}>
+            Log out
+          </div>
         </li>
       </ul>
     </div>
@@ -274,10 +143,7 @@ const Navbar = () => {
                           <ul>
                             {item_0.menu_1.map((item_1) => (
                               <li key={uuidv4()}>
-                                <NavLink
-                                  to={item_1.link}
-                                  className={cx("item-1")}
-                                >
+                                <NavLink to={item_1.link} className={cx("item-1")}>
                                   <span>{item_1.title}</span>
                                 </NavLink>
                               </li>
@@ -301,17 +167,13 @@ const Navbar = () => {
                 <span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>
-                        0967.123.456
-                      </span>
+                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
                     </b>
                   </a>
                   <span> - </span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>
-                        0967.123.456
-                      </span>
+                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
                     </b>
                   </a>
                 </span>
@@ -324,9 +186,7 @@ const Navbar = () => {
                 <span>
                   <a href="/">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>
-                        09h - 19h
-                      </span>
+                      <span style={{ fontSize: 13, color: "red" }}>09h - 19h</span>
                     </b>
                   </a>
                 </span>
@@ -339,9 +199,7 @@ const Navbar = () => {
                 <span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>
-                        0967.123.456
-                      </span>
+                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
                     </b>
                   </a>
                 </span>

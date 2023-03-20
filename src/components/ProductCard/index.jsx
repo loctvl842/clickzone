@@ -8,8 +8,8 @@ let cx = classNames.bind(styles);
 const ProductCard = ({ data }) => {
   return (
     <div className={cx("container")}>
-      <div className={cx("product-item")}>
-        <NavLink to="/chuot-khong-day">
+      <NavLink to={{ pathname: `/${data.name.trim()}/${data.id}` }} className={cx("product-item")}>
+        <div>
           <span className={cx("img-wrapper")}>
             <img src={data.link} alt="" />
           </span>
@@ -22,8 +22,8 @@ const ProductCard = ({ data }) => {
             </b>
           </p>
           <span className={cx("name")}>{data.name}</span>
-        </NavLink>
-      </div>
+        </div>
+      </NavLink>
     </div>
   );
 };
