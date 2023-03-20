@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import { AddShoppingCart } from "@mui/icons-material";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 let cx = classNames.bind(styles);
@@ -20,6 +20,9 @@ const SingleProduct = () => {
       navigate("/login");
     }
   };
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <div className={cx("container")}>
