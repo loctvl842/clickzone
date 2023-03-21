@@ -23,7 +23,7 @@ const SignUp = () => {
     const dataArray = [...formData];
     const data = Object.fromEntries(dataArray);
     try {
-      const res = await axios.post("/user/signup.php", {
+      const res = await axios.post("/api/user/signup.php", {
         username: data.signup_username,
         email: data.signup_email,
         password: data.signup_password,

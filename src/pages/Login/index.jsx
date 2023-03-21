@@ -30,7 +30,7 @@ const Login = () => {
     const input_data = Object.fromEntries(dataArray);
     try {
       dispatch(authStart());
-      const res = await axios.post("/user/login.php", {
+      const res = await axios.post("/api/user/login.php", {
         email: input_data.login_email,
         password: input_data.login_password,
       });

@@ -30,8 +30,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
-    "netlify": "react-app-rewired build"
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +54,6 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "customize-cra": "^1.0.0",
     "json-loader": "^0.5.7",
-    "netlify-cli": "^13.2.0",
     "react-app-rewired": "^2.2.1"
   }
 }
