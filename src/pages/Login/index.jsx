@@ -30,14 +30,14 @@ const Login = () => {
     const input_data = Object.fromEntries(dataArray);
     try {
       dispatch(authStart());
-      const res = await axios.post("/api/user/login.php", {
+      const res = await axios.post("/user/login.php", {
         email: input_data.login_email,
         password: input_data.login_password,
       });
       const data = res.data;
       if (data.loggedIn) {
         dispatch(authSuccess(data.message));
-        Cookies.set("token", data.token, { expires: 1 });
+        Cookies.set("token", data.token, { expires: 1 }); // expired in 1 day
         navigate(-1);
       }
     } catch (err) {
@@ -121,10 +121,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// "proxy": {
-//   "/": {
-//     "target": "http://localhost",
-//     "changeOrigin": true
-//   }
-// },

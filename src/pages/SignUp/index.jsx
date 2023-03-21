@@ -23,7 +23,7 @@ const SignUp = () => {
     const dataArray = [...formData];
     const data = Object.fromEntries(dataArray);
     try {
-      const res = await axios.post("/api/users/signup.php", {
+      const res = await axios.post("/user/signup.php", {
         username: data.signup_username,
         email: data.signup_email,
         password: data.signup_password,
@@ -36,8 +36,6 @@ const SignUp = () => {
     } catch (err) {
       setMessage(err.response.data.message);
     }
-
-    // const res = axios.post("/users/register.php");
   };
 
   useEffect(() => {

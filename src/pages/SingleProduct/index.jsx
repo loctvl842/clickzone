@@ -30,7 +30,7 @@ const SingleProduct = () => {
         <div className={cx("col-5")}>
           <div className={cx("img-wrapper")}>
             <div className={cx("img-box")}>
-              <img src="http://localhost:3000/assets/dareu-ek87-v2.jpg" alt="" />
+              <img src="/assets/dareu-ek87-v2.jpg" alt="" />
             </div>
           </div>
         </div>

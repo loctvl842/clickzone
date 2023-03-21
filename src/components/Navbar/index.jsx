@@ -34,10 +34,10 @@ let cx = classNames.bind(styles);
 const ActionMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogoutClick = async () => {
+  const handleLogout = async () => {
     Cookies.remove("token");
     try {
-      await axios.post("/api/user/logout.php", {});
+      await axios.post("/user/logout.php", {});
       dispatch(authReset());
       navigate("/login");
     } catch (e) {
@@ -51,7 +51,7 @@ const ActionMenu = () => {
           <div className={cx("item")}>Account</div>
         </li>
         <li>
-          <div className={cx("item")} onClick={handleLogoutClick}>
+          <div className={cx("item")} onClick={handleLogout}>
             Log out
           </div>
         </li>

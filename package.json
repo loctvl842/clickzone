@@ -2,7 +2,7 @@
   "name": "Beast_React",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost/php/clickzone/",
+  "proxy": "https://clickzone.herokuapp.com/api/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
