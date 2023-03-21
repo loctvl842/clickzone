@@ -37,7 +37,7 @@ const ActionMenu = () => {
   const handleLogout = async () => {
     Cookies.remove("token");
     try {
-      await axios.post("/user/logout.php", {});
+      await axios.post("/api/user/logout.php", {});
       dispatch(authReset());
       navigate("/login");
     } catch (e) {
