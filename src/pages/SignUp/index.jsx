@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AccountCircle, Mail, Key, West } from "@mui/icons-material";
 
 // components
-import { FormControl } from "~/components";
+import { FormControl, Logo } from "~/components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -50,7 +50,9 @@ const SignUp = () => {
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
-        <div className={cx("logo-wrapper")}></div>
+        <div className={cx("logo-wrapper")}>
+          <Logo size={45} />
+        </div>
         <div className={cx("form-wrapper")}>
           {message && (
             <div className={cx("message-wrapper")}>
