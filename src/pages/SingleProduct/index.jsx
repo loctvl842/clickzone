@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 // icons
 import { AddShoppingCart } from "@mui/icons-material";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -13,7 +13,7 @@ let cx = classNames.bind(styles);
 const SingleProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-  const id = useParams().productId;
+  // const id = useParams().productId;
 
   const handleAddToCart = () => {
     if (Cookies.get("token") === undefined) {

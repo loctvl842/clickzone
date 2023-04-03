@@ -11,7 +11,7 @@ import "swiper/css/autoplay";
 let cx = classNames.bind(styles);
 
 const HomeSlideShow = () => {
-  const links = ["./assets/Banner.png", "./assets/akko3061.png"];
+  const links = ["./assets/slide1.png", "./assets/slide2.png"];
 
   return (
     <div className={cx("container")}>
