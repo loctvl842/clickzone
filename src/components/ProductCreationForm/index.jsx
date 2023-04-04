@@ -2,8 +2,9 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { PulseLoader } from "react-spinners";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Quill from "quill";
+import "quill/dist/quill.snow.css";
 
 // components
 import { FormControl } from "~/components";
@@ -14,6 +15,7 @@ import { AddAPhoto, Close } from "@mui/icons-material";
 let cx = classNames.bind(styles);
 
 const ProductCreationForm = ({ onNotCreatingProduct }) => {
+  const [quill, setQuill] = useState(null);
   const [previewImg, setPreviewImg] = useState("");
   const reader = useRef(); // reference to reader in FileReader
   const handlePreviewImg = (e) => {
@@ -36,6 +38,17 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
     e.preventDefault();
     setPreviewImg("");
   };
+
+  const quillRef = useCallback((quill) => {
+    if (quill === null) return;
+    quill.innerHTML = "";
+    const editor = document.createElement("div");
+    quill.append(editor);
+    const q = new Quill(editor, {
+      theme: "snow",
+    });
+    setQuill(q);
+  }, []);
 
   return (
     <div className={cx("form-wrapper")}>
@@ -98,7 +111,7 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
               </div>
             </div>
             <div className={cx("col-12")}>
-              <div id="quill-container" className={cx("quill-container")}></div>
+              <div id="quill-container" ref={quillRef} className={cx("quill-container")}></div>
             </div>
           </div>
           <div className={cx("submit-btn-wrapper")}>

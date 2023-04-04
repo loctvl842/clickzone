@@ -82,6 +82,8 @@
   z-index: 4;
   padding: 50px 100px;
   .wrapper {
+    width: 70%;
+    margin: auto;
     height: 100%;
     text-align: center;
     @media (max-width: 767px) {

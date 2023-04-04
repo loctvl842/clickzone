@@ -18,5 +18,5 @@ export default function useCurrentUser() {
       }
     };
     fetchCurrentUser();
-  }, []);
+  }, [dispatch]);
 }
