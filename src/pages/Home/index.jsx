@@ -8,18 +8,11 @@ import { HomeSlideShow, HotProduct, NewProducts } from "~/components";
 import { useCurrentUser } from "~/hook";
 
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userSet } from "~/store/userSlice";
-import { useEffect } from "react";
 
 let cx = classNames.bind(styles);
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const user = useCurrentUser();
-  useEffect(() => {
-    dispatch(userSet(user));
-  }, [dispatch, user]);
+  useCurrentUser();
 
   return (
     <div className={cx("container")}>
