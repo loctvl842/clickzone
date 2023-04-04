@@ -8,3 +8,4 @@ export { default as Logo } from "~/components/Logo";
 export { default as FormControl } from "~/components/FormControl";
 export { default as Paginator } from "~/components/Paginator";
 export { default as ProductCreationForm } from "~/components/ProductCreationForm";
+export { default as NavbarUserActions } from "~/components/NavbarUserActions";

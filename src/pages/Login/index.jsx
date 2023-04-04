@@ -83,7 +83,7 @@ const Login = () => {
               <div className={cx("form-control-wrapper")}>
                 <FormControl label={<Key />} name="login_password" placeholder="Your password" type="password" />
               </div>
-              <button type="submit" className={cx("login-btn")}>
+              <button type="submit" className={cx("submit-btn")}>
                 {!authState.fetching && <span>Log In</span>}
                 <PulseLoader color="#fff" size={5} loading={authState.fetching} />
               </button>

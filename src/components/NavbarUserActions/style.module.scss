@@ -1,0 +1,21 @@
+.action__menu {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  // transform: translateX(50%);
+  width: 220px;
+  background: #474747;
+  ul {
+    list-style-type: none;
+    li .item {
+      padding: 15px 5px 15px 11px;
+      color: #fff;
+      transition: all 0.5s ease;
+      border-bottom: 1px solid #5a5a5a;
+      &:hover {
+        background: #2b2b2b;
+      }
+    }
+  }
+}

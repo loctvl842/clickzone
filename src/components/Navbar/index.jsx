@@ -2,13 +2,11 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 // components
-import { Logo } from "~/components";
+import { Logo, NavbarUserActions } from "~/components";
 
 // actions
-import { authReset } from "~/store/authSlice";
-
-import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 import { menu_0 } from "./menu";
@@ -24,51 +22,46 @@ import {
   ArrowDropDown,
   Search,
   NavigateNext,
+  Login,
 } from "@mui/icons-material";
-import Cookies from "js-cookie";
-import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useClickOutside } from "~/hook";
 
 let cx = classNames.bind(styles);
 
-const ActionMenu = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    Cookies.remove("token");
-    try {
-      await axios.post("/api/user/logout.php", {});
-      dispatch(authReset());
-      navigate("/login");
-    } catch (e) {
-      console.log({ logout: e });
-    }
-  };
-  return (
-    <div className={cx("action__menu")}>
-      <ul>
-        <li>
-          <div className={cx("item")}>Account</div>
-        </li>
-        <li>
-          <div className={cx("item")} onClick={handleLogout}>
-            Log out
-          </div>
-        </li>
-      </ul>
-    </div>
-  );
-};
+const ActionMenu = () => { };
 
 const Navbar = () => {
   const [isFloat, setIsFloat] = useState(false);
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 106) {
-      setIsFloat(true);
-    } else {
-      setIsFloat(false);
+  const [userActionVisible, setUserActionVisible] = useState(false);
+  const accountBtnRef = useRef();
+  const userActionsRef = useRef();
+
+  const user = useSelector((state) => state.user);
+
+  const handleAccountBtnClick = () => {
+    setUserActionVisible((prevState) => !prevState);
+  };
+
+  useClickOutside(userActionsRef, (e) => {
+    const el = accountBtnRef.current;
+    if (el && el.contains(e.target)) {
+      return;
     }
+    if (userActionVisible) setUserActionVisible(false);
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 106) {
+        setIsFloat(true);
+      } else {
+        setIsFloat(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
@@ -107,14 +100,28 @@ const Navbar = () => {
           </div>
           <div className={cx("right")}>
             <div className={cx("action")}>
-              <span>
-                <ShoppingCart />
-              </span>
-              <div className={cx("badge")}>5</div>
+              <NavLink to="/cart" className={cx("action-btn")}>
+                <span>
+                  <ShoppingCart />
+                </span>
+                <div className={cx("badge")}>5</div>
+              </NavLink>
             </div>
             <div className={cx("action")}>
-              <AccountCircle />
-              <ActionMenu />
+              {user === null ? (
+                <NavLink to="/login" className={cx("action-btn")}>
+                  <Login />
+                </NavLink>
+              ) : (
+                <div className={cx("action-btn")} ref={accountBtnRef} onClick={handleAccountBtnClick}>
+                  <AccountCircle />
+                  {userActionVisible && (
+                    <div ref={userActionsRef}>
+                      <NavbarUserActions />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import { NewProducts } from "~/components";
 
 // hooks
-import useClickOutside from "~/hook/useClickOutside";
+import { useClickOutside } from "~/hook";
 
 import { NavLink } from "react-router-dom";
 import { useRef, useState } from "react";
@@ -34,13 +34,8 @@ const OptionBox = () => {
 
   return (
     <div className={cx("option-box")}>
-      <button
-        className={cx("btn")}
-        ref={btnRef}
-        onClick={() => setIsMenuVisible(true)}
-      >
-        {value}{" "}
-        <span className={cx("caret")}></span>
+      <button className={cx("btn")} ref={btnRef} onClick={() => setIsMenuVisible(true)}>
+        {value} <span className={cx("caret")}></span>
       </button>
       {isMenuVisible && (
         <div ref={menuRef} className={cx("menu")}>
