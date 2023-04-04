@@ -28,15 +28,18 @@ const NewProducts = () => {
   const addBtnRef = useRef();
   const user = useSelector((state) => state.user);
 
+  const handleNotCreatingProduct = () => {
+    setShowForm(false);
+    setCreatingProduct(false);
+  };
+
   useClickOutside(formRef, (e) => {
     if (!showForm) return;
     const el = addBtnRef.current;
     if (el && el.contains(e.target)) {
       return;
     }
-    console.log('loc')
-    setShowForm(false);
-    setCreatingProduct(false);
+    handleNotCreatingProduct();
   });
 
   const handleAddNewProductClick = () => {
@@ -56,10 +59,8 @@ const NewProducts = () => {
             <div className={cx("new-product-btn")}>
               {showForm && (
                 <div className={cx("extension-container")}>
-                  <div className={cx("wrapper")}>
-                    <div ref={formRef}>
-                      <ProductCreationForm />
-                    </div>
+                  <div className={cx("wrapper")} ref={formRef}>
+                    <ProductCreationForm onNotCreatingProduct={handleNotCreatingProduct} />
                   </div>
                 </div>
               )}

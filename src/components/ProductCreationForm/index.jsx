@@ -1,15 +1,19 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { FormControl } from "~/components";
+
 import { PulseLoader } from "react-spinners";
 import { useRef, useState } from "react";
+import Quill from "quill";
+
+// components
+import { FormControl } from "~/components";
 
 // icons
 import { AddAPhoto, Close } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
 
-const ProductCreationForm = () => {
+const ProductCreationForm = ({ onNotCreatingProduct }) => {
   const [previewImg, setPreviewImg] = useState("");
   const reader = useRef(); // reference to reader in FileReader
   const handlePreviewImg = (e) => {
@@ -41,10 +45,13 @@ const ProductCreationForm = () => {
       <div className={cx("card")}>
         <div className={cx("header")}>
           <h2>Add Product</h2>
+          <button className={cx("close-btn-wrapper")} onClick={onNotCreatingProduct}>
+            <Close />
+          </button>
         </div>
         <form className={cx("form-product-creation")}>
           <div className={cx("form-data")}>
-            <div className={cx("choose-img-container")}>
+            <div className={cx("col-5")}>
               <div className={cx("square-box")}>
                 <div className={cx("choose-img-wrapper")}>
                   <button
@@ -79,7 +86,7 @@ const ProductCreationForm = () => {
                 </div>
               </div>
             </div>
-            <div className={cx("form-control-group")}>
+            <div className={cx("col-7")}>
               <div className={cx("form-control-wrapper")}>
                 <FormControl name="product-creation_name" placeholder="Product name" type="text" required={true} />
               </div>
@@ -89,6 +96,9 @@ const ProductCreationForm = () => {
               <div className={cx("form-control-wrapper")}>
                 <FormControl name="product-creation_price" placeholder="Price" type="text" required={true} />
               </div>
+            </div>
+            <div className={cx("col-12")}>
+              <div id="quill-container" className={cx("quill-container")}></div>
             </div>
           </div>
           <div className={cx("submit-btn-wrapper")}>
