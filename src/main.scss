@@ -22,3 +22,23 @@ button {
   outline: none;
   border: none;
 }
+
+::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background: #ccc;
+}
+
+::-webkit-scrollbar-hover {
+  opacity: 0.8;
+  background: black;
+}

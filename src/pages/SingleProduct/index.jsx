@@ -21,6 +21,8 @@ const SingleProduct = () => {
     }
   };
   useEffect(() => {
+    document.querySelector("#content").innerHTML =
+      "<p>địt mẹ mày máy như <strong>con cặc</strong></p><p><strong>quilljs </strong><em>hay vãi cả lồn</em></p><p>sao giờ mới phát hiện ra</p>";
     window.scrollTo({ top: 0 });
   }, []);
 
@@ -97,7 +99,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-        <div className={cx("col-12")}>
+        <div id="content" className={cx("col-12")}>
           <h3>- Bản nâng cấp của EK87 cũ với màu sắc đẹp hơn, nhiều hiệu ứng hơn, keycap được làm lại, giá ko đổi.</h3>
           <h3>- Led Rainbow Area 6 hiệu ứng, hỗ trợ thêm 5 profile gaming tự setup.</h3>
           <h3>- Switch D công nghệ độc quyền của hãng với độ bền 60 triệu lần.</h3>

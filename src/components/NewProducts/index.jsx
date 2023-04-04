@@ -34,6 +34,7 @@ const NewProducts = () => {
     if (el && el.contains(e.target)) {
       return;
     }
+    console.log('loc')
     setShowForm(false);
     setCreatingProduct(false);
   });
@@ -63,9 +64,9 @@ const NewProducts = () => {
                 </div>
               )}
               <div className={cx("add-btn-wrapper")}>
-                <button className={cx("add-btn")} ref={addBtnRef} onClick={handleAddNewProductClick}>
+                <div className={cx("add-btn")} ref={addBtnRef} onClick={handleAddNewProductClick}>
                   <AddCircle style={{ fontSize: 100, userSelect: "none" }} />
-                </button>
+                </div>
               </div>
               <div className={cx("fake-product-item")}>
                 <span className={cx("fake-img-wrapper")}></span>
