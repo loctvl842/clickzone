@@ -6,7 +6,7 @@
   position: relative;
   @media (max-width: 767px) {
     box-shadow: none;
-    padding: 0 20px;
+    border-radius: 0;
   }
   .message-wrapper {
     position: absolute;
@@ -47,9 +47,9 @@
   letter-spacing: 0.1px;
   padding: 37px 0;
   position: relative;
-  @media (max-width: 767px) {
-    display: none;
-  }
+  // @media (max-width: 767px) {
+  //   display: none;
+  // }
   .close-btn-wrapper {
     position: absolute;
     top: 20px;
@@ -76,9 +76,15 @@
   .form-data {
     padding: 0 50px;
     overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
   }
   .submit-btn-wrapper {
-    margin-top: 20px;
+    flex-shrink: 0;
     padding: 0 20px;
     text-align: right;
     .submit-btn {
@@ -106,64 +112,75 @@
   }
 }
 
-.col-5 {
-  float: left;
-  width: 41.6666666666%;
-  margin-top: 16px;
-  .square-box {
-    padding-bottom: 100%;
-    position: relative;
-    .choose-img-wrapper {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid #e0e2e9;
-      height: auto;
-      border-radius: 8px;
-      padding: 5px;
-      button.cancel-current-img-btn {
-        z-index: 1;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 30px;
-        height: 30px;
-        background-color: #fff;
+.row-1 {
+  flex-shrink: 0;
+  .col-5 {
+    margin-top: 16px;
+    @media (min-width: 992px) {
+      float: left;
+      width: 41.6666666666%;
+    }
+    .square-box {
+      position: relative;
+      @media (min-width: 992px) {
+        padding-bottom: 100%;
+      }
+      .choose-img-wrapper {
         display: flex;
-        align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        display: none;
-        &.visible {
-          display: flex;
+        align-items: center;
+        border: 1px solid #e0e2e9;
+        height: auto;
+        border-radius: 8px;
+        padding: 5px;
+        @media (min-width: 992px) {
+          inset: 0;
+          position: absolute;
         }
-        &:hover {
-          background-color: #eee;
+        button.cancel-current-img-btn {
+          z-index: 1;
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          width: 30px;
+          height: 30px;
+          background-color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          display: none;
+          &.visible {
+            display: flex;
+          }
+          &:hover {
+            background-color: #eee;
+          }
         }
       }
     }
   }
-}
-
-.col-7 {
-  float: left;
-  padding-left: 16px;
-  width: 58.3333333333%;
-  .form-control-wrapper {
-    margin-top: 16px;
+  .col-7 {
+    float: left;
+    width: 100%;
+    @media (min-width: 992px) {
+      padding-left: 16px;
+      width: 58.3333333333%;
+    }
+    .form-control-wrapper {
+      margin-top: 16px;
+    }
   }
 }
-
-.col-12 {
-  float: left;
-  width: 100%;
-  padding: 20px;
-  .quill-container {
-    height: 520px;
+.row-2 {
+  flex-grow: 1;
+  .col-12 {
+    float: left;
+    width: 100%;
+    padding-top: 16px;
+    height: 100%;
   }
 }
 
@@ -187,7 +204,7 @@
   border-radius: 8px;
   cursor: pointer;
   height: 100%;
-  min-height: 200px;
+  min-height: 150px;
   &:hover {
     background-color: rgba(200, 200, 200, 0.3);
   }
