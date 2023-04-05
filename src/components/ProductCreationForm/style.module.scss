@@ -45,11 +45,12 @@
   color: #171725;
   font-size: 20px;
   letter-spacing: 0.1px;
-  padding: 37px 0;
+  padding: 20px 0;
   position: relative;
-  // @media (max-width: 767px) {
-  //   display: none;
-  // }
+  h2 {
+    margin: 0;
+    font-weight: 700;
+  }
   .close-btn-wrapper {
     position: absolute;
     top: 20px;

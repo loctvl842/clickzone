@@ -7,107 +7,113 @@ import { AddShoppingCart } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useSingleProduct } from "~/hook";
 
 let cx = classNames.bind(styles);
+
+const calculateDiscount = (oldPrice, price) => {
+  return "-" + parseInt(((oldPrice - price) / oldPrice) * 100) + "%";
+};
 
 const SingleProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-  // const id = useParams().productId;
+  const product = useSingleProduct();
 
   const handleAddToCart = () => {
     if (Cookies.get("token") === undefined) {
       navigate("/login");
     }
   };
+
+  const handleQuanityChange = (e) => {
+    setQuantity(e.target.value);
+  };
+
   useEffect(() => {
-    document.querySelector("#content").innerHTML =
-      "<p>địt mẹ mày máy như <strong>con cặc</strong></p><p><strong>quilljs </strong><em>hay vãi cả lồn</em></p><p>sao giờ mới phát hiện ra</p>";
-    window.scrollTo({ top: 0 });
-  }, []);
+    if (product === null) return;
+    document.querySelector("#content").innerHTML = product.description;
+  }, [product]);
 
   return (
     <div className={cx("container")}>
-      <div className={cx("wrapper")}>
-        <div className={cx("col-5")}>
-          <div className={cx("img-wrapper")}>
-            <div className={cx("img-box")}>
-              <img src="/assets/dareu-ek87-v2.jpg" alt="" />
+      {product && (
+        <div className={cx("wrapper")}>
+          <div className={cx("col-5")}>
+            <div className={cx("img-wrapper")}>
+              <div className={cx("img-box")}>
+                <img src={product.image_url} alt="" />
+              </div>
             </div>
           </div>
-        </div>
-        <div className={cx("col-7")}>
-          <div className={cx("product")}>
-            <div className={cx("product__info")}>
-              <div className={cx("name")}>
-                <h1>Bàn phím cơ Dareu EK87 V2 (Multi-Led)</h1>
-              </div>
-              <div className={cx("productid")}>
-                Code: <b>1234</b>
-              </div>
-              <br />
-              <p className={cx("old-price")}>
-                <span>Old price: </span>
-                <span>595.000₫</span>
-                {" ("}
-                <span style={{ color: "#f00" }}>-17%</span>
-                {")"}
-              </p>
-              <p>
-                <span>Price: </span>
-                <span className={cx("new-price")}>495.000₫</span>
-              </p>
-            </div>
-            <div className={cx("product__options")}>
-              Switch:
-              <br />
-              <div className={cx("btn-group")}>
-                <div className={cx("btn", "active")}>
-                  <span>Blue Switch</span>
+          <div className={cx("col-7")}>
+            <div className={cx("product")}>
+              <div className={cx("product__info")}>
+                <div className={cx("name")}>
+                  <h1>{product.name}</h1>
                 </div>
-                <div className={cx("btn")}>
-                  <span>Red Switch</span>
+                <div className={cx("productid")}>
+                  Code: <b>{product.id}</b>
                 </div>
+                <br />
+                <p className={cx("old-price")}>
+                  <span>Old price: </span>
+                  {product.old_price && <span>{product.old_price}</span>}
+                  {" ("}
+                  <span style={{ color: "#f00" }}>{calculateDiscount(product.old_price, product.price)}</span>
+                  {")"}
+                </p>
+                <p>
+                  <span>Price: </span>
+                  <span className={cx("new-price")}>{product.price}</span>
+                </p>
               </div>
-              <div className={cx("quantity-buy")}>
-                <div className={cx("quantity-box")}>
-                  <input
-                    type="button"
-                    className={cx("quantity-btn", "plus")}
-                    value="+"
-                    onClick={() => setQuantity((prev) => prev + 1)}
-                  />
-                  <input
-                    type="button"
-                    className={cx("quantity-btn", "minus")}
-                    value="-"
-                    onClick={() => {
-                      if (quantity > 1) {
-                        setQuantity((prev) => prev - 1);
-                      }
-                    }}
-                  />
-                  <input type="text" className={cx("count")} value={quantity} />
-                </div>
-                <button className={cx("buy-btn")} onClick={handleAddToCart}>
-                  <div className={cx("btn-wrapper")}>
-                    <AddShoppingCart fontSize="small" />
-                    <span>Add to cart</span>
+              <div className={cx("product__options")}>
+                Switch:
+                <br />
+                <div className={cx("btn-group")}>
+                  <div className={cx("btn", "active")}>
+                    <span>Blue Switch</span>
                   </div>
-                </button>
+                  <div className={cx("btn")}>
+                    <span>Red Switch</span>
+                  </div>
+                </div>
+                <div className={cx("quantity-buy")}>
+                  <div className={cx("quantity-box")}>
+                    <input
+                      type="button"
+                      className={cx("quantity-btn", "plus")}
+                      value="+"
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    />
+                    <input
+                      type="button"
+                      className={cx("quantity-btn", "minus")}
+                      value="-"
+                      onClick={() => {
+                        if (quantity > 1) {
+                          setQuantity((prev) => prev - 1);
+                        }
+                      }}
+                    />
+                    <input type="text" className={cx("count")} value={quantity} onChange={handleQuanityChange} />
+                  </div>
+                  <button className={cx("buy-btn")} onClick={handleAddToCart}>
+                    <div className={cx("btn-wrapper")}>
+                      <AddShoppingCart fontSize="small" />
+                      <span>Add to cart</span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <div className={cx("col-12")}>
+            <div id="content" className={cx("content")}></div>
+          </div>
         </div>
-        <div id="content" className={cx("col-12")}>
-          <h3>- Bản nâng cấp của EK87 cũ với màu sắc đẹp hơn, nhiều hiệu ứng hơn, keycap được làm lại, giá ko đổi.</h3>
-          <h3>- Led Rainbow Area 6 hiệu ứng, hỗ trợ thêm 5 profile gaming tự setup.</h3>
-          <h3>- Switch D công nghệ độc quyền của hãng với độ bền 60 triệu lần.</h3>
-          <h3>- Dây cáp cao su, dài 1,5m.</h3>
-          <h3>- Sử dụng stab kiểu Cherry giúp bạn dễ thay keycap.</h3>
-          <h3>- Bảo hành chính hãng 2 năm + 1 năm tại shop (1 đổi 1 trong 10 ngày đầu nếu lỗi kỹ thuật).</h3>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

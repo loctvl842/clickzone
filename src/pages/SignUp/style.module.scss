@@ -63,6 +63,10 @@
   font-size: 30px;
   letter-spacing: 0.1px;
   padding: 37px 0;
+  h2 {
+    font-weight: 700;
+    margin: 0;
+  }
   @media (max-width: 767px) {
     display: none;
   }

@@ -27,10 +27,14 @@
 }
 
 .col-12 {
+  padding-top: 20px;
   float: left;
   width: 100%;
   font-size: 24px;
   font-weight: 500;
+  .content {
+    padding: 20px;
+  }
 }
 
 .img-wrapper {
