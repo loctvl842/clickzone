@@ -7,7 +7,6 @@ export default function useClickOutside(refs, handler) {
       for (let ref of refs) {
         const el = ref?.current;
         if (el && el.contains(e.target)) {
-          console.log("contain");
           outside = false;
           break;
         }
