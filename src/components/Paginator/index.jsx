@@ -42,52 +42,50 @@ const Paginator = () => {
   }, [params]);
 
   return (
-    <div>
-      <div className={cx("pagination-wrapper")}>
-        <ul className={cx("pagination")}>
-          <li className={cx({ disappear: currentPage < 2 })}>
-            <NavLink to={getNavObject(0)}>
-              <span>
-                <KeyboardDoubleArrowLeft fontSize="small" />
-              </span>
+    <div className={cx("pagination-wrapper")}>
+      <ul className={cx("pagination")}>
+        <li className={cx({ disappear: currentPage < 2 })}>
+          <NavLink to={getNavObject(0)}>
+            <span>
+              <KeyboardDoubleArrowLeft fontSize="small" />
+            </span>
+          </NavLink>
+        </li>
+        <li className={cx({ disappear: currentPage <= 0 })}>
+          <NavLink to={getNavObject(currentPage - 1)}>
+            <span>
+              <KeyboardArrowLeft fontSize="small" />
+            </span>
+          </NavLink>
+        </li>
+        {Array.from({ length: NUM_PAGE }, (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i).map((page) => (
+          <li
+            key={uuidv4()}
+            className={cx({
+              disappear: page < 0,
+              active: page === currentPage,
+            })}
+          >
+            <NavLink to={getNavObject(page)}>
+              <span>{page + 1}</span>
             </NavLink>
           </li>
-          <li className={cx({ disappear: currentPage <= 0 })}>
-            <NavLink to={getNavObject(currentPage - 1)}>
-              <span>
-                <KeyboardArrowLeft fontSize="small" />
-              </span>
-            </NavLink>
-          </li>
-          {Array.from({ length: NUM_PAGE }, (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i).map((page) => (
-            <li
-              key={uuidv4()}
-              className={cx({
-                disappear: page < 0,
-                active: page === currentPage,
-              })}
-            >
-              <NavLink to={getNavObject(page)}>
-                <span>{page + 1}</span>
-              </NavLink>
-            </li>
-          ))}
-          <li>
-            <NavLink to={getNavObject(currentPage + 1)}>
-              <span>
-                <KeyboardArrowRight fontSize="small" />
-              </span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/"}>
-              <span>
-                <KeyboardDoubleArrowRight fontSize="small" />
-              </span>
-            </NavLink>
-          </li>
-        </ul>
-      </div>
+        ))}
+        <li>
+          <NavLink to={getNavObject(currentPage + 1)}>
+            <span>
+              <KeyboardArrowRight fontSize="small" />
+            </span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={"/"}>
+            <span>
+              <KeyboardDoubleArrowRight fontSize="small" />
+            </span>
+          </NavLink>
+        </li>
+      </ul>
     </div>
   );
 };
