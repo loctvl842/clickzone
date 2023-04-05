@@ -15,6 +15,7 @@ import { authStart, authSuccess, authFail, authReset } from "~/store/authSlice";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
+import { userSet } from "~/store/userSlice";
 
 let cx = classNames.bind(styles);
 
@@ -36,6 +37,7 @@ const Login = () => {
       });
       const data = res.data;
       dispatch(authSuccess(data.message));
+      dispatch(userSet(data.user));
       Cookies.set("token", data.token, { expires: 1 }); // expired in 1 day
       navigate("/home");
     } catch (err) {

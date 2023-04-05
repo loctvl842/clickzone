@@ -1,11 +1,6 @@
 .action__menu {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  // transform: translateX(50%);
-  width: 220px;
   background: #474747;
+  width: 100%;
   ul {
     list-style-type: none;
     li .item {

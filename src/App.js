@@ -1,12 +1,19 @@
-import {} from "./main.scss";
-import { Fragment } from "react";
+import { } from "./main.scss";
+import { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import pages from "~/pages";
 import { EmptyLayout } from "~/layout";
+import { useDispatch } from "react-redux";
+import { fetchCurrentUser } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>

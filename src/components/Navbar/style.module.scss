@@ -164,6 +164,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    .user-actions-wrapper {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 220px;
+    }
   }
 }
 // ------------ ROW 2 -------------------

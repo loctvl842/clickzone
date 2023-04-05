@@ -7,11 +7,8 @@ import { ProductCard, Paginator, ProductCreationForm } from "~/components";
 // icons
 import { AddCircle } from "@mui/icons-material";
 
-// fake data
-import productCards from "./fakeData.json";
-
 // hook
-import { useClickOutside } from "~/hook";
+import { useClickOutside, useProducts } from "~/hook";
 import { useEffect, useRef, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
@@ -20,25 +17,21 @@ import { useSelector } from "react-redux";
 let cx = classNames.bind(styles);
 
 const NewProducts = () => {
-  const cards = productCards.data;
+  const products = useProducts();
 
   const [showForm, setShowForm] = useState(false);
   const [creatingProduct, setCreatingProduct] = useState(false);
   const formRef = useRef();
   const addBtnRef = useRef();
-  const user = useSelector((state) => state.user);
+  const { data: user } = useSelector((state) => state.user);
 
   const handleNotCreatingProduct = () => {
     setShowForm(false);
     setCreatingProduct(false);
   };
 
-  useClickOutside(formRef, (e) => {
+  useClickOutside([formRef, addBtnRef], (e) => {
     if (!showForm) return;
-    const el = addBtnRef.current;
-    if (el && el.contains(e.target)) {
-      return;
-    }
     handleNotCreatingProduct();
   });
 
@@ -55,7 +48,7 @@ const NewProducts = () => {
     <div className={cx("container")}>
       <div className={cx("product-list")}>
         <div key={uuidv4()} className={cx("product-item")}>
-          {user !== null && user.is_admin ? (
+          {user && user.is_admin ? (
             <div className={cx("new-product-btn")}>
               {showForm && (
                 <div className={cx("extension-container")}>
@@ -77,11 +70,12 @@ const NewProducts = () => {
             </div>
           ) : null}
         </div>
-        {cards.map((card) => (
-          <div key={uuidv4()} className={cx("product-item")}>
-            <ProductCard data={card} />
-          </div>
-        ))}
+        {products &&
+          products.map((product) => (
+            <div key={uuidv4()} className={cx("product-item")}>
+              <ProductCard product={product} />
+            </div>
+          ))}
       </div>
       <center>
         <Paginator />

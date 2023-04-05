@@ -5,25 +5,27 @@ import { NavLink } from "react-router-dom";
 
 let cx = classNames.bind(styles);
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ product }) => {
   return (
     <div className={cx("container")}>
-      <NavLink to={{ pathname: `/${data.name.trim()}/${data.id}` }} className={cx("product-item")}>
-        <div>
-          <span className={cx("img-wrapper")}>
-            <img src={data.link} alt="" />
-          </span>
-          <p className={cx("price-sale")}>
-            {"Code "}
-            <b>
-              {data.id}
-              <span className={cx("price")}>{data.newPrice}</span>
-              <span className={cx("old-price")}>{data.oldPrice}</span>
-            </b>
-          </p>
-          <span className={cx("name")}>{data.name}</span>
-        </div>
-      </NavLink>
+      {product && (
+        <NavLink to={{ pathname: `/${product.name.trim()}/${product.id}` }} className={cx("product-item")}>
+          <div>
+            <span className={cx("img-wrapper")}>
+              <img src={product.image_url} alt="" />
+            </span>
+            <p className={cx("price-sale")}>
+              {"Code "}
+              <b>
+                {product.id}
+                <span className={cx("price")}>{product.price}</span>
+                <span className={cx("old-price")}>{product.old_price}</span>
+              </b>
+            </p>
+            <span className={cx("name")}>{product.name}</span>
+          </div>
+        </NavLink>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 let cx = classNames.bind(styles);
 
 const Home = () => {
-  useCurrentUser();
+  // useCurrentUser();
 
   return (
     <div className={cx("container")}>

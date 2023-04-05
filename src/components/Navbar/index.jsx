@@ -4,11 +4,17 @@ import classNames from "classnames/bind";
 // components
 import { Logo, NavbarUserActions } from "~/components";
 
-// actions
-import { NavLink } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+// action
+import { userReset } from "~/store/userSlice";
+
+// hooks
+import { useClickOutside } from "~/hook";
 
 import { v4 as uuidv4 } from "uuid";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+
+// fake menu
 import { menu_0 } from "./menu";
 
 // icons
@@ -24,30 +30,31 @@ import {
   NavigateNext,
   Login,
 } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { useClickOutside } from "~/hook";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import Cookies from "js-cookie";
+import axios from "axios";
 
 let cx = classNames.bind(styles);
 
 const ActionMenu = () => { };
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isFloat, setIsFloat] = useState(false);
   const [userActionVisible, setUserActionVisible] = useState(false);
   const accountBtnRef = useRef();
   const userActionsRef = useRef();
 
-  const user = useSelector((state) => state.user);
+  const { data: user } = useSelector((state) => state.user);
 
   const handleAccountBtnClick = () => {
     setUserActionVisible((prevState) => !prevState);
   };
 
-  useClickOutside(userActionsRef, (e) => {
-    const el = accountBtnRef.current;
-    if (el && el.contains(e.target)) {
-      return;
-    }
+  useClickOutside([userActionsRef, accountBtnRef], (e) => {
     if (userActionVisible) setUserActionVisible(false);
   });
 
@@ -62,6 +69,18 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogoutClick = async () => {
+    Cookies.remove("token");
+    try {
+      dispatch(userReset());
+      navigate("/login");
+      await axios.post("/api/user/logout.php", {});
+    } catch (e) {
+      console.log({ logout: e });
+    }
+  };
+
   return (
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
@@ -108,16 +127,16 @@ const Navbar = () => {
               </NavLink>
             </div>
             <div className={cx("action")}>
-              {user === null ? (
-                <NavLink to="/login" className={cx("action-btn")}>
+              {!user ? (
+                <NavLink to="/login" onClick={handleLogoutClick} className={cx("action-btn")}>
                   <Login />
                 </NavLink>
               ) : (
                 <div className={cx("action-btn")} ref={accountBtnRef} onClick={handleAccountBtnClick}>
                   <AccountCircle />
                   {userActionVisible && (
-                    <div ref={userActionsRef}>
-                      <NavbarUserActions />
+                    <div className={cx("user-actions-wrapper")} ref={userActionsRef}>
+                      <NavbarUserActions onLogoutClick={handleLogoutClick} />
                     </div>
                   )}
                 </div>

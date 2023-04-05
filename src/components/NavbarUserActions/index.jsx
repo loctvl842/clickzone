@@ -1,31 +1,12 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import Cookies from "js-cookie";
-import axios from "axios";
-
-// action
-import { userReset } from "~/store/userSlice";
+import { useSelector } from "react-redux";
 
 let cx = classNames.bind(styles);
 
-const NavbarUserActions = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const handleLogout = async () => {
-    Cookies.remove("token");
-    try {
-      dispatch(userReset())
-      navigate("/login");
-      await axios.post("/api/user/logout.php", {});
-    } catch (e) {
-      console.log({ logout: e });
-    }
-  };
+const NavbarUserActions = ({ onLogoutClick }) => {
+  const { data: user } = useSelector((state) => state.user);
   return (
     <div className={cx("action__menu")}>
       <ul>
@@ -33,7 +14,7 @@ const NavbarUserActions = () => {
           <div className={cx("item")}>Account ({user.username})</div>
         </li>
         <li>
-          <div className={cx("item")} onClick={handleLogout}>
+          <div className={cx("item")} onClick={onLogoutClick}>
             Log out
           </div>
         </li>

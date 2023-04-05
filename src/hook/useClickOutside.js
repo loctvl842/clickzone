@@ -1,21 +1,27 @@
 import { useCallback, useEffect } from "react";
 
-export default function useClickOutside(ref, handler) {
+export default function useClickOutside(refs, handler) {
   const listener = useCallback(
     (e) => {
-      const el = ref?.current;
-      if (el && el.contains(e.target)) {
-        return;
+      let outside = true;
+      for (let ref of refs) {
+        const el = ref?.current;
+        if (el && el.contains(e.target)) {
+          console.log("contain");
+          outside = false;
+          break;
+        }
       }
-      handler(e);
+      if (outside) {
+        handler();
+      }
     },
-    [ref, handler]
+    [refs, handler]
   );
   useEffect(() => {
     document.addEventListener("click", listener);
     return () => {
       document.removeEventListener("click", listener);
     };
-  }, [listener]);
-  return ref;
+  }, [listener, handler]);
 }
