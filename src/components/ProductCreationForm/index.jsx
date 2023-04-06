@@ -3,20 +3,26 @@ import classNames from "classnames/bind";
 
 import { PulseLoader } from "react-spinners";
 import { useState } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 
 // components
 import { FormControl, TextEditor } from "~/components";
 
 // icons
 import { AddAPhoto, Close } from "@mui/icons-material";
+
+// custom hook
 import { usePreviewImage } from "~/hook";
+
+// actions
+import { addProduct } from "~/store/productSlice";
 
 import { uploadImage } from "~/s3";
 
 let cx = classNames.bind(styles);
 
 const ProductCreationForm = ({ onNotCreatingProduct }) => {
+  const dispatch = useDispatch();
   const [productImgFile, setProductImgFile] = useState(null);
   const previewImg = usePreviewImage(productImgFile);
 
@@ -38,17 +44,18 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const dataArray = [...formData];
-    const data = Object.fromEntries(dataArray);
+    const inputData = Object.fromEntries(dataArray);
 
     try {
-      const imageUrl = await uploadImage(data["product-creation_imgFile"]);
-      await axios.post("/api/product/create.php", {
-        name: data["product-creation_name"],
+      const imageUrl = await uploadImage(inputData["product-creation_imgFile"]);
+      const productData = {
+        name: inputData["product-creation_name"],
         image_url: imageUrl,
-        price: data["product-creation_price"],
-        old_price: data["product-creation_old-price"],
+        price: inputData["product-creation_price"],
+        old_price: inputData["product-creation_old-price"],
         description: document.querySelector(".ql-editor").innerHTML,
-      });
+      };
+      dispatch(addProduct(productData));
     } catch (e) {
       console.log(e);
     }

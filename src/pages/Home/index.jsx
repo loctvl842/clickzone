@@ -4,16 +4,11 @@ import classNames from "classnames/bind";
 // components
 import { HomeSlideShow, HotProduct, NewProducts } from "~/components";
 
-// hook
-import { useCurrentUser } from "~/hook";
-
 import { NavLink } from "react-router-dom";
 
 let cx = classNames.bind(styles);
 
 const Home = () => {
-  // useCurrentUser();
-
   return (
     <div className={cx("container")}>
       <div>

@@ -8,8 +8,12 @@ export default function useSingleProduct() {
 
   useEffect(() => {
     const fetch_data = async () => {
-      const res = await axios.get(`/api/product/get_single_by_id.php?productId=${id}`);
-      setProduct(res.data.product);
+      try {
+        const res = await axios.get(`/api/product/get_single_by_id.php?productId=${id}`);
+        setProduct(res.data.product);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     };
     fetch_data();
   }, [id]);

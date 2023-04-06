@@ -10,3 +10,6 @@ export { default as Paginator } from "~/components/Paginator";
 export { default as ProductCreationForm } from "~/components/ProductCreationForm";
 export { default as NavbarUserActions } from "~/components/NavbarUserActions";
 export { default as TextEditor } from "~/components/TextEditor";
+export { default as AddProductButton } from "~/components/AddProductButton";
+export { default as ProductCardAction } from "~/components/ProductCardAction";
+export { default as ConfirmModal } from "~/components/ConfirmModal";

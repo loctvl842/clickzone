@@ -2,74 +2,33 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 // components
-import { ProductCard, Paginator, ProductCreationForm } from "~/components";
+import { ProductCard, Paginator, AddProductButton } from "~/components";
 
-// icons
-import { AddCircle } from "@mui/icons-material";
-
-// hook
-import { useClickOutside, useProducts } from "~/hook";
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsByPage, selectAllProducts } from "~/store/productSlice";
+import { useLocation } from "react-router-dom";
 
 let cx = classNames.bind(styles);
 
 const NewProducts = () => {
-  const products = useProducts();
-
-  const [showForm, setShowForm] = useState(false);
-  const [creatingProduct, setCreatingProduct] = useState(false);
-  const formRef = useRef();
-  const addBtnRef = useRef();
-  const { data: user } = useSelector((state) => state.user);
-
-  const handleNotCreatingProduct = () => {
-    setShowForm(false);
-    setCreatingProduct(false);
-  };
-
-  useClickOutside([formRef, addBtnRef], (e) => {
-    if (!showForm) return;
-    handleNotCreatingProduct();
-  });
-
-  const handleAddNewProductClick = () => {
-    setCreatingProduct(true);
-  };
+  const dispatch = useDispatch();
+  const location = useLocation();
+  // const products = useProducts();
+  const products = useSelector((state) => selectAllProducts(state));
+  const productStatus = useSelector((state) => state.product.status);
 
   useEffect(() => {
-    setShowForm(creatingProduct);
-    document.body.style.overflowY = creatingProduct ? "hidden" : "auto";
-  }, [creatingProduct]);
+    const params = new URLSearchParams(location.search);
+    const page_number = params.get("page") ?? 0;
+    dispatch(fetchProductsByPage(page_number));
+  }, [dispatch, productStatus, location]);
 
   return (
     <div className={cx("container")}>
       <div className={cx("product-list")}>
-        <div key={uuidv4()} className={cx("product-item")}>
-          {user && user.is_admin ? (
-            <div className={cx("new-product-btn")}>
-              {showForm && (
-                <div className={cx("extension-container")}>
-                  <div className={cx("wrapper")} ref={formRef}>
-                    <ProductCreationForm onNotCreatingProduct={handleNotCreatingProduct} />
-                  </div>
-                </div>
-              )}
-              <div className={cx("add-btn-wrapper")}>
-                <div className={cx("add-btn")} ref={addBtnRef} onClick={handleAddNewProductClick}>
-                  <AddCircle style={{ fontSize: 100, userSelect: "none" }} />
-                </div>
-              </div>
-              <div className={cx("fake-product-item")}>
-                <span className={cx("fake-img-wrapper")}></span>
-                <p className={cx("fake-price-sale")}></p>
-                <span className={cx("fake-name")}></span>
-              </div>
-            </div>
-          ) : null}
-        </div>
+        <AddProductButton />
         {products &&
           products.map((product) => (
             <div key={uuidv4()} className={cx("product-item")}>

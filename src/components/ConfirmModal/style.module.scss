@@ -1,0 +1,71 @@
+.confirm-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 500;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: darkening 0.6s ease;
+  .prompt {
+    background-color: #fff;
+    box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.18);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    .question {
+      font-size: 15px;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 30px;
+      flex-grow: 1;
+    }
+    ul {
+      flex-shrink: 0;
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      border-radius: inherit;
+      padding: 5px;
+      li {
+        flex: 1;
+        text-align: center;
+        border-radius: inherit;
+        button {
+          height: 50px;
+          width: 100%;
+          border-radius: inherit;
+          background-color: #fff;
+          border: none;
+          outline: none;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          font-weight: 600;
+          line-height: 22.5px;
+          font-size: 15px;
+          letter-spacing: 0.1px;
+          &:hover {
+            background-color: #ddd;
+          }
+        }
+        .confirm-btn {
+          background-color: #df0000;
+          color: #fff;
+          &:hover {
+            background-color: #af0000;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes darkening {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

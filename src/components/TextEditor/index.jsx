@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 let cx = classNames.bind(styles);
 
