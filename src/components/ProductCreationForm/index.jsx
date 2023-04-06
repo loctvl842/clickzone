@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 
 import { PulseLoader } from "react-spinners";
 import { useState } from "react";
+import axios from "axios";
 
 // components
 import { FormControl, TextEditor } from "~/components";
@@ -11,23 +12,46 @@ import { FormControl, TextEditor } from "~/components";
 import { AddAPhoto, Close } from "@mui/icons-material";
 import { usePreviewImage } from "~/hook";
 
+import { uploadImage } from "~/s3";
+
 let cx = classNames.bind(styles);
 
 const ProductCreationForm = ({ onNotCreatingProduct }) => {
-  const [productImg, setProductImg] = useState(null);
-  const previewImg = usePreviewImage(productImg);
+  const [productImgFile, setProductImgFile] = useState(null);
+  const previewImg = usePreviewImage(productImgFile);
+
   const handleCancelBtnClick = (e) => {
     e.preventDefault();
-    setProductImg(null);
+    setProductImgFile(null);
   };
 
   const handleImgDrop = (e) => {
     e.preventDefault();
-    setProductImg(e.dataTransfer.files[0]);
+    setProductImgFile(e.dataTransfer.files[0]);
   };
 
   const handleProductImgChange = (e) => {
-    setProductImg(e.target.files[0]);
+    setProductImgFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const dataArray = [...formData];
+    const data = Object.fromEntries(dataArray);
+
+    try {
+      const imageUrl = await uploadImage(data["product-creation_imgFile"]);
+      await axios.post("/api/product/create.php", {
+        name: data["product-creation_name"],
+        image_url: imageUrl,
+        price: data["product-creation_price"],
+        old_price: data["product-creation_old-price"],
+        description: document.querySelector(".ql-editor").innerHTML,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -42,7 +66,7 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
             <Close />
           </button>
         </div>
-        <form className={cx("form-product-creation")}>
+        <form onSubmit={handleSubmit} className={cx("form-product-creation")}>
           <div className={cx("form-data")}>
             <div className={cx("row-1")}>
               <div className={cx("col-5")}>
@@ -57,7 +81,7 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
                     <input
                       type="file"
                       id="file"
-                      name="post-img"
+                      name="product-creation_imgFile"
                       style={{ display: "none" }}
                       accept=".png, .jpg, .jpeg"
                       onChange={handleProductImgChange}
