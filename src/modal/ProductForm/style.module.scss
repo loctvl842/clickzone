@@ -1,12 +1,16 @@
 .form-wrapper {
   height: 100%;
-  background: #fff;
-  box-shadow: 0px 9px 24px rgba(0, 0, 0, 0.18);
-  border-radius: 14px;
+  border-radius: inherit;
   position: relative;
-  @media (max-width: 767px) {
-    box-shadow: none;
-    border-radius: 0;
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+  @media (min-width: 1200px) {
+    width: 1000px;
   }
   .message-wrapper {
     position: absolute;
@@ -29,7 +33,6 @@
     }
   }
   .card {
-    background-color: #fff;
     width: 100%;
     position: relative;
     border-radius: inherit;
@@ -47,6 +50,7 @@
   letter-spacing: 0.1px;
   padding: 20px 0;
   position: relative;
+  text-align: center;
   h2 {
     margin: 0;
     font-weight: 700;
@@ -177,6 +181,7 @@
 }
 .row-2 {
   flex-grow: 1;
+  min-height: 300px;
   .col-12 {
     float: left;
     width: 100%;

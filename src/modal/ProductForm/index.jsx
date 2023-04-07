@@ -1,6 +1,7 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
+// libraries
 import { PulseLoader } from "react-spinners";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -17,16 +18,21 @@ import { usePreviewImage } from "~/hook";
 // actions
 import { addProduct } from "~/store/productSlice";
 
+// s3
 import { uploadImage } from "~/s3";
+
+// modals
+import { modalClose } from "~/store/modalSlice";
 
 let cx = classNames.bind(styles);
 
-const ProductCreationForm = ({ onNotCreatingProduct }) => {
+export const modal_type = "productForm";
+const ProductForm = () => {
   const dispatch = useDispatch();
   const [productImgFile, setProductImgFile] = useState(null);
   const previewImg = usePreviewImage(productImgFile);
 
-  const handleCancelBtnClick = (e) => {
+  const handleCancelImageBtnClick = (e) => {
     e.preventDefault();
     setProductImgFile(null);
   };
@@ -40,6 +46,10 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
     setProductImgFile(e.target.files[0]);
   };
 
+  const handleCloseBtnClick = () => {
+    dispatch(modalClose());
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -47,15 +57,16 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
     const inputData = Object.fromEntries(dataArray);
 
     try {
-      const imageUrl = await uploadImage(inputData["product-creation_imgFile"]);
+      const imageUrl = await uploadImage(productImgFile);
       const productData = {
         name: inputData["product-creation_name"],
         image_url: imageUrl,
         price: inputData["product-creation_price"],
-        old_price: inputData["product-creation_old-price"],
+        old_price: inputData["product-creation_old-price"] || null,
         description: document.querySelector(".ql-editor").innerHTML,
       };
       dispatch(addProduct(productData));
+      dispatch(modalClose());
     } catch (e) {
       console.log(e);
     }
@@ -69,7 +80,7 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
       <div className={cx("card")}>
         <div className={cx("header")}>
           <h2>Add Product</h2>
-          <button className={cx("close-btn-wrapper")} onClick={onNotCreatingProduct}>
+          <button className={cx("close-btn-wrapper")} onClick={handleCloseBtnClick}>
             <Close />
           </button>
         </div>
@@ -81,7 +92,7 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
                   <div className={cx("choose-img-wrapper")}>
                     <button
                       className={cx("cancel-current-img-btn", { visible: previewImg !== "" })}
-                      onClick={handleCancelBtnClick}
+                      onClick={handleCancelImageBtnClick}
                     >
                       <Close />
                     </button>
@@ -145,5 +156,4 @@ const ProductCreationForm = ({ onNotCreatingProduct }) => {
     </div>
   );
 };
-
-export default ProductCreationForm;
+export default ProductForm;

@@ -56,13 +56,15 @@ const SingleProduct = () => {
                   Code: <b>{product.id}</b>
                 </div>
                 <br />
-                <p className={cx("old-price")}>
-                  <span>Old price: </span>
-                  {product.old_price && <span>{product.old_price}</span>}
-                  {" ("}
-                  <span style={{ color: "#f00" }}>{calculateDiscount(product.old_price, product.price)}</span>
-                  {")"}
-                </p>
+                {product.old_price && (
+                  <p className={cx("old-price")}>
+                    <span>Old price: </span>
+                    {product.old_price && <span>{product.old_price}</span>}
+                    {" ("}
+                    <span style={{ color: "#f00" }}>{calculateDiscount(product.old_price, product.price)}</span>
+                    {")"}
+                  </p>
+                )}
                 <p>
                   <span>Price: </span>
                   <span className={cx("new-price")}>{product.price}</span>

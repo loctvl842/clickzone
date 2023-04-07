@@ -6,7 +6,7 @@ export default function usePreviewImage(file) {
   const reader = useRef(); // reference to reader in FileReader
   useEffect(() => {
     if (reader.current) reader.current.abort();
-    if (file === null) {
+    if (file === undefined || file === null) {
       setImgSrc("");
       return;
     }

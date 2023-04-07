@@ -5,19 +5,19 @@ const initialState = {
   visible: false,
 };
 
-const confirmModalSlice = createSlice({
+const modalSlice = createSlice({
   name: "confirmModal",
   initialState,
   reducers: {
-    confirmModalSetType(state, action) {
+    modalOpen(state, action) {
       state.type = action.payload;
       state.visible = true;
     },
-    confirmModalClose(state) {
+    modalClose(state) {
       state.visible = false;
     },
   },
 });
 
-export default confirmModalSlice.reducer;
-export const { confirmModalClose, confirmModalSetType } = confirmModalSlice.actions;
+export default modalSlice.reducer;
+export const { modalClose, modalOpen } = modalSlice.actions;

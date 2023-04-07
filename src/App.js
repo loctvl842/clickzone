@@ -1,4 +1,4 @@
-import {} from "./main.scss";
+import { } from "./main.scss";
 import { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -7,7 +7,7 @@ import pages from "~/pages";
 import { EmptyLayout } from "~/layout";
 import { useDispatch } from "react-redux";
 import { fetchCurrentUser } from "./store/userSlice";
-import { ConfirmModal } from "~/components";
+import Modal from "~/modal";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function App() {
           })}
         </Routes>
       </BrowserRouter>
-      <ConfirmModal />
+      <Modal />
     </>
   );
 }

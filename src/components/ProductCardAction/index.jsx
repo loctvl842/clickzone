@@ -2,43 +2,44 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { Delete, Edit } from "@mui/icons-material";
-import { useEffect, useRef } from "react";
-import { useClickOutside } from "~/hook";
 import { useDispatch } from "react-redux";
-import { confirmModalSetType } from "~/store/confirmModalSlice";
-import { confirmModals } from "~/components/ConfirmModal";
+import { modalOpen } from "~/store/modalSlice";
+
+// modal
+import { modals } from "~/modal";
+import ConfirmBox, { modal_type } from "~/modal/ConfirmBox";
 
 let cx = classNames.bind(styles);
 
-const MODAL_TYPE = "product";
-
 const ProductCardAction = () => {
   const dispatch = useDispatch();
-  const promptRef = useRef();
-  const removeBtnRef = useRef();
-
-  useClickOutside([promptRef, removeBtnRef], () => {});
 
   const handleEditProduct = (e) => {
     e.preventDefault();
   };
+
   const handleRemoveBtnClick = (e) => {
     e.preventDefault();
-    dispatch(confirmModalSetType(MODAL_TYPE));
+    modals[modal_type] = (
+      <ConfirmBox
+        question="Are you you want to remove product product-name?"
+        confirmBtnText="Remove"
+        onConfirm={handleConfirm}
+      />
+    );
+    dispatch(modalOpen(modal_type));
   };
 
-  useEffect(() => {
-    confirmModals[MODAL_TYPE] = () => {
-      console.log("handle removing");
-    };
-  }, []);
+  const handleConfirm = () => {
+    console.log("Remove this shit for me...");
+  };
 
   return (
     <div className={cx("container")}>
       <div className={cx("wrapper")}>
         <ul>
           <li>
-            <button ref={removeBtnRef} className={cx("icon")} onClick={handleRemoveBtnClick}>
+            <button className={cx("icon")} onClick={handleRemoveBtnClick}>
               <Delete />
             </button>
           </li>
