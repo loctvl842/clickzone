@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 // libraries
 import { PulseLoader } from "react-spinners";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // components
@@ -16,7 +16,7 @@ import { AddAPhoto, Close } from "@mui/icons-material";
 import { usePreviewImage } from "~/hook";
 
 // actions
-import { addProduct } from "~/store/productSlice";
+import { addProduct, editProduct } from "~/store/productSlice";
 
 // s3
 import { uploadImage } from "~/s3";
@@ -25,12 +25,16 @@ import { uploadImage } from "~/s3";
 import { modalClose } from "~/store/modalSlice";
 
 let cx = classNames.bind(styles);
+const EDIT = "edit";
+const CREATE = "create";
 
 export const modal_type = "productForm";
-const ProductForm = () => {
+const ProductForm = ({ product }) => {
+  let action = product ? EDIT : CREATE;
+
   const dispatch = useDispatch();
   const [productImgFile, setProductImgFile] = useState(null);
-  const previewImg = usePreviewImage(productImgFile);
+  let previewImg = usePreviewImage(productImgFile);
 
   const handleCancelImageBtnClick = (e) => {
     e.preventDefault();
@@ -59,18 +63,37 @@ const ProductForm = () => {
     try {
       const imageUrl = await uploadImage(productImgFile);
       const productData = {
+        id: product ? product.id : -1,
         name: inputData["product-creation_name"],
         image_url: imageUrl,
         price: inputData["product-creation_price"],
         old_price: inputData["product-creation_old-price"] || null,
         description: document.querySelector(".ql-editor").innerHTML,
       };
-      dispatch(addProduct(productData));
+      if (action === EDIT) {
+        dispatch(editProduct(productData));
+      } else {
+        dispatch(addProduct(productData));
+      }
       dispatch(modalClose());
     } catch (e) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (action === EDIT) {
+      let nameEle = document.getElementById("product-creation_name");
+      let oldPriceEle = document.getElementById("product-creation_old-price");
+      let priceEle = document.getElementById("product-creation_price");
+      let descriptionEle = document.querySelector(".ql-editor");
+      nameEle.value = product.name;
+      oldPriceEle.value = product.old_price;
+      priceEle.value = product.price;
+      descriptionEle.innerHTML = product.description;
+      setProductImgFile(product.image_url);
+    }
+  }, [action]);
 
   return (
     <div className={cx("form-wrapper")}>
@@ -106,7 +129,7 @@ const ProductForm = () => {
                     />
                     {previewImg !== "" ? (
                       <div className={cx("preview-img-wrapper")}>
-                        <img src={previewImg} alt="" />
+                        <img id="product-creation_preview-image" src={previewImg} alt="" />
                       </div>
                     ) : (
                       <label

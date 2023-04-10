@@ -4,21 +4,27 @@ import classNames from "classnames/bind";
 import { useDispatch } from "react-redux";
 
 import { modalClose } from "~/store/modalSlice";
+import { useEffect, useRef } from "react";
 
 let cx = classNames.bind(styles);
 
 export const modal_type = "confirmBox";
 const ConfirmBox = ({ question, confirmBtnText, onConfirm }) => {
   const dispatch = useDispatch();
+  const questionRef = useRef();
 
   const handleCancelBtnClick = () => {
     dispatch(modalClose());
   };
 
+  useEffect(() => {
+    questionRef.current.innerHTML = question;
+  }, []);
+
   return (
     <div className={cx("container")}>
       <div className={cx("question")}>
-        <h3>{question}</h3>
+        <h3 ref={questionRef}>{question}</h3>
       </div>
       <ul>
         <li>

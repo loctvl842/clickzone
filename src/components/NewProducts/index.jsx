@@ -24,7 +24,6 @@ let cx = classNames.bind(styles);
 const NewProducts = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  // const products = useProducts();
   const products = useSelector((state) => selectAllProducts(state));
   const productStatus = useSelector((state) => state.product.status);
 

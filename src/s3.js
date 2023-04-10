@@ -30,6 +30,9 @@ export const generateUploadUrl = (file) => {
 };
 
 export const uploadImage = async (file) => {
+  if (!(file instanceof Object)) {
+    return null;
+  }
   const s3url = generateUploadUrl(file);
   await axios.put(s3url, file, {
     headers: {
