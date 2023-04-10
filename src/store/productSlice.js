@@ -41,7 +41,7 @@ export default productSlice.reducer;
 // actions
 // export const { } = productSlice.actions;
 export const fetchProductsByPage = createAsyncThunk("product/fetchProductsByPage", async (page_number) => {
-  const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}`);
+  const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}&&num=2`);
   return res.data;
 });
 

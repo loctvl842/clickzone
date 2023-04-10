@@ -12,13 +12,20 @@ import {
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { usePageCount } from "~/hook";
 
 const NUM_PAGE = 7;
 
 let cx = classNames.bind(styles);
 
+const generateNumberArray = (currentPage) => {
+  return Array.from({ length: NUM_PAGE }, (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i);
+};
+
 const Paginator = () => {
   const [params] = useSearchParams();
+  const pageCount = usePageCount();
+  console.log(pageCount);
   const [currentPage, setCurrentPage] = useState(0);
 
   const getNavObject = (pageNumber) => {
@@ -58,11 +65,11 @@ const Paginator = () => {
             </span>
           </NavLink>
         </li>
-        {Array.from({ length: NUM_PAGE }, (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i).map((page) => (
+        {generateNumberArray(currentPage).map((page) => (
           <li
             key={uuidv4()}
             className={cx({
-              disappear: page < 0,
+              disappear: page < 0 || page + 1 > pageCount,
               active: page === currentPage,
             })}
           >
@@ -79,7 +86,7 @@ const Paginator = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={"/"}>
+          <NavLink to={getNavObject(pageCount - 1)}>
             <span>
               <KeyboardDoubleArrowRight fontSize="small" />
             </span>
