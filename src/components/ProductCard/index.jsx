@@ -8,8 +8,8 @@ import { modalClose, modalOpen } from "~/store/modalSlice";
 // icons
 import { Delete, Edit } from "@mui/icons-material";
 
-// components
-// import { ProductCardAction } from "~/components";
+// utils
+import { formatCurrency } from "~/util";
 
 // modal
 import { modals } from "~/modal";
@@ -74,8 +74,8 @@ const ProductCard = ({ product }) => {
               {"Code "}
               <b>
                 {product.id}
-                <span className={cx("price")}>{product.price}</span>
-                <span className={cx("old-price")}>{product.old_price}</span>
+                <span className={cx("price")}>{formatCurrency(product.price)}</span>
+                <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>
               </b>
             </p>
             <span className={cx("name")}>{product.name}</span>

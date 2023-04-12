@@ -4,6 +4,9 @@ import classNames from "classnames/bind";
 // icons
 import { AddShoppingCart } from "@mui/icons-material";
 
+// utils
+import { formatCurrency } from "~/util";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -59,7 +62,7 @@ const SingleProduct = () => {
                 {product.old_price && (
                   <p className={cx("old-price")}>
                     <span>Old price: </span>
-                    {product.old_price && <span>{product.old_price}</span>}
+                    {product.old_price && <span>{formatCurrency(product.old_price)}</span>}
                     {" ("}
                     <span style={{ color: "#f00" }}>{calculateDiscount(product.old_price, product.price)}</span>
                     {")"}
@@ -67,7 +70,7 @@ const SingleProduct = () => {
                 )}
                 <p>
                   <span>Price: </span>
-                  <span className={cx("new-price")}>{product.price}</span>
+                  <span className={cx("new-price")}>{formatCurrency(product.price)}</span>
                 </p>
               </div>
               <div className={cx("product__options")}>
