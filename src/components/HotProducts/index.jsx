@@ -50,11 +50,11 @@ const HotProducts = () => {
           breakpoints={{
             768: {
               slidesPerView: 3,
-              spaceBetween: 7,
+              spaceBetween: 5,
             },
             992: {
               slidesPerView: 4,
-              spaceBetween: 14,
+              spaceBetween: 10,
             },
           }}
         >

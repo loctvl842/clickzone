@@ -11,14 +11,6 @@ import { useLocation } from "react-router-dom";
 // components
 import { ProductCard } from "~/components";
 
-// icons
-import { AddCircle } from "@mui/icons-material";
-
-// modals
-import { modals } from "~/modal";
-import ProductForm, { modal_type } from "~/modal/ProductForm";
-import { modalOpen } from "~/store/modalSlice";
-
 let cx = classNames.bind(styles);
 
 const getArray = () => {
@@ -34,10 +26,6 @@ const NewProducts = () => {
 
   const user = useSelector((state) => state.user.data);
 
-  const handleAddNewProductClick = () => {
-    modals[modal_type] = <ProductForm />;
-    dispatch(modalOpen(modal_type));
-  };
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const page_number = params.get("page") ?? 0;
@@ -49,18 +37,7 @@ const NewProducts = () => {
       <div className={cx("product-list")}>
         {user && user.is_admin ? (
           <div className={cx("product-item")}>
-            <div className={cx("new-product-btn")}>
-              <div className={cx("add-btn-wrapper")}>
-                <div className={cx("add-btn")} onClick={handleAddNewProductClick}>
-                  <AddCircle style={{ fontSize: 100, userSelect: "none" }} />
-                </div>
-              </div>
-              <div className={cx("fake-product-item")}>
-                <span className={cx("fake-img-wrapper")}></span>
-                <p className={cx("fake-price-sale")}></p>
-                <span className={cx("fake-name")}></span>
-              </div>
-            </div>
+            <ProductCard.CreateButton />
           </div>
         ) : null}
         {products &&
