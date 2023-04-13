@@ -25,6 +25,7 @@ const NewProducts = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const products = useSelector((state) => selectAllProducts(state));
+  const productStatus = useSelector((state) => state.product.status);
 
   const user = useSelector((state) => state.user.data);
 
@@ -60,9 +61,14 @@ const NewProducts = () => {
         {products &&
           products.map((p) => (
             <div key={uuidv4()} className={cx("product-item")}>
-              <ProductCard product={p} />
+              <ProductCard product={p} user={user} />
             </div>
           ))}
+        {productStatus === "loading" && (
+          <div className={cx("product-item")}>
+            <ProductCard.Loading></ProductCard.Loading>
+          </div>
+        )}
       </div>
     </div>
   );

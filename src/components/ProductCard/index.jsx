@@ -2,7 +2,7 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { modalClose, modalOpen } from "~/store/modalSlice";
 
 // icons
@@ -19,9 +19,8 @@ import { removeProduct } from "~/store/productSlice";
 
 let cx = classNames.bind(styles);
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, user }) => {
   const dispatch = useDispatch();
-  const { data: user } = useSelector((state) => state.user);
 
   const handleRemoveBtnClick = (e) => {
     e.preventDefault();
@@ -68,7 +67,7 @@ const ProductCard = ({ product }) => {
           )}
           <div className={cx("card")}>
             <span className={cx("img-wrapper")}>
-              <img src={product.image_url} alt="" />
+              <img src={product.image_url} className={cx("image")} alt="" />
             </span>
             <p className={cx("price-sale")}>
               {"Code "}
@@ -85,5 +84,27 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
+
+const Skeleton = () => {
+  return (
+    <div className={cx("container")}>
+      <div className={cx("product-item")}>
+        <div className={cx("card")}>
+          <span className={cx("img-wrapper", "skeleton-box")} style={{ display: "block" }}></span>
+          <p className={cx("price-sale")}>
+            <span className={cx("skeleton-box")} style={{ width: 70, height: 17 }}></span>
+            <span className={cx("price", "skeleton-box")} style={{ width: 120, height: 17 }}></span>
+            <span className={cx("old-price", "skeleton-box")} style={{ width: 100, height: 12 }}></span>
+          </p>
+          <span className={cx("name")}>
+            <div className={cx("skeleton-box")} style={{ width: "100%", height: 36 }}></div>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ProductCard.Loading = Skeleton;
 
 export default ProductCard;

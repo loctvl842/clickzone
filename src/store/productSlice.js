@@ -13,11 +13,15 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchProductsByPage.fulfilled, (state, action) => {
-      const { products } = action.payload;
-      state.status = "succeeded";
-      productAdapter.setAll(state, products);
-    });
+    builder
+      .addCase(fetchProductsByPage.fulfilled, (state, action) => {
+        const { products } = action.payload;
+        state.status = "succeeded";
+        productAdapter.setAll(state, products);
+      })
+      .addCase(fetchProductsByPage.pending, (state) => {
+        state.status = "loading";
+      });
     builder.addCase(addProduct.fulfilled, (state, action) => {
       const { product: newProduct } = action.payload;
       productAdapter.addOne(state, newProduct);
@@ -39,7 +43,7 @@ export default productSlice.reducer;
 // actions
 // export const { } = productSlice.actions;
 export const fetchProductsByPage = createAsyncThunk("product/fetchProductsByPage", async (page_number) => {
-  console.log('fetchProductsByPage')
+  console.log("fetchProductsByPage");
   const pageSize = process.env.REACT_APP_PAGE_SIZE;
   const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}&&num=${pageSize}`);
   return res.data;
