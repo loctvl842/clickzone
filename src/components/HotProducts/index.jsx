@@ -4,9 +4,6 @@ import classNames from "classnames/bind";
 // components
 import { ProductCard } from "~/components";
 
-// key index
-import { v4 as uuidv4 } from "uuid";
-
 // icons
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
@@ -19,6 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 let cx = classNames.bind(styles);
 
@@ -62,7 +60,7 @@ const HotProducts = () => {
         >
           {cards.map((card) => (
             <SwiperSlide key={uuidv4()}>
-              <ProductCard data={card} />
+              <ProductCard product={card} />
             </SwiperSlide>
           ))}
         </Swiper>

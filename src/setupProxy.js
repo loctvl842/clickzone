@@ -4,8 +4,8 @@ module.exports = (app) => {
   app.use(
     "/api",
     createProxyMiddleware({
-      // target: "https://clickzone.herokuapp.com/",
-      target: "http://localhost/php/clickzone",
+      target: "https://clickzone.herokuapp.com/",
+      // target: "http://localhost/php/clickzone",
       changeOrigin: true,
       onProxyReq: (proxyReq, req, res) => {
         console.log("proxyReq: ", { host: proxyReq.host, path: proxyReq.path });

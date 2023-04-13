@@ -16,11 +16,13 @@ import { modals } from "~/modal";
 import ConfirmBox, { modal_type as confirmBox_modal_type } from "~/modal/ConfirmBox";
 import ProductForm, { modal_type as productForm_modal_type } from "~/modal/ProductForm";
 import { removeProduct } from "~/store/productSlice";
+import { useState } from "react";
 
 let cx = classNames.bind(styles);
 
 const ProductCard = ({ product, user }) => {
   const dispatch = useDispatch();
+  const [imgLoading, setImgLoading] = useState(true);
 
   const handleRemoveBtnClick = (e) => {
     e.preventDefault();
@@ -46,40 +48,47 @@ const ProductCard = ({ product, user }) => {
   };
 
   return (
-    <div className={cx("container")}>
-      {product && (
-        <NavLink to={{ pathname: `/${product.name.trim()}/${product.id}` }} className={cx("product-item")}>
-          {user && user.is_admin && (
-            <div className={cx("actions")}>
-              <ul>
-                <li>
-                  <button className={cx("icon")} onClick={handleRemoveBtnClick}>
-                    <Delete />
-                  </button>
-                </li>
-                <li>
-                  <button className={cx("icon")} onClick={handleEditProduct}>
-                    <Edit />
-                  </button>
-                </li>
-              </ul>
+    <div>
+      {product !== undefined && (
+        <img src={product.image_url} onLoad={() => setImgLoading(false)} style={{ display: "none" }} alt="" />
+      )}
+      {product !== undefined && !imgLoading ? (
+        <div className={cx("container")}>
+          <NavLink to={{ pathname: `/${product.name.trim()}/${product.id}` }} className={cx("product-item")}>
+            {user && user.is_admin && (
+              <div className={cx("actions")}>
+                <ul>
+                  <li>
+                    <button className={cx("icon")} onClick={handleRemoveBtnClick}>
+                      <Delete />
+                    </button>
+                  </li>
+                  <li>
+                    <button className={cx("icon")} onClick={handleEditProduct}>
+                      <Edit />
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+            <div className={cx("card")}>
+              <span className={cx("img-wrapper")}>
+                <img src={product.image_url} className={cx("image")} alt="" />
+              </span>
+              <p className={cx("price-sale")}>
+                {"Code "}
+                <b>
+                  {product.id}
+                  <span className={cx("price")}>{formatCurrency(product.price)}</span>
+                  {product.old_price && <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>}
+                </b>
+              </p>
+              <span className={cx("name")}>{product.name}</span>
             </div>
-          )}
-          <div className={cx("card")}>
-            <span className={cx("img-wrapper")}>
-              <img src={product.image_url} className={cx("image")} alt="" />
-            </span>
-            <p className={cx("price-sale")}>
-              {"Code "}
-              <b>
-                {product.id}
-                <span className={cx("price")}>{formatCurrency(product.price)}</span>
-                {product.old_price && <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>}
-              </b>
-            </p>
-            <span className={cx("name")}>{product.name}</span>
-          </div>
-        </NavLink>
+          </NavLink>
+        </div>
+      ) : (
+        <Skeleton />
       )}
     </div>
   );

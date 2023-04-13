@@ -21,6 +21,11 @@ import { modalOpen } from "~/store/modalSlice";
 
 let cx = classNames.bind(styles);
 
+const getArray = () => {
+  const pageSize = process.env.REACT_APP_PAGE_SIZE;
+  return Array(parseInt(pageSize)).fill(0);
+};
+
 const NewProducts = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -64,11 +69,12 @@ const NewProducts = () => {
               <ProductCard product={p} user={user} />
             </div>
           ))}
-        {productStatus === "loading" && (
-          <div className={cx("product-item")}>
-            <ProductCard.Loading></ProductCard.Loading>
-          </div>
-        )}
+        {productStatus === "loading" &&
+          getArray().map(() => (
+            <div key={uuidv4()} className={cx("product-item")}>
+              <ProductCard.Loading />
+            </div>
+          ))}
       </div>
     </div>
   );
