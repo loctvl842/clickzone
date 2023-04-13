@@ -4,7 +4,6 @@ import axios from "axios";
 const productAdapter = createEntityAdapter();
 
 const initialState = productAdapter.getInitialState({
-  pageSize: 0,
   status: "idle",
   error: null,
 });
@@ -15,9 +14,8 @@ const productSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchProductsByPage.fulfilled, (state, action) => {
-      const { pageSize, products } = action.payload;
+      const { products } = action.payload;
       state.status = "succeeded";
-      state.pageSize = pageSize;
       productAdapter.setAll(state, products);
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
@@ -41,9 +39,9 @@ export default productSlice.reducer;
 // actions
 // export const { } = productSlice.actions;
 export const fetchProductsByPage = createAsyncThunk("product/fetchProductsByPage", async (page_number) => {
-  const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}&&num=2`);
-  console.log(res)
-  console.log(res.data);
+  console.log('fetchProductsByPage')
+  const pageSize = process.env.REACT_APP_PAGE_SIZE;
+  const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}&&num=${pageSize}`);
   return res.data;
 });
 

@@ -8,11 +8,11 @@ import { Logo, NavbarUserActions } from "~/components";
 import { userReset } from "~/store/userSlice";
 
 // hooks
-import { useClickOutside } from "~/hook";
+import { useClickOutside, useNavbarFloat } from "~/hook";
 
 import { v4 as uuidv4 } from "uuid";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useRef, useState } from "react";
 
 // fake menu
 import { menu_0 } from "./menu";
@@ -38,43 +38,29 @@ import axios from "axios";
 
 let cx = classNames.bind(styles);
 
-const ActionMenu = () => { };
+const ActionMenu = () => {};
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isFloat, setIsFloat] = useState(false);
+  const isFloat = useNavbarFloat();
   const [userActionVisible, setUserActionVisible] = useState(false);
   const accountBtnRef = useRef();
   const userActionsRef = useRef();
 
-  const { data: user } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.data);
+
+  useClickOutside([userActionsRef, accountBtnRef], () => {
+    if (userActionVisible) setUserActionVisible(false);
+  });
 
   const handleAccountBtnClick = () => {
     setUserActionVisible((prevState) => !prevState);
   };
 
-  useClickOutside([userActionsRef, accountBtnRef], (e) => {
-    if (userActionVisible) setUserActionVisible(false);
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 106) {
-        setIsFloat(true);
-      } else {
-        setIsFloat(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const handleLogoutClick = async () => {
     Cookies.remove("token");
     try {
       dispatch(userReset());
-      navigate("/login");
       await axios.post("/api/user/logout.php", {});
     } catch (e) {
       console.log({ logout: e });
@@ -85,16 +71,22 @@ const Navbar = () => {
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
         <div className={cx("row-1")}>
-          <div className={cx("menu__mobile")}>
-            <Menu />
-          </div>
-          <div className={cx("user__mobile")}>
-            <div className={cx("action")}>
-              <ArrowDropDown />
-              <ActionMenu />
-            </div>
-          </div>
           <div className={cx("left")}>
+            <div className={cx("menu__mobile")}>
+              <div className={cx("action")}>
+                <div className={cx("action-btn")}>
+                  <Menu />
+                </div>
+              </div>
+            </div>
+            <div className={cx("user__mobile")}>
+              <div className={cx("action")}>
+                <div className={cx("action-btn")}>
+                  <ArrowDropDown />
+                  <ActionMenu />
+                </div>
+              </div>
+            </div>
             <NavLink to="/home">
               <Logo />
             </NavLink>

@@ -9,7 +9,7 @@ import { fetchProductsByPage, selectAllProducts } from "~/store/productSlice";
 import { useLocation } from "react-router-dom";
 
 // components
-import { ProductCard, Paginator } from "~/components";
+import { ProductCard } from "~/components";
 
 // icons
 import { AddCircle } from "@mui/icons-material";
@@ -25,9 +25,8 @@ const NewProducts = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const products = useSelector((state) => selectAllProducts(state));
-  const productStatus = useSelector((state) => state.product.status);
 
-  const { data: user } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.data);
 
   const handleAddNewProductClick = () => {
     modals[modal_type] = <ProductForm />;
@@ -37,7 +36,7 @@ const NewProducts = () => {
     const params = new URLSearchParams(location.search);
     const page_number = params.get("page") ?? 0;
     dispatch(fetchProductsByPage(page_number));
-  }, [dispatch, productStatus, location]);
+  }, [dispatch, location]);
 
   return (
     <div className={cx("container")}>
@@ -65,9 +64,6 @@ const NewProducts = () => {
             </div>
           ))}
       </div>
-      <center>
-        <Paginator />
-      </center>
     </div>
   );
 };

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function usePageCount() {
   const [count, setCount] = useState(0);
-  const pageSize = parseInt(useSelector((state) => state.product.pageSize));
   useEffect(() => {
     const countProduct = async () => {
+      const pageSize = process.env.REACT_APP_PAGE_SIZE;
       try {
         const res = await axios.get("api/product/count.php");
         const productCount = res.data;
@@ -17,6 +16,6 @@ export default function usePageCount() {
       }
     };
     countProduct();
-  }, [pageSize]);
+  }, []);
   return count;
 }

@@ -19,7 +19,7 @@ const ConfirmBox = ({ question, confirmBtnText, onConfirm }) => {
 
   useEffect(() => {
     questionRef.current.innerHTML = question;
-  }, []);
+  }, [question]);
 
   return (
     <div className={cx("container")}>

@@ -24,7 +24,7 @@ const OptionBox = () => {
     setIsMenuVisible(false);
   };
 
-  useClickOutside([menuRef, btnRef], (e) => {
+  useClickOutside([menuRef, btnRef], () => {
     setIsMenuVisible(false);
   });
 

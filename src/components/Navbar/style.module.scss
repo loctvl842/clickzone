@@ -2,7 +2,6 @@
   flex-shrink: 0;
   background: #f1f1f1;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
-  padding: 12px 0 0;
   position: relative;
   z-index: 3;
   @media (max-width: 991px) {
@@ -29,7 +28,10 @@
   display: flex;
   width: 100%;
   position: relative;
+  padding: 15px 0;
+  align-items: center;
   @media (max-width: 991px) {
+    padding: 0;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -40,10 +42,13 @@
   display: none;
   @media (max-width: 991px) {
     cursor: pointer;
-    display: table;
     position: absolute;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -51,15 +56,17 @@
   display: none;
   @media (max-width: 991px) {
     cursor: pointer;
-    display: table;
     position: absolute;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 20px;
+    display: table;
   }
 }
 
 .left {
   flex: 3;
+  position: relative;
   @media (max-width: 991px) {
     width: 100%;
     text-align: center;
@@ -125,7 +132,6 @@
   flex: 3;
   display: flex;
   justify-content: flex-end;
-  margin-top: 3px;
   @media (max-width: 991px) {
     display: none;
   }
@@ -177,7 +183,6 @@
 // ------------ ROW 2 -------------------
 .row-2 {
   display: flex;
-  margin-top: 10px;
   @media (max-width: 991px) {
     display: none;
   }
@@ -191,6 +196,7 @@
   max-width: 220px;
   position: relative;
   cursor: pointer;
+  margin-bottom: 10px;
   &__title {
     color: #444;
     display: flex;
@@ -337,21 +343,27 @@
   box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
   transition: none;
   animation: header-affix 0.6s ease 1;
+  padding-top: 0;
   @media (max-width: 991px) {
-    padding-top: 7px;
     padding-left: 0;
     padding-right: 0;
   }
   .row-1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
     .left {
+      @media (max-width: 991px) {
+        position: absolute;
+        top: 50%;
+      }
       a {
         display: none;
       }
     }
     .center {
       @media (max-width: 991px) {
-        margin-top: 0;
-        width: 80%;
+        margin: 0;
+        width: 70%;
       }
     }
     .center .header-search .input-group .form-control {
@@ -371,6 +383,7 @@
       &__title {
         background: #e9e9e9;
         color: #454545;
+        padding: 6px 12px;
       }
     }
     .support-policy-wrapper {
@@ -381,7 +394,7 @@
 
 @keyframes header-affix {
   from {
-    top: -40%;
+    top: -60px;
   }
   to {
     top: 0;

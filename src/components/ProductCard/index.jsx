@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
               <b>
                 {product.id}
                 <span className={cx("price")}>{formatCurrency(product.price)}</span>
-                <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>
+                {product.old_price && <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>}
               </b>
             </p>
             <span className={cx("name")}>{product.name}</span>

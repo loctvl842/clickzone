@@ -1,5 +1,8 @@
 .pagination-wrapper {
   display: inline-block;
+  &.disappear {
+    display: none;
+  }
   .pagination {
     margin-top: 10px;
     margin-bottom: 10px;

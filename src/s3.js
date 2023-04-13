@@ -15,8 +15,6 @@ const s3 = new S3({
 });
 
 export const generateUploadUrl = (file) => {
-  const fileType = encodeURIComponent(file.type);
-  // console.log(fileType);
   const ext = file.type.split("/")[1];
   const imageName = uuidv4() + "." + ext;
   const params = {

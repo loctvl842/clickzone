@@ -25,7 +25,6 @@ const generateNumberArray = (currentPage) => {
 const Paginator = () => {
   const [params] = useSearchParams();
   const pageCount = usePageCount();
-  console.log(pageCount);
   const [currentPage, setCurrentPage] = useState(0);
 
   const getNavObject = (pageNumber) => {
@@ -43,13 +42,12 @@ const Paginator = () => {
 
   useEffect(() => {
     const page = params.get("page");
-    // dispatch(productSetPage(parseInt(page) || 0));
     setCurrentPage(parseInt(page) || 0);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [params]);
 
   return (
-    <div className={cx("pagination-wrapper")}>
+    <div className={cx("pagination-wrapper", { disappear: pageCount <= 1 })}>
       <ul className={cx("pagination")}>
         <li className={cx({ disappear: currentPage < 2 })}>
           <NavLink to={getNavObject(0)}>
@@ -78,14 +76,14 @@ const Paginator = () => {
             </NavLink>
           </li>
         ))}
-        <li>
+        <li className={cx({ disappear: currentPage >= pageCount - 1 })}>
           <NavLink to={getNavObject(currentPage + 1)}>
             <span>
               <KeyboardArrowRight fontSize="small" />
             </span>
           </NavLink>
         </li>
-        <li>
+        <li className={cx({ disappear: currentPage > pageCount - 1 - 2 })}>
           <NavLink to={getNavObject(pageCount - 1)}>
             <span>
               <KeyboardDoubleArrowRight fontSize="small" />

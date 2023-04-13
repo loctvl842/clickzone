@@ -93,7 +93,7 @@ const ProductForm = ({ product }) => {
       descriptionEle.innerHTML = product.description;
       setProductImgFile(product.image_url);
     }
-  }, [action]);
+  }, [action, product]);
 
   return (
     <div className={cx("form-wrapper")}>

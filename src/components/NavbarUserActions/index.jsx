@@ -2,6 +2,7 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 let cx = classNames.bind(styles);
 
@@ -14,9 +15,9 @@ const NavbarUserActions = ({ onLogoutClick }) => {
           <div className={cx("item")}>Account ({user.username})</div>
         </li>
         <li>
-          <div className={cx("item")} onClick={onLogoutClick}>
+          <NavLink to="/login" className={cx("item")} onClick={onLogoutClick}>
             Log out
-          </div>
+          </NavLink>
         </li>
       </ul>
     </div>
