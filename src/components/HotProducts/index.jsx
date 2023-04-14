@@ -7,9 +7,6 @@ import { ProductCard } from "~/components";
 // icons
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 
-// fake data
-import productCards from "./fakeData.json";
-
 // Slide show
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,13 +16,16 @@ import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useHotProducts } from "~/hook";
 
+// utils
+import { initArray } from "~/util";
+
 let cx = classNames.bind(styles);
 
 const HotProducts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const products = useHotProducts()
+  const products = useHotProducts();
 
   return (
     <div className={cx("container")}>
@@ -59,11 +59,17 @@ const HotProducts = () => {
             },
           }}
         >
-          {products.map((product) => (
-            <SwiperSlide key={uuidv4()}>
-              <ProductCard product={product} />
-            </SwiperSlide>
-          ))}
+          {products
+            ? products.map((product) => (
+              <SwiperSlide key={uuidv4()}>
+                <ProductCard product={product} />
+              </SwiperSlide>
+            ))
+            : initArray(5).map(() => (
+              <SwiperSlide key={uuidv4()}>
+                <ProductCard.Loading />
+              </SwiperSlide>
+            ))}
         </Swiper>
         <div className={cx("btn")}>
           <div className={cx("btn__frame", "btn--prev")} ref={prevRef}>

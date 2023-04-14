@@ -11,12 +11,10 @@ import { useLocation } from "react-router-dom";
 // components
 import { ProductCard } from "~/components";
 
-let cx = classNames.bind(styles);
+// utils
+import { initArray } from "~/util";
 
-const getArray = () => {
-  const pageSize = import.meta.env.VITE_PAGE_SIZE;
-  return Array(parseInt(pageSize)).fill(0);
-};
+let cx = classNames.bind(styles);
 
 const NewProducts = () => {
   const dispatch = useDispatch();
@@ -47,7 +45,7 @@ const NewProducts = () => {
             </div>
           ))}
         {productStatus === "loading" &&
-          getArray().map(() => (
+          initArray(import.meta.env.VITE_PAGE_SIZE).map(() => (
             <div key={uuidv4()} className={cx("product-item")}>
               <ProductCard.Loading />
             </div>

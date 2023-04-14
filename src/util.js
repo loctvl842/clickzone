@@ -4,3 +4,7 @@ export function formatCurrency(amount) {
   const formatted = formatter.format(amount).replace(/\u00A0/g, ""); // remove non-breaking space characters
   return formatted;
 }
+
+export function initArray(size) {
+  return Array(parseInt(size)).fill(0);
+}
