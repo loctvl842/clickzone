@@ -5,7 +5,7 @@ export default function usePageCount() {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const countProduct = async () => {
-      const pageSize = process.env.REACT_APP_PAGE_SIZE;
+      const pageSize = import.meta.env.VITE_PAGE_SIZE;
       try {
         const res = await axios.get("api/product/count.php");
         const productCount = res.data;

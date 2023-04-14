@@ -12,8 +12,12 @@ import { formatCurrency } from "~/util";
 
 // modal
 import { modals } from "~/modal";
-import ConfirmBox, { modal_type as confirmBox_modal_type } from "~/modal/ConfirmBox";
-import ProductForm, { modal_type as productForm_modal_type } from "~/modal/ProductForm";
+import ConfirmBox, {
+  modal_type as confirmBox_modal_type,
+} from "~/modal/ConfirmBox";
+import ProductForm, {
+  modal_type as productForm_modal_type,
+} from "~/modal/ProductForm";
 import { removeProduct } from "~/store/productSlice";
 import { modalClose, modalOpen } from "~/store/modalSlice";
 import { useState } from "react";
@@ -50,10 +54,18 @@ const ProductCard = ({ product, user }) => {
   return (
     <div className={cx("container")}>
       {product !== undefined && (
-        <img src={product.image_url} onLoad={() => setImgLoading(false)} style={{ display: "none" }} alt="" />
+        <img
+          src={product.image_url}
+          onLoad={() => setImgLoading(false)}
+          style={{ display: "none" }}
+          alt=""
+        />
       )}
       {product !== undefined && !imgLoading ? (
-        <NavLink to={{ pathname: `/${product.name.trim()}/${product.id}` }} className={cx("content")}>
+        <NavLink
+          to={{ pathname: `/${product.name.trim()}/${product.id}` }}
+          className={cx("content")}
+        >
           {user && user.is_admin && (
             <div className={cx("actions")}>
               <ul>
@@ -78,8 +90,14 @@ const ProductCard = ({ product, user }) => {
               {"Code "}
               <b>
                 {product.id}
-                <span className={cx("price")}>{formatCurrency(product.price)}</span>
-                {product.old_price && <span className={cx("old-price")}>{formatCurrency(product.old_price)}</span>}
+                <span className={cx("price")}>
+                  {formatCurrency(product.price)}
+                </span>
+                {product.old_price && (
+                  <span className={cx("old-price")}>
+                    {formatCurrency(product.old_price)}
+                  </span>
+                )}
               </b>
             </p>
             <span className={cx("name")}>{product.name}</span>
@@ -96,14 +114,29 @@ const Skeleton = () => {
   return (
     <div className={cx("content")}>
       <div className={cx("card")}>
-        <span className={cx("img-wrapper", "skeleton-box")} style={{ display: "block" }}></span>
+        <span
+          className={cx("img-wrapper", "skeleton-box")}
+          style={{ display: "block" }}
+        ></span>
         <p className={cx("price-sale")}>
-          <span className={cx("skeleton-box")} style={{ width: 70, height: 17 }}></span>
-          <span className={cx("price", "skeleton-box")} style={{ width: 120, height: 17 }}></span>
-          <span className={cx("old-price", "skeleton-box")} style={{ width: 100, height: 12 }}></span>
+          <span
+            className={cx("skeleton-box")}
+            style={{ width: 70, height: 17 }}
+          ></span>
+          <span
+            className={cx("price", "skeleton-box")}
+            style={{ width: 120, height: 17 }}
+          ></span>
+          <span
+            className={cx("old-price", "skeleton-box")}
+            style={{ width: 100, height: 12 }}
+          ></span>
         </p>
         <span className={cx("name")}>
-          <div className={cx("skeleton-box")} style={{ width: "100%", height: 36 }}></div>
+          <div
+            className={cx("skeleton-box")}
+            style={{ width: "100%", height: 36 }}
+          ></div>
         </span>
       </div>
     </div>

@@ -5,8 +5,11 @@
   flex-direction: column;
   .content-wrapper {
     flex-grow: 1;
-    margin: 0 auto;
+    margin: 126px auto 0;
     width: 100%;
+    @media (max-width: 991px) {
+      margin-top: 105px;
+    }
     @media (min-width: 768px) {
       width: 750px;
     }

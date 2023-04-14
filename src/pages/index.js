@@ -13,14 +13,14 @@ import Cart from "~/pages/Cart";
 const pages = [
   {
     path: ["/", "/home"],
-    components: <Home />,
+    content: Home,
     layout: MainLayout,
   },
-  { path: "/all-products", components: <AllProducts />, layout: MainLayout },
-  { path: "/login", components: <Login /> },
-  { path: "/signup", components: <SignUp /> },
-  { path: "/:name/:productId", components: <SingleProduct />, layout: MainLayout },
-  { path: "/cart", components: <Cart />, layout: MainLayout },
+  { path: "/all-products", content: AllProducts, layout: MainLayout },
+  { path: "/login", content: Login },
+  { path: "/signup", content: SignUp },
+  { path: "/:name/:productId", content: SingleProduct, layout: MainLayout },
+  { path: "/cart", content: Cart, layout: MainLayout },
 ];
 
 export default pages;

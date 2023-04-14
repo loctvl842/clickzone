@@ -1,22 +1,18 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { Fragment } from "react";
-import { v4 as uuidv4 } from "uuid";
-
 import { Navbar, Footer, Paginator } from "~/components";
-import { useNavbarFloat } from "~/hook";
 
 let cx = classNames.bind(styles);
 
-const MainLayout = ({ components }) => {
-  const navbarFloat = useNavbarFloat();
+const MainLayout = ({ content }) => {
+  const PageContent = content;
 
   return (
     <div className={cx("container")}>
       <Navbar />
-      <div className={cx("content-wrapper")} style={{ marginTop: navbarFloat ? 106 : 0 }}>
-        {Array.isArray(components) ? components.map((c) => <Fragment key={uuidv4()}>{c}</Fragment>) : components}
+      <div id="page-content" className={cx("content-wrapper")}>
+        <PageContent />
       </div>
       <center>
         <Paginator />

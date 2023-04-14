@@ -14,7 +14,7 @@ import { ProductCard } from "~/components";
 let cx = classNames.bind(styles);
 
 const getArray = () => {
-  const pageSize = process.env.REACT_APP_PAGE_SIZE;
+  const pageSize = import.meta.env.VITE_PAGE_SIZE;
   return Array(parseInt(pageSize)).fill(0);
 };
 

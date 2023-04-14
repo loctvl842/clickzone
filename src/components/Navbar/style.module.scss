@@ -2,7 +2,10 @@
   flex-shrink: 0;
   background: #f1f1f1;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
   z-index: 3;
   @media (max-width: 991px) {
     padding: 12px 5% 0;

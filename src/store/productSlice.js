@@ -1,4 +1,8 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const productAdapter = createEntityAdapter();
@@ -33,7 +37,10 @@ const productSlice = createSlice({
     });
     builder.addCase(editProduct.fulfilled, (state, action) => {
       const { product: updatedProduct } = action.payload;
-      productAdapter.updateOne(state, { id: updatedProduct.id, changes: updatedProduct });
+      productAdapter.updateOne(state, {
+        id: updatedProduct.id,
+        changes: updatedProduct,
+      });
     });
   },
 });
@@ -43,27 +50,43 @@ export default productSlice.reducer;
 
 // actions
 // export const { } = productSlice.actions;
-export const fetchProductsByPage = createAsyncThunk("product/fetchProductsByPage", async (page_number) => {
-  console.log("fetchProductsByPage");
-  const pageSize = process.env.REACT_APP_PAGE_SIZE;
-  const res = await axios.get(`/api/product/get_by_page.php?page=${page_number}&&num=${pageSize}`);
-  return res.data;
-});
+export const fetchProductsByPage = createAsyncThunk(
+  "product/fetchProductsByPage",
+  async (page_number) => {
+    console.log("fetchProductsByPage");
+    const pageSize = import.meta.env.VITE_PAGE_SIZE;
+    const res = await axios.get(
+      `/api/product/get_by_page.php?page=${page_number}&&num=${pageSize}`
+    );
+    return res.data;
+  }
+);
 
-export const addProduct = createAsyncThunk("product/addProduct", async (productData) => {
-  const res = await axios.post("/api/product/create.php", productData);
-  return res.data;
-});
+export const addProduct = createAsyncThunk(
+  "product/addProduct",
+  async (productData) => {
+    const res = await axios.post("/api/product/create.php", productData);
+    return res.data;
+  }
+);
 
-export const removeProduct = createAsyncThunk("product/removeProduct", async (productId) => {
-  await axios.post("/api/product/remove.php", { productId });
-  return productId;
-});
+export const removeProduct = createAsyncThunk(
+  "product/removeProduct",
+  async (productId) => {
+    await axios.post("/api/product/remove.php", { productId });
+    return productId;
+  }
+);
 
-export const editProduct = createAsyncThunk("product/editProduct", async (productData) => {
-  const res = await axios.put("/api/product/edit.php", productData);
-  return res.data;
-});
+export const editProduct = createAsyncThunk(
+  "product/editProduct",
+  async (productData) => {
+    const res = await axios.put("/api/product/edit.php", productData);
+    return res.data;
+  }
+);
 
 // selectors
-export const { selectAll: selectAllProducts } = productAdapter.getSelectors((state) => state.product);
+export const { selectAll: selectAllProducts } = productAdapter.getSelectors(
+  (state) => state.product
+);

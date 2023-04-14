@@ -103,7 +103,10 @@ const ProductForm = ({ product }) => {
       <div className={cx("card")}>
         <div className={cx("header")}>
           <h2>Add Product</h2>
-          <button className={cx("close-btn-wrapper")} onClick={handleCloseBtnClick}>
+          <button
+            className={cx("close-btn-wrapper")}
+            onClick={handleCloseBtnClick}
+          >
             <Close />
           </button>
         </div>
@@ -114,7 +117,9 @@ const ProductForm = ({ product }) => {
                 <div className={cx("square-box")}>
                   <div className={cx("choose-img-wrapper")}>
                     <button
-                      className={cx("cancel-current-img-btn", { visible: previewImg !== "" })}
+                      className={cx("cancel-current-img-btn", {
+                        visible: previewImg !== "",
+                      })}
                       onClick={handleCancelImageBtnClick}
                     >
                       <Close />
@@ -129,7 +134,11 @@ const ProductForm = ({ product }) => {
                     />
                     {previewImg !== "" ? (
                       <div className={cx("preview-img-wrapper")}>
-                        <img id="product-creation_preview-image" src={previewImg} alt="" />
+                        <img
+                          id="product-creation_preview-image"
+                          src={previewImg}
+                          alt=""
+                        />
                       </div>
                     ) : (
                       <label
@@ -142,7 +151,9 @@ const ProductForm = ({ product }) => {
                           <div className={cx("icon-wrapper")}>
                             <AddAPhoto />
                           </div>
-                          <span className={cx("text-1")}>Add Photos/Videos</span>
+                          <span className={cx("text-1")}>
+                            Add Photos/Videos
+                          </span>
                           <span className={cx("text-2")}>or drag and drop</span>
                         </div>
                       </label>
@@ -152,13 +163,27 @@ const ProductForm = ({ product }) => {
               </div>
               <div className={cx("col-7")}>
                 <div className={cx("form-control-wrapper")}>
-                  <FormControl name="product-creation_name" placeholder="Product name" type="text" required={true} />
+                  <FormControl
+                    name="product-creation_name"
+                    placeholder="Product name"
+                    type="text"
+                    required={true}
+                  />
                 </div>
                 <div className={cx("form-control-wrapper")}>
-                  <FormControl name="product-creation_old-price" placeholder="Old Price (if available)" type="text" />
+                  <FormControl
+                    name="product-creation_old-price"
+                    placeholder="Old Price (if available)"
+                    type="text"
+                  />
                 </div>
                 <div className={cx("form-control-wrapper")}>
-                  <FormControl name="product-creation_price" placeholder="Price" type="text" required={true} />
+                  <FormControl
+                    name="product-creation_price"
+                    placeholder="Price"
+                    type="text"
+                    required={true}
+                  />
                 </div>
               </div>
             </div>

@@ -120,14 +120,25 @@ const Navbar = () => {
             </div>
             <div className={cx("action")}>
               {!user ? (
-                <NavLink to="/login" onClick={handleLogoutClick} className={cx("action-btn")}>
+                <NavLink
+                  to="/login"
+                  onClick={handleLogoutClick}
+                  className={cx("action-btn")}
+                >
                   <Login />
                 </NavLink>
               ) : (
-                <div className={cx("action-btn")} ref={accountBtnRef} onClick={handleAccountBtnClick}>
+                <div
+                  className={cx("action-btn")}
+                  ref={accountBtnRef}
+                  onClick={handleAccountBtnClick}
+                >
                   <AccountCircle />
                   {userActionVisible && (
-                    <div className={cx("user-actions-wrapper")} ref={userActionsRef}>
+                    <div
+                      className={cx("user-actions-wrapper")}
+                      ref={userActionsRef}
+                    >
                       <NavbarUserActions onLogoutClick={handleLogoutClick} />
                     </div>
                   )}
@@ -161,7 +172,10 @@ const Navbar = () => {
                           <ul>
                             {item_0.menu_1.map((item_1) => (
                               <li key={uuidv4()}>
-                                <NavLink to={item_1.link} className={cx("item-1")}>
+                                <NavLink
+                                  to={item_1.link}
+                                  className={cx("item-1")}
+                                >
                                   <span>{item_1.title}</span>
                                 </NavLink>
                               </li>
@@ -185,13 +199,17 @@ const Navbar = () => {
                 <span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
+                      <span style={{ fontSize: 13, color: "red" }}>
+                        0967.123.456
+                      </span>
                     </b>
                   </a>
                   <span> - </span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
+                      <span style={{ fontSize: 13, color: "red" }}>
+                        0967.123.456
+                      </span>
                     </b>
                   </a>
                 </span>
@@ -204,7 +222,9 @@ const Navbar = () => {
                 <span>
                   <a href="/">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>09h - 19h</span>
+                      <span style={{ fontSize: 13, color: "red" }}>
+                        09h - 19h
+                      </span>
                     </b>
                   </a>
                 </span>
@@ -217,7 +237,9 @@ const Navbar = () => {
                 <span>
                   <a href="tel:0967123456">
                     <b>
-                      <span style={{ fontSize: 13, color: "red" }}>0967.123.456</span>
+                      <span style={{ fontSize: 13, color: "red" }}>
+                        0967.123.456
+                      </span>
                     </b>
                   </a>
                 </span>

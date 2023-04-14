@@ -1,4 +1,4 @@
-import { } from "./main.scss";
+import "./init";
 import { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -20,12 +20,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           {pages.map((page) => {
-            const Layout = page.layout;
-            const Element = page.layout ? (
-              <Layout components={page.components} />
-            ) : (
-              <EmptyLayout components={page.components} />
-            );
+            const Layout = page.layout || EmptyLayout;
+            const Element = <Layout content={page.content} />;
             return Array.isArray(page.path) ? (
               <Fragment key={uuidv4()}>
                 {page.path.map((path) => {
