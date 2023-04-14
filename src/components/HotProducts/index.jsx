@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useHotProducts } from "~/hook";
 
 let cx = classNames.bind(styles);
 
@@ -24,7 +25,7 @@ const HotProducts = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const cards = productCards.data;
+  const products = useHotProducts()
 
   return (
     <div className={cx("container")}>
@@ -58,9 +59,9 @@ const HotProducts = () => {
             },
           }}
         >
-          {cards.map((card) => (
+          {products.map((product) => (
             <SwiperSlide key={uuidv4()}>
-              <ProductCard product={card} />
+              <ProductCard product={product} />
             </SwiperSlide>
           ))}
         </Swiper>

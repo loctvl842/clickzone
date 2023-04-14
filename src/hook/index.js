@@ -3,3 +3,4 @@ export { default as usePreviewImage } from "./usePreviewImage";
 export { default as useSingleProduct } from "./useSingleProduct";
 export { default as usePageCount } from "./usePageCount";
 export { default as useNavbarFloat } from "./useNavbarFloat";
+export { default as useHotProducts } from "./useHotProducts";

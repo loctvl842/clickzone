@@ -28,8 +28,8 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://clickzone.herokuapp.com/",
-        // target: "http://localhost/php/clickzone",
+        // target: "https://clickzone.herokuapp.com/",
+        target: "http://localhost/php/clickzone",
         changeOrigin: true,
       },
     },
