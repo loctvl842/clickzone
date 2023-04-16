@@ -1,8 +1,10 @@
 .container {
   width: 100%;
   border-radius: inherit;
-  max-width: 600px;
   text-align: center;
+  @media (min-width: 768px) {
+    width: 600px;
+  }
   .question {
     font-size: 15px;
     border-bottom: 1px solid #ccc;

@@ -8,7 +8,6 @@ import { useEffect, useRef } from "react";
 
 let cx = classNames.bind(styles);
 
-export const modal_type = "confirmBox";
 const ConfirmBox = ({ question, confirmBtnText, onConfirm }) => {
   const dispatch = useDispatch();
   const questionRef = useRef();
@@ -39,5 +38,7 @@ const ConfirmBox = ({ question, confirmBtnText, onConfirm }) => {
     </div>
   );
 };
+
+ConfirmBox.modal_type = "confirmBox"
 
 export default ConfirmBox;

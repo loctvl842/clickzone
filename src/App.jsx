@@ -42,8 +42,8 @@ function App() {
             );
           })}
         </Routes>
+        <Modal />
       </BrowserRouter>
-      <Modal />
     </>
   );
 }

@@ -11,13 +11,7 @@ import { Delete, Edit, AddCircle } from "@mui/icons-material";
 import { formatCurrency } from "~/util";
 
 // modal
-import { modals } from "~/modal";
-import ConfirmBox, {
-  modal_type as confirmBox_modal_type,
-} from "~/modal/ConfirmBox";
-import ProductForm, {
-  modal_type as productForm_modal_type,
-} from "~/modal/ProductForm";
+import { modals, ProductForm, ConfirmBox } from "~/modal";
 import { removeProduct } from "~/store/productSlice";
 import { modalClose, modalOpen } from "~/store/modalSlice";
 import { useState } from "react";
@@ -30,14 +24,14 @@ const ProductCard = ({ product, user }) => {
 
   const handleRemoveBtnClick = (e) => {
     e.preventDefault();
-    modals[confirmBox_modal_type] = (
+    modals[ConfirmBox.modal_type] = (
       <ConfirmBox
         question={`Are you sure you want to remove <b>${product.name}</b> from your shop?`}
         confirmBtnText="Remove"
         onConfirm={handleRemoveConfirm}
       />
     );
-    dispatch(modalOpen(confirmBox_modal_type));
+    dispatch(modalOpen(ConfirmBox.modal_type));
   };
 
   const handleRemoveConfirm = () => {
@@ -47,8 +41,8 @@ const ProductCard = ({ product, user }) => {
 
   const handleEditProduct = (e) => {
     e.preventDefault();
-    modals[productForm_modal_type] = <ProductForm product={product} />;
-    dispatch(modalOpen(productForm_modal_type));
+    modals[ProductForm.modal_type] = <ProductForm product={product} />;
+    dispatch(modalOpen(ProductForm.modal_type));
   };
 
   return (
@@ -146,8 +140,8 @@ const Skeleton = () => {
 const CreateButton = () => {
   const dispatch = useDispatch();
   const handleAddNewProductClick = () => {
-    modals[productForm_modal_type] = <ProductForm />;
-    dispatch(modalOpen(productForm_modal_type));
+    modals[ProductForm.modal_type] = <ProductForm />;
+    dispatch(modalOpen(ProductForm.modal_type));
   };
   return (
     <div className={cx("container")}>

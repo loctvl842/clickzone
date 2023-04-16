@@ -28,7 +28,6 @@ let cx = classNames.bind(styles);
 const EDIT = "edit";
 const CREATE = "create";
 
-export const modal_type = "productForm";
 const ProductForm = ({ product }) => {
   let action = product ? EDIT : CREATE;
 
@@ -204,4 +203,7 @@ const ProductForm = ({ product }) => {
     </div>
   );
 };
+
+ProductForm.modal_type = "productForm";
+
 export default ProductForm;

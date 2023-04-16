@@ -18,6 +18,8 @@ import {
   updateCartItem,
 } from "~/store/cartSlice";
 import { sessionTotalAdd } from "~/store/userSlice";
+import { modals, CartForm } from "~/modal";
+import { modalOpen } from "~/store/modalSlice";
 
 let cx = classNames.bind(styles);
 
@@ -58,6 +60,9 @@ const SingleProduct = () => {
       );
       dispatch(sessionTotalAdd(quantity * product.price));
     }
+
+    modals[CartForm.modal_type] = <CartForm />;
+    dispatch(modalOpen(CartForm.modal_type));
   };
 
   const handleQuanityChange = (e) => {
