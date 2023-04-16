@@ -5,7 +5,7 @@
   z-index: 500;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  animation: darkening 0.6s ease;
+  animation: fade-in 0.3s ease;
   .box {
     margin: 10px;
     background-color: #fff;
@@ -21,6 +21,16 @@
   }
 }
 
+.closing {
+  animation-name: fade-out;
+  background-color: rgba(0, 0, 0, 0);
+  .box {
+    animation-name: slide-up;
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+}
+
 @keyframes slide-down {
   from {
     opacity: 0;
@@ -32,11 +42,30 @@
   }
 }
 
-@keyframes darkening {
+@keyframes slide-up {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+}
+@keyframes fade-in {
   from {
     background-color: rgba(0, 0, 0, 0);
   }
   to {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
   }
 }
