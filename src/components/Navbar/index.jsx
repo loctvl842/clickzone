@@ -38,7 +38,7 @@ import axios from "axios";
 
 let cx = classNames.bind(styles);
 
-const ActionMenu = () => {};
+const ActionMenu = () => { };
 
 const Navbar = () => {
   const dispatch = useDispatch();

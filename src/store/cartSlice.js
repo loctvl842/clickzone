@@ -17,6 +17,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    cartReset(state) {
+      state.status = "idle";
+      state.error = null;
+    },
     removeCartItem(state, action) {
       const cartItemId = action.payload;
       cartAdapter.removeOne(state, cartItemId);

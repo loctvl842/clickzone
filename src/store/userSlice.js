@@ -15,6 +15,7 @@ const authSlice = createSlice({
     },
     userReset(state, _) {
       state.data = null;
+      state.session = null;
     },
     sessionTotalAdd(state, action) {
       state.session.total += action.payload;

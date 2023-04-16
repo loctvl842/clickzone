@@ -12,10 +12,9 @@ const ProductCartLayout = ({ content }) => {
   const PageContent = content;
   const dispatch = useDispatch();
   const shoppingSession = useSelector((state) => state.user.session);
-  const cartStatus = useSelector((state) => state.cart.status);
 
   useEffect(() => {
-    if (shoppingSession && shoppingSession.id && cartStatus === "idle") {
+    if (shoppingSession && shoppingSession.id) {
       dispatch(fetchCartItems(shoppingSession.id));
     }
   }, [dispatch, shoppingSession]);

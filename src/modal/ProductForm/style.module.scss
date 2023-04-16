@@ -80,7 +80,6 @@
   flex-direction: column;
   .form-data {
     margin: 16px 0;
-    padding: 0px 50px;
     overflow-y: auto;
     flex-grow: 1;
     display: flex;
@@ -88,7 +87,9 @@
     overflow-y: scroll;
     max-height: 650px;
     height: auto;
+    padding: 0px 10px;
     @media (min-width: 768px) {
+    padding: 0px 50px;
       height: 700px;
     }
   }
