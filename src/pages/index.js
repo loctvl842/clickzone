@@ -1,5 +1,5 @@
 // layouts
-import { MainLayout } from "~/layout";
+import { MainLayout, ProductCartLayout } from "~/layout";
 
 // pages
 import Home from "~/pages/Home";
@@ -19,8 +19,12 @@ const pages = [
   { path: "/all-products", content: AllProducts, layout: MainLayout },
   { path: "/login", content: Login },
   { path: "/signup", content: SignUp },
-  { path: "/:name/:productId", content: SingleProduct, layout: MainLayout },
-  { path: "/cart", content: Cart, layout: MainLayout },
+  {
+    path: "/:name/:productId",
+    content: SingleProduct,
+    layout: ProductCartLayout,
+  },
+  { path: "/cart", content: Cart, layout: ProductCartLayout },
 ];
 
 export default pages;

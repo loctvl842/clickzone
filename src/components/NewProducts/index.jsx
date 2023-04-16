@@ -26,8 +26,9 @@ const NewProducts = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const page_number = params.get("page") ?? 0;
-    dispatch(fetchProductsByPage(page_number));
+    const page = params.get("page") ?? 0;
+    const sort = params.get("sort") ?? 0;
+    dispatch(fetchProductsByPage({ sort, page }));
   }, [dispatch, location]);
 
   return (

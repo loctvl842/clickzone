@@ -15,7 +15,9 @@ const Modal = () => {
   const boxRef = useRef();
 
   useClickOutside([boxRef], () => {
-    dispatch(modalClose());
+    if (visible) {
+      dispatch(modalClose());
+    }
   });
 
   return (

@@ -5,15 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 
 import pages from "~/pages";
 import { EmptyLayout } from "~/layout";
-import { useDispatch } from "react-redux";
-import { fetchCurrentUser } from "./store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentUser, fetchShoppingSession } from "./store/userSlice";
 import Modal from "~/modal";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+
   useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
+    if (user === null) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (user === null) return;
+    dispatch(fetchShoppingSession(user.id));
+  }, [dispatch, user]);
 
   return (
     <>

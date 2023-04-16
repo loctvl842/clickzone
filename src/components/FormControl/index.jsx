@@ -6,13 +6,14 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 let cx = classNames.bind(styles);
 
-const FormControl = ({ label, name, placeholder, type, required }) => {
+const FormControl = ({ icon, name, placeholder, type, required }) => {
   const isInputField = type === "password";
   const [visible, setVisible] = useState(false);
+  const IconLabel = icon;
 
   return (
     <label htmlFor={name} className={cx("form-control")}>
-      <div className={cx("icon")}>{label}</div>
+      <div className={cx("icon")}>{IconLabel && <IconLabel />}</div>
       <input
         id={name}
         type={isInputField ? (visible ? "text" : "password") : type}
@@ -27,7 +28,11 @@ const FormControl = ({ label, name, placeholder, type, required }) => {
             setVisible((visible) => !visible);
           }}
         >
-          {visible ? <Visibility fontSize="small" /> : <VisibilityOff fontSize="small" />}
+          {visible ? (
+            <Visibility fontSize="small" />
+          ) : (
+            <VisibilityOff fontSize="small" />
+          )}
         </div>
       )}
     </label>

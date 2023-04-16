@@ -52,11 +52,10 @@ export default productSlice.reducer;
 // export const { } = productSlice.actions;
 export const fetchProductsByPage = createAsyncThunk(
   "product/fetchProductsByPage",
-  async (page_number) => {
-    console.log("fetchProductsByPage");
+  async ({ sort, page }) => {
     const pageSize = import.meta.env.VITE_PAGE_SIZE;
     const res = await axios.get(
-      `/api/product/get_by_page.php?page=${page_number}&&num=${pageSize}`
+      `/api/product/get_by_page.php?sort=${sort}&&page=${page}&&num=${pageSize}`
     );
     return res.data;
   }

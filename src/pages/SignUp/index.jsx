@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { NavLink, useNavigate } from "react-router-dom";
 
 // icons
-import { AccountCircle, Mail, Key, West } from "@mui/icons-material";
+import { AccountCircle, Mail, Key, West, Phone } from "@mui/icons-material";
 
 // components
 import { FormControl, Logo } from "~/components";
@@ -14,8 +14,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { authFail, authReset, authStart, authSuccess } from "~/store/authSlice";
 import { PulseLoader } from "react-spinners";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 let cx = classNames.bind(styles);
+
+const formControls = [
+  {
+    name: "signup_username",
+    icon: AccountCircle,
+    type: "text",
+    placeholder: "Your name",
+  },
+  {
+    name: "signup_telephone",
+    icon: Phone,
+    type: "text",
+    placeholder: "Your telephone",
+  },
+  {
+    name: "signup_email",
+    icon: Mail,
+    type: "email",
+    placeholder: "Your email",
+  },
+  {
+    name: "signup_password",
+    icon: Key,
+    type: "password",
+    placeholder: "Your password",
+  },
+];
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,6 +61,7 @@ const SignUp = () => {
         username: data.signup_username,
         email: data.signup_email,
         password: data.signup_password,
+        telephone: data.signup_telephone,
       });
       dispatch(authSuccess());
       navigate("/login");
@@ -63,18 +92,23 @@ const SignUp = () => {
               <h2>Create An Account</h2>
             </div>
             <form onSubmit={handleSignUp} className={cx("form-login")}>
-              <div className={cx("form-control-wrapper")}>
-                <FormControl name="signup_username" label={<AccountCircle />} type="text" placeholder="Your name" />
-              </div>
-              <div className={cx("form-control-wrapper")}>
-                <FormControl name="signup_email" label={<Mail />} type="email" placeholder="Your email" />
-              </div>
-              <div className={cx("form-control-wrapper")}>
-                <FormControl name="signup_password" label={<Key />} type="password" placeholder="Your password" />
-              </div>
+              {formControls.map((fc) => (
+                <div key={uuidv4()} className={cx("form-control-wrapper")}>
+                  <FormControl
+                    name={fc.name}
+                    icon={fc.icon}
+                    type={fc.type}
+                    placeholder={fc.placeholder}
+                  />
+                </div>
+              ))}
               <button type="submit" className={cx("login-btn")}>
                 {!authState.fetching && <span>Sign up</span>}
-                <PulseLoader color="#fff" size={5} loading={authState.fetching} />
+                <PulseLoader
+                  color="#fff"
+                  size={5}
+                  loading={authState.fetching}
+                />
               </button>
             </form>
             <div className={cx("separator-wrapper")}>

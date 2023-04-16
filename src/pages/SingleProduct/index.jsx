@@ -11,6 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useSingleProduct } from "~/hook";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addCartItem,
+  selectAllCartItems,
+  updateCartItem,
+} from "~/store/cartSlice";
+import { sessionTotalAdd } from "~/store/userSlice";
 
 let cx = classNames.bind(styles);
 
@@ -19,13 +26,37 @@ const calculateDiscount = (oldPrice, price) => {
 };
 
 const SingleProduct = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const product = useSingleProduct();
+  const shoppingSession = useSelector((state) => state.user.session);
+  const cartItems = useSelector((state) => selectAllCartItems(state));
 
   const handleAddToCart = () => {
     if (Cookies.get("token") === undefined) {
       navigate("/login");
+    }
+    // useSelector(state => state)
+    const existingProductInCart = cartItems.find(
+      (item) => item.product_id === product.id
+    );
+    if (existingProductInCart) {
+      dispatch(
+        sessionTotalAdd(
+          (quantity - existingProductInCart.quantity) * product.price
+        )
+      );
+      dispatch(updateCartItem({ id: existingProductInCart.id, quantity }));
+    } else {
+      dispatch(
+        addCartItem({
+          session_id: shoppingSession.id,
+          product_id: product.id,
+          quantity,
+        })
+      );
+      dispatch(sessionTotalAdd(quantity * product.price));
     }
   };
 
@@ -62,15 +93,21 @@ const SingleProduct = () => {
                 {product.old_price && (
                   <p className={cx("old-price")}>
                     <span>Old price: </span>
-                    {product.old_price && <span>{formatCurrency(product.old_price)}</span>}
+                    {product.old_price && (
+                      <span>{formatCurrency(product.old_price)}</span>
+                    )}
                     {" ("}
-                    <span style={{ color: "#f00" }}>{calculateDiscount(product.old_price, product.price)}</span>
+                    <span style={{ color: "#f00" }}>
+                      {calculateDiscount(product.old_price, product.price)}
+                    </span>
                     {")"}
                   </p>
                 )}
                 <p>
                   <span>Price: </span>
-                  <span className={cx("new-price")}>{formatCurrency(product.price)}</span>
+                  <span className={cx("new-price")}>
+                    {formatCurrency(product.price)}
+                  </span>
                 </p>
               </div>
               <div className={cx("product__options")}>
@@ -102,7 +139,12 @@ const SingleProduct = () => {
                         }
                       }}
                     />
-                    <input type="text" className={cx("count")} value={quantity} onChange={handleQuanityChange} />
+                    <input
+                      type="text"
+                      className={cx("count")}
+                      value={quantity}
+                      onChange={handleQuanityChange}
+                    />
                   </div>
                   <button className={cx("buy-btn")} onClick={handleAddToCart}>
                     <div className={cx("btn-wrapper")}>

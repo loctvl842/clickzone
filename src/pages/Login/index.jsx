@@ -75,7 +75,7 @@ const Login = () => {
             <form className={cx("form-login")} onSubmit={handleLogin}>
               <div className={cx("form-control-wrapper")}>
                 <FormControl
-                  label={<Mail />}
+                  icon={Mail}
                   name="login_email"
                   placeholder="Your email"
                   type="email"
@@ -83,11 +83,20 @@ const Login = () => {
                 />
               </div>
               <div className={cx("form-control-wrapper")}>
-                <FormControl label={<Key />} name="login_password" placeholder="Your password" type="password" />
+                <FormControl
+                  icon={Key}
+                  name="login_password"
+                  placeholder="Your password"
+                  type="password"
+                />
               </div>
               <button type="submit" className={cx("submit-btn")}>
                 {!authState.fetching && <span>Log In</span>}
-                <PulseLoader color="#fff" size={5} loading={authState.fetching} />
+                <PulseLoader
+                  color="#fff"
+                  size={5}
+                  loading={authState.fetching}
+                />
               </button>
               <div className={cx("password-recovery-link")}>
                 <NavLink>Forgot password?</NavLink>

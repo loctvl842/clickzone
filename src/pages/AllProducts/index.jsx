@@ -19,9 +19,12 @@ const OptionBox = () => {
   const btnRef = useRef(null);
 
   const handleSortClick = (e) => {
-    console.log(e.target.textContent);
     setValue(e.target.textContent);
     setIsMenuVisible(false);
+  };
+
+  const handleOptionBtnClick = () => {
+    setIsMenuVisible((prev) => !prev);
   };
 
   useClickOutside([menuRef, btnRef], () => {
@@ -30,7 +33,7 @@ const OptionBox = () => {
 
   return (
     <div className={cx("option-box")}>
-      <button className={cx("btn")} ref={btnRef} onClick={() => setIsMenuVisible(true)}>
+      <button className={cx("btn")} ref={btnRef} onClick={handleOptionBtnClick}>
         {value} <span className={cx("caret")}></span>
       </button>
       {isMenuVisible && (
@@ -38,7 +41,7 @@ const OptionBox = () => {
           <ul>
             <li>
               <NavLink
-                to={{ pathname: "/all-products", search: "?sort=1" }}
+                to={{ pathname: "/all-products", search: "?sort=0" }}
                 className={cx("item")}
                 onClick={handleSortClick}
               >
@@ -47,7 +50,7 @@ const OptionBox = () => {
             </li>
             <li>
               <NavLink
-                to={{ pathname: "/all-products", search: "?sort=2" }}
+                to={{ pathname: "/all-products", search: "?sort=1" }}
                 className={cx("item")}
                 onClick={handleSortClick}
               >
@@ -56,7 +59,7 @@ const OptionBox = () => {
             </li>
             <li>
               <NavLink
-                to={{ pathname: "/all-products", search: "?sort=3" }}
+                to={{ pathname: "/all-products", search: "?sort=2" }}
                 className={cx("item")}
                 onClick={handleSortClick}
               >

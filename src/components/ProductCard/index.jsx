@@ -66,7 +66,7 @@ const ProductCard = ({ product, user }) => {
           to={{ pathname: `/${product.name.trim()}/${product.id}` }}
           className={cx("content")}
         >
-          {user && user.is_admin && (
+          {user && user.is_admin ? (
             <div className={cx("actions")}>
               <ul>
                 <li>
@@ -81,7 +81,7 @@ const ProductCard = ({ product, user }) => {
                 </li>
               </ul>
             </div>
-          )}
+          ) : null}
           <div className={cx("card")}>
             <span className={cx("img-wrapper")}>
               <img src={product.image_url} className={cx("image")} alt="" />
