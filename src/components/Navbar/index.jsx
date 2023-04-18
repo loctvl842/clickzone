@@ -3,12 +3,10 @@ import classNames from "classnames/bind";
 
 // components
 import { Logo, NavbarUserActions } from "~/components";
-
-// action
+// store
 import { userReset } from "~/store/userSlice";
-
 // hooks
-import { useClickOutside, useNavbarFloat } from "~/hook";
+import { useClickOutside, useLogout, useNavbarFloat } from "~/hook";
 
 import { v4 as uuidv4 } from "uuid";
 import { NavLink } from "react-router-dom";
@@ -44,6 +42,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const isFloat = useNavbarFloat();
   const [userActionVisible, setUserActionVisible] = useState(false);
+  const logout = useLogout();
   const accountBtnRef = useRef();
   const userActionsRef = useRef();
 
@@ -58,10 +57,8 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = async () => {
-    Cookies.remove("token");
     try {
-      dispatch(userReset());
-      await axios.post("/api/user/logout.php", {});
+      await logout();
     } catch (e) {
       console.log({ logout: e });
     }
@@ -111,7 +108,10 @@ const Navbar = () => {
           </div>
           <div className={cx("right")}>
             <div className={cx("action")}>
-              <NavLink to="/cart" className={cx("action-btn")}>
+              <NavLink
+                to={user === null ? "/login" : "/cart"}
+                className={cx("action-btn")}
+              >
                 <span>
                   <ShoppingCart />
                 </span>
@@ -122,7 +122,7 @@ const Navbar = () => {
               {!user ? (
                 <NavLink
                   to="/login"
-                  onClick={handleLogoutClick}
+                  onClick={logout}
                   className={cx("action-btn")}
                 >
                   <Login />
@@ -139,7 +139,7 @@ const Navbar = () => {
                       className={cx("user-actions-wrapper")}
                       ref={userActionsRef}
                     >
-                      <NavbarUserActions onLogoutClick={handleLogoutClick} />
+                      <NavbarUserActions />
                     </div>
                   )}
                 </div>

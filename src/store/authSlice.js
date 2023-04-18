@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
+  accessToken: "",
   fetching: false,
   error: false,
   message: "",
@@ -10,36 +12,38 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    authStart() {
-      return {
-        fetching: true,
-        error: false,
-        message: "",
-      };
+    authStart(state) {
+      state.fetching = true;
+      state.error = false;
+      state.message = "";
     },
-    authSuccess(_, action) {
-      return {
-        fetching: false,
-        error: false,
-        message: action.payload,
-      };
+    authSuccess(state, action) {
+      const { accessToken, refreshToken } = action.payload;
+      state.fetching = false;
+      state.error = false;
+      state.accessToken = accessToken;
+      Cookies.set("refreshToken", refreshToken);
     },
     authFail(_, action) {
-      return {
-        fetching: false,
-        error: true,
-        message: action.payload,
-      };
+      state.fetching = false;
+      state.error = true;
+      state.message = action.payload;
     },
-    authReset() {
-      return {
-        fetching: false,
-        error: false,
-        message: "",
-      };
+    authAccessTokenUpdate(state, action) {
+      state.accessToken = action.payload;
+    },
+    authReset(state) {
+      state.fetching = false;
+      state.error = false;
     },
   },
 });
 
 export default authSlice.reducer;
-export const { authStart, authSuccess, authFail, authReset } = authSlice.actions;
+export const {
+  authStart,
+  authSuccess,
+  authFail,
+  authReset,
+  authAccessTokenUpdate,
+} = authSlice.actions;

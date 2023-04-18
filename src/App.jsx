@@ -2,48 +2,51 @@ import "./init";
 import { Fragment, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-
-import pages from "~/pages";
-import { EmptyLayout } from "~/layout";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCurrentUser, fetchShoppingSession } from "./store/userSlice";
+
+// pages
+import pages from "~/pages";
+// layout
+import { EmptyLayout } from "~/layout";
+// modal
 import Modal from "~/modal";
+// hook
+import { useCurrentUser } from "~/hook";
+// store
+import { fetchShoppingSession } from "~/store/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.data);
-
+  const user = useCurrentUser();
+  const loading = useSelector((state) => state.user.loading);
   useEffect(() => {
-    if (user === null) {
-      dispatch(fetchCurrentUser());
-    }
-  }, [dispatch, user]);
-
-  useEffect(() => {
-    if (user === null) return;
-    dispatch(fetchShoppingSession(user.id));
-  }, [dispatch, user]);
+    if (user !== null) dispatch(fetchShoppingSession(user.id));
+  }, [user, dispatch]);
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          {pages.map((page) => {
-            const Layout = page.layout || EmptyLayout;
-            const Element = <Layout content={page.content} />;
-            return Array.isArray(page.path) ? (
-              <Fragment key={uuidv4()}>
-                {page.path.map((path) => {
-                  return <Route key={uuidv4()} path={path} element={Element} />;
-                })}
-              </Fragment>
-            ) : (
-              <Route key={uuidv4()} path={page.path} element={Element} />
-            );
-          })}
-        </Routes>
-        <Modal />
-      </BrowserRouter>
+      {!loading && (
+        <BrowserRouter>
+          <Routes>
+            {pages.map((page) => {
+              const Layout = page.layout || EmptyLayout;
+              const Element = <Layout content={page.content} />;
+              return Array.isArray(page.path) ? (
+                <Fragment key={uuidv4()}>
+                  {page.path.map((path) => {
+                    return (
+                      <Route key={uuidv4()} path={path} element={Element} />
+                    );
+                  })}
+                </Fragment>
+              ) : (
+                <Route key={uuidv4()} path={page.path} element={Element} />
+              );
+            })}
+          </Routes>
+          <Modal />
+        </BrowserRouter>
+      )}
     </>
   );
 }

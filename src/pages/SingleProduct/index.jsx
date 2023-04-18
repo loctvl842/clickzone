@@ -9,7 +9,6 @@ import { formatCurrency } from "~/util";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useSingleProduct } from "~/hook";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,12 +31,13 @@ const SingleProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const product = useSingleProduct();
-  const shoppingSession = useSelector((state) => state.user.session);
+  const { shoppingSession, data: user } = useSelector((state) => state.user);
   const cartItems = useSelector((state) => selectAllCartItems(state));
 
   const handleAddToCart = () => {
-    if (Cookies.get("token") === undefined) {
+    if (user === null) {
       navigate("/login");
+      return;
     }
     // useSelector(state => state)
     const existingProductInCart = cartItems.find(

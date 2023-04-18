@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   data: null,
   session: null,
+  loading: true,
 };
 
 const authSlice = createSlice({
@@ -17,6 +19,9 @@ const authSlice = createSlice({
       state.data = null;
       state.session = null;
     },
+    userFetchFinish(state) {
+      state.loading = false;
+    },
     sessionTotalAdd(state, action) {
       state.session.total += action.payload;
     },
@@ -25,11 +30,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.data = action.payload;
-      }
-    });
     builder.addCase(fetchShoppingSession.fulfilled, (state, action) => {
       if (action.payload) {
         state.session = action.payload;
@@ -39,17 +39,15 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { userSet, userReset, sessionTotalAdd, sessionTotalSubtract } =
-  authSlice.actions;
+export const {
+  userSet,
+  userReset,
+  userFetchFinish,
+  sessionTotalAdd,
+  sessionTotalSubtract,
+} = authSlice.actions;
 
-export const fetchCurrentUser = createAsyncThunk(
-  "user/fetchCurrentUser",
-  async () => {
-    const res = await axios.get("/api/user/get_current.php");
-    return res.data.user;
-  }
-);
-
+// actions
 export const fetchShoppingSession = createAsyncThunk(
   "user/fetchShoppingSession",
   async (user_id) => {

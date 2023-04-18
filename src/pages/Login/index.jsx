@@ -1,44 +1,42 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
-import { Logo, FormControl } from "~/components";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-
-// icons
-import { Mail, Key } from "@mui/icons-material";
 import { useEffect } from "react";
-
-// actions
-import { authStart, authSuccess, authFail, authReset } from "~/store/authSlice";
-
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
-import { userSet } from "~/store/userSlice";
+
+// icons
+import { Mail, Key } from "@mui/icons-material";
+
+// components
+import { Logo, FormControl } from "~/components";
+// store
+import { authStart, authSuccess, authFail, authReset } from "~/store/authSlice";
+// hook
+import useLogin from "~/hook/useLogin";
+// util
+import { getFormData } from "~/util";
 
 let cx = classNames.bind(styles);
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth);
+  const login = useLogin();
+  const { fetching, error, message } = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const dataArray = [...formData];
-    const input_data = Object.fromEntries(dataArray);
+    const formData = getFormData(e.currentTarget);
     try {
       dispatch(authStart());
-      const res = await axios.post("/api/user/login.php", {
-        email: input_data.login_email,
-        password: input_data.login_password,
+      const tokens = await login({
+        email: formData.login_email,
+        password: formData.login_password,
       });
-      const data = res.data;
-      dispatch(authSuccess(data.message));
-      dispatch(userSet(data.user));
-      Cookies.set("token", data.token, { expires: 1 }); // expired in 1 day
+      dispatch(authSuccess(tokens));
       navigate("/home");
     } catch (err) {
       dispatch(authFail(err.response.data.message));
@@ -50,7 +48,7 @@ const Login = () => {
       dispatch(authReset());
     }, 5000);
     return () => clearTimeout(timeoutId);
-  }, [authState.error, dispatch]);
+  }, [error, dispatch]);
 
   useEffect(() => {
     if (Cookies.get("token") !== undefined) {
@@ -65,8 +63,8 @@ const Login = () => {
           <Logo size={45} />
         </div>
         <div className={cx("form-wrapper")}>
-          <div className={cx("message-wrapper", { visible: authState.error })}>
-            <p className={cx("message")}>{authState.message}</p>
+          <div className={cx("message-wrapper", { visible: error })}>
+            <p className={cx("message")}>{message}</p>
           </div>
           <div className={cx("card")}>
             <div className={cx("header")}>
@@ -91,12 +89,8 @@ const Login = () => {
                 />
               </div>
               <button type="submit" className={cx("submit-btn")}>
-                {!authState.fetching && <span>Log In</span>}
-                <PulseLoader
-                  color="#fff"
-                  size={5}
-                  loading={authState.fetching}
-                />
+                {!fetching && <span>Log In</span>}
+                <PulseLoader color="#fff" size={5} loading={fetching} />
               </button>
               <div className={cx("password-recovery-link")}>
                 <NavLink>Forgot password?</NavLink>
