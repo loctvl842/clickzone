@@ -13,7 +13,7 @@ import Modal from "~/modal";
 // hook
 import { useCurrentUser } from "~/hook";
 // store
-import { fetchShoppingSession } from "~/store/userSlice";
+import { fetchShoppingSession } from "~/store/sessionSlice";
 
 function App() {
   const dispatch = useDispatch();

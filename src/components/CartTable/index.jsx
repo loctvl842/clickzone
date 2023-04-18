@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 // store
 import { removeCartItem, selectAllCartItems } from "~/store/cartSlice";
-import { sessionTotalSubtract } from "~/store/userSlice";
+import { sessionTotalSubtract } from "~/store/sessionSlice";
 
 // icons
 import { Delete } from "@mui/icons-material";

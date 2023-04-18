@@ -16,7 +16,7 @@ import {
   selectAllCartItems,
   updateCartItem,
 } from "~/store/cartSlice";
-import { sessionTotalAdd } from "~/store/userSlice";
+import { sessionTotalAdd } from "~/store/sessionSlice";
 import { modals, CartForm } from "~/modal";
 import { modalOpen } from "~/store/modalSlice";
 
