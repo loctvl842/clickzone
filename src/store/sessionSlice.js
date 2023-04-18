@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  total: 0,
+  data: 0,
   loading: true,
 };
 
@@ -11,17 +11,16 @@ const sessionSlice = createSlice({
   initialState,
   reducers: {
     sessionTotalAdd(state, action) {
-      state.session.total += action.payload;
+      state.data.total += action.payload;
     },
     sessionTotalSubtract(state, action) {
-      state.session.total -= action.payload;
+      state.data.total -= action.payload;
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchShoppingSession.fulfilled, (state, action) => {
       if (action.payload) {
-        const shoppingSession = action.payload;
-        state.total = shoppingSession.total;
+        state.data = action.payload;
         state.loading = false;
       }
     });

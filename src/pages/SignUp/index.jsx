@@ -11,7 +11,7 @@ import { FormControl, Logo } from "~/components";
 
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { authFail, authReset, authStart, authSuccess } from "~/store/authSlice";
+import { authFail, authReset, authStart } from "~/store/authSlice";
 import { PulseLoader } from "react-spinners";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -63,7 +63,7 @@ const SignUp = () => {
         password: data.signup_password,
         telephone: data.signup_telephone,
       });
-      dispatch(authSuccess());
+      dispatch(authReset());
       navigate("/login");
     } catch (err) {
       dispatch(authFail(err.response.data.message));

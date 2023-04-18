@@ -10,7 +10,7 @@ import { formatCurrency } from "~/util";
 let cx = classNames.bind(styles);
 
 const Cart = () => {
-  const total = useSelector((state) => state.user.session?.total);
+  const shoppingSession = useSelector((state) => state.session.data);
 
   return (
     <div className={cx("container")}>
@@ -25,7 +25,7 @@ const Cart = () => {
                 <td style={{ textAlign: "right" }}>Total:</td>
                 <td>
                   <span style={{ fontSize: 19, color: "#ff7e00" }}>
-                    {formatCurrency(total)}
+                    {formatCurrency(shoppingSession.total)}
                   </span>
                 </td>
               </tr>
@@ -40,7 +40,7 @@ const Cart = () => {
                 <td>
                   <b>
                     <span style={{ fontSize: 19, color: "#ee2347" }}>
-                      {formatCurrency(740000)}
+                      {formatCurrency(shoppingSession.total)}
                     </span>
                   </b>
                 </td>

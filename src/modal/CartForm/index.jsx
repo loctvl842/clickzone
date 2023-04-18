@@ -14,8 +14,12 @@ let cx = classNames.bind(styles);
 
 const CartForm = () => {
   const dispatch = useDispatch();
-  const total = useSelector((state) => state.user.session.total);
+  const shoppingSession = useSelector((state) => state.session.data);
   const handlePayBtnClick = () => {
+    dispatch(modalClose());
+  };
+
+  const handleCloseBtnClick = () => {
     dispatch(modalClose());
   };
 
@@ -27,7 +31,7 @@ const CartForm = () => {
     <div className={cx("container")}>
       <div className={cx("title")}>
         <h1>Your Cart</h1>
-        <button className={cx("close-btn")}>
+        <button className={cx("close-btn")} onClick={handleCloseBtnClick}>
           <Close fontSize="small" />
         </button>
       </div>
@@ -35,7 +39,7 @@ const CartForm = () => {
         <CartTable />
       </div>
       <div className={cx("total-wrapper")}>
-        Total: <span>{formatCurrency(total)}</span>
+        Total: <span>{formatCurrency(shoppingSession.total)}</span>
       </div>
       <div className={cx("btn-groups")}>
         <button className={cx("btn", "btn--success")}>

@@ -11,7 +11,7 @@ let cx = classNames.bind(styles);
 const ProductCartLayout = ({ content }) => {
   const PageContent = content;
   const dispatch = useDispatch();
-  const shoppingSession = useSelector((state) => state.user.session);
+  const shoppingSession = useSelector((state) => state.session.data);
 
   useEffect(() => {
     if (shoppingSession && shoppingSession.id) {

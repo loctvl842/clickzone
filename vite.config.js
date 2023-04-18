@@ -28,11 +28,11 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        // target: "https://clickzone.herokuapp.com/",
-        target: "http://localhost/php/clickzone",
+        target: "https://clickzone.herokuapp.com/",
+        // target: "http://localhost/php/clickzone",
         changeOrigin: true,
         configure: (proxy, options) => {
-          proxy.on("proxyReq", function (proxyReq, req, res) {
+          proxy.on("proxyReq", function(proxyReq, req, res) {
             console.log("proxyReq: ", {
               host: proxyReq.host,
               path: proxyReq.path,

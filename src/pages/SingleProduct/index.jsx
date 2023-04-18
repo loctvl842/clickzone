@@ -31,7 +31,8 @@ const SingleProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const product = useSingleProduct();
-  const { shoppingSession, data: user } = useSelector((state) => state.user);
+  const { data: user } = useSelector((state) => state.user);
+  const shoppingSession = useSelector((state) => state.session.data);
   const cartItems = useSelector((state) => selectAllCartItems(state));
 
   const handleAddToCart = () => {

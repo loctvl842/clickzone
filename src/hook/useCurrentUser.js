@@ -23,7 +23,6 @@ export default function useCurrentUser() {
               token: "Bearer " + accessToken,
             },
           });
-          console.log(res);
           dispatch(userSet(res.data.user));
         }
       } catch (e) {
