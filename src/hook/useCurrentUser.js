@@ -20,7 +20,7 @@ export default function useCurrentUser() {
         } else {
           const res = await axios.get("/api/user/get_current.php", {
             headers: {
-              token: "Bearer " + accessToken,
+              Authorization: "Bearer " + accessToken,
             },
           });
           dispatch(userSet(res.data.user));
