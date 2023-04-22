@@ -13,9 +13,9 @@ import { Mail, Key } from "@mui/icons-material";
 // components
 import { Logo, FormControl } from "~/components";
 // store
-import { authStart, authSuccess, authFail, authReset } from "~/store/authSlice";
+import { authReset } from "~/store/authSlice";
 // hook
-import useLogin from "~/hook/useLogin";
+import { useLogin } from "~/hook";
 // util
 import { getFormData } from "~/util";
 
@@ -30,17 +30,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const formData = getFormData(e.currentTarget);
-    try {
-      dispatch(authStart());
-      const tokens = await login({
-        email: formData.login_email,
-        password: formData.login_password,
-      });
-      dispatch(authSuccess(tokens));
-      navigate("/home");
-    } catch (err) {
-      dispatch(authFail(err.response.data.message));
-    }
+    await login({
+      email: formData.login_email,
+      password: formData.login_password,
+    });
   };
 
   useEffect(() => {

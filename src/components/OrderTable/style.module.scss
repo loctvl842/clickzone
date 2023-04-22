@@ -1,4 +1,14 @@
 .container {
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.125rem;
+}
+.container + .container {
+  margin-top: 20px;
+}
+
+.order-items {
   table {
     width: 100%;
     max-width: 100%;
@@ -9,7 +19,7 @@
       font-size: 18px;
     }
     .delete-icon {
-      color: #df0000;
+      color: #ff0000;
       cursor: pointer;
       transition: all 0.5s ease;
       &:hover {
@@ -28,6 +38,9 @@
       a {
         text-decoration: none;
         color: #000;
+        &:hover {
+          color: #df0000;
+        }
       }
       .btn-info {
         padding: 1px 5px;
@@ -39,5 +52,17 @@
         border-color: #5bc0de;
       }
     }
+  }
+}
+
+.payment-wrapper {
+  position: relative;
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  .payment {
+    position: absolute;
+    right: 0;
   }
 }

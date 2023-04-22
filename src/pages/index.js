@@ -2,12 +2,13 @@
 import { MainLayout, ProductCartLayout } from "~/layout";
 
 // pages
-import Home from "~/pages/Home";
-import AllProducts from "~/pages/AllProducts";
-import Login from "~/pages/Login";
-import SignUp from "~/pages/SignUp";
-import SingleProduct from "~/pages/SingleProduct";
-import Cart from "~/pages/Cart";
+import Home from "./Home";
+import AllProducts from "./AllProducts";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import SingleProduct from "./SingleProduct";
+import Cart from "./Cart";
+import Purchase from "./Purchase";
 
 // if layout is null, page will use `EmptyLayout` in ~/layout
 const pages = [
@@ -25,6 +26,7 @@ const pages = [
     layout: ProductCartLayout,
   },
   { path: "/cart", content: Cart, layout: ProductCartLayout },
+  { path: "/purchase", content: Purchase, layout: ProductCartLayout },
 ];
 
 export default pages;

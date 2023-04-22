@@ -20,6 +20,7 @@ const cartSlice = createSlice({
     cartReset(state) {
       state.status = "idle";
       state.error = null;
+      cartAdapter.removeAll(state);
     },
     removeCartItem(state, action) {
       const cartItemId = action.payload;
@@ -46,6 +47,9 @@ const cartSlice = createSlice({
         changes: updatedCartItem,
       });
     });
+    builder.addCase(cleanCart.fulfilled, (state) => {
+      cartAdapter.removeAll(state);
+    });
   },
 });
 
@@ -53,7 +57,7 @@ const cartSlice = createSlice({
 export default cartSlice.reducer;
 
 // actions
-export const { removeCartItem } = cartSlice.actions;
+export const { removeCartItem, cartReset } = cartSlice.actions;
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (sessionId) => {
@@ -80,10 +84,20 @@ export const updateCartItem = createAsyncThunk(
   }
 );
 
-// selectors
-export const { selectAll: selectAllCartItems } = cartAdapter.getSelectors(
-  (state) => state.cart
+export const cleanCart = createAsyncThunk(
+  "cart/cleanCart",
+  async (sessionId) => {
+    await axios.delete(
+      `/api/cart_item/remove_by_sessionid.php?session_id=${sessionId}`
+    );
+  }
 );
+
+// selectors
+export const {
+  selectAll: selectAllCartItems,
+  selectTotal: selectTotalCartItems,
+} = cartAdapter.getSelectors((state) => state.cart);
 
 export const selectCartItemByProductId = createSelector(
   [selectAllCartItems, (state, productId) => productId],

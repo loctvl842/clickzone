@@ -1,7 +1,7 @@
 .container {
   flex-shrink: 0;
-  background: #f1f1f1;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+  background: #ececec;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   position: absolute;
   left: 0;
   top: 0;
@@ -155,17 +155,32 @@
     background-color: #ddd;
   }
   .badge {
-    border: 1px solid #eee;
     position: absolute;
-    top: 0px;
-    right: 0px;
-    background: #f00;
-    border-radius: 50%;
-    color: #fff;
-    width: 16px;
-    height: 16px;
+    border-radius: 2.75rem;
+    min-width: 0.6875rem;
+    line-height: 1.2em;
+    padding: 0.05rem 0.3125rem;
     text-align: center;
-    font-size: 12px;
+    height: 1.2rem;
+    border: 0.125rem solid #fff;
+    font-weight: 600;
+    // font-size: 1rem;
+    color: #fff;
+    background-color: #df0000;
+    left: 1.3rem;
+    top: -0.1rem;
+
+    // border: 1px solid #eee;
+    // position: absolute;
+    // top: 0px;
+    // right: 0px;
+    // background: #f00;
+    // border-radius: 2.75rem;
+    // color: #fff;
+    // width: 16px;
+    // height: 16px;
+    // text-align: center;
+    // font-size: 12px;
   }
   .action-btn {
     position: relative;

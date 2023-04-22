@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { CartTable } from "~/components";
 import { formatCurrency } from "~/util";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 
 // actions
@@ -13,10 +13,12 @@ import { modalClose } from "~/store/modalSlice";
 let cx = classNames.bind(styles);
 
 const CartForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const shoppingSession = useSelector((state) => state.session.data);
   const handlePayBtnClick = () => {
     dispatch(modalClose());
+    navigate("/cart");
   };
 
   const handleCloseBtnClick = () => {
@@ -42,10 +44,11 @@ const CartForm = () => {
         Total: <span>{formatCurrency(shoppingSession.total)}</span>
       </div>
       <div className={cx("btn-groups")}>
-        <button className={cx("btn", "btn--success")}>
-          <NavLink to={"/cart"} onClick={handlePayBtnClick}>
-            Pay
-          </NavLink>
+        <button
+          className={cx("btn", "btn--success")}
+          onClick={handlePayBtnClick}
+        >
+          Pay
         </button>
         <button className={cx("btn")} onClick={handleBuyMoreClick}>
           Buy More

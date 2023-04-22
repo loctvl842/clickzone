@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // icons
 import { AccountCircle, Mail, Key, West, Phone } from "@mui/icons-material";
@@ -9,12 +9,13 @@ import { AccountCircle, Mail, Key, West, Phone } from "@mui/icons-material";
 // components
 import { FormControl, Logo } from "~/components";
 
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { authFail, authReset, authStart } from "~/store/authSlice";
+import { authReset } from "~/store/authSlice";
 import { PulseLoader } from "react-spinners";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { getFormData } from "~/util";
+import { useSignup } from "~/hook";
 
 let cx = classNames.bind(styles);
 
@@ -46,28 +47,19 @@ const formControls = [
 ];
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
+  const signup = useSignup();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const dataArray = [...formData];
-    const data = Object.fromEntries(dataArray);
-    try {
-      dispatch(authStart());
-      await axios.post("/api/user/signup.php", {
-        username: data.signup_username,
-        email: data.signup_email,
-        password: data.signup_password,
-        telephone: data.signup_telephone,
-      });
-      dispatch(authReset());
-      navigate("/login");
-    } catch (err) {
-      dispatch(authFail(err.response.data.message));
-    }
+    const formData = getFormData(e.currentTarget);
+    await signup({
+      username: formData.signup_username,
+      email: formData.signup_email,
+      password: formData.signup_password,
+      telephone: formData.signup_telephone,
+    });
   };
 
   useEffect(() => {

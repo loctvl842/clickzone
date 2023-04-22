@@ -17,6 +17,11 @@ const NavbarUserActions = () => {
           <div className={cx("item")}>Account ({user.username})</div>
         </li>
         <li>
+          <NavLink to="/purchase" className={cx("item")}>
+            Purchase order
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/login" className={cx("item")} onClick={logout}>
             Log out
           </NavLink>

@@ -41,7 +41,7 @@ const CartTable = () => {
             <tr key={item.id}>
               <td
                 style={{
-                  width: 50,
+                  width: 60,
                   textAlign: "center",
                   verticalAlign: "middle",
                 }}
@@ -52,12 +52,12 @@ const CartTable = () => {
               </td>
               <td
                 style={{
-                  width: 50,
+                  width: 60,
                   textAlign: "center",
                   verticalAlign: "middle",
                 }}
               >
-                <img src={item.image_url} alt="" style={{ width: 40 }} />
+                <img src={item.image_url} alt="" />
               </td>
               <td
                 style={{

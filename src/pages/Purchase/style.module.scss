@@ -1,0 +1,32 @@
+.container {
+  padding: 0 15px;
+  margin-top: 15px;
+  .wrapper {
+    h4 {
+      font-weight: 500;
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .payment-wrapper {
+      margin-top: 25px;
+      width: 100%;
+      display: table;
+    }
+    .order-btn {
+      background-color: #e52f2f;
+      border: 1px solid #ce2a2a;
+      color: #fff;
+      text-decoration: none;
+      width: 220px;
+      height: 40px;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 50px auto;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}

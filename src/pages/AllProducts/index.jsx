@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 
 // components
 import { NewProducts } from "~/components";
+import { PersistUser } from "~/providers";
 
 // hooks
 import { useClickOutside } from "~/hook";
@@ -75,17 +76,19 @@ const OptionBox = () => {
 
 const AllProducts = () => {
   return (
-    <div className={cx("container")}>
-      <div className={cx("title-wrapper")}>
-        <div className={cx("title")}>
-          <NavLink to="/all-products">
-            <h4>All Products</h4>
-          </NavLink>
+    <PersistUser requireLoggedIn={false}>
+      <div className={cx("container")}>
+        <div className={cx("title-wrapper")}>
+          <div className={cx("title")}>
+            <NavLink to="/all-products">
+              <h4>All Products</h4>
+            </NavLink>
+          </div>
         </div>
+        <OptionBox />
+        <NewProducts />
       </div>
-      <OptionBox />
-      <NewProducts />
-    </div>
+    </PersistUser>
   );
 };
 

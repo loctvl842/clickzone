@@ -3,8 +3,6 @@ import classNames from "classnames/bind";
 
 // components
 import { Logo, NavbarUserActions } from "~/components";
-// store
-import { userReset } from "~/store/userSlice";
 // hooks
 import { useClickOutside, useLogout, useNavbarFloat } from "~/hook";
 
@@ -29,19 +27,17 @@ import {
   Login,
 } from "@mui/icons-material";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import Cookies from "js-cookie";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectTotalCartItems } from "~/store/cartSlice";
 
 let cx = classNames.bind(styles);
 
 const ActionMenu = () => { };
 
 const Navbar = () => {
-  const dispatch = useDispatch();
   const isFloat = useNavbarFloat();
   const [userActionVisible, setUserActionVisible] = useState(false);
+  const totalItems = useSelector((state) => selectTotalCartItems(state));
   const logout = useLogout();
   const accountBtnRef = useRef();
   const userActionsRef = useRef();
@@ -55,15 +51,6 @@ const Navbar = () => {
   const handleAccountBtnClick = () => {
     setUserActionVisible((prevState) => !prevState);
   };
-
-  const handleLogoutClick = async () => {
-    try {
-      await logout();
-    } catch (e) {
-      console.log({ logout: e });
-    }
-  };
-
   return (
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
@@ -108,14 +95,13 @@ const Navbar = () => {
           </div>
           <div className={cx("right")}>
             <div className={cx("action")}>
-              <NavLink
-                to={user === null ? "/login" : "/cart"}
-                className={cx("action-btn")}
-              >
+              <NavLink to={"/cart"} className={cx("action-btn")}>
                 <span>
                   <ShoppingCart />
                 </span>
-                <div className={cx("badge")}>5</div>
+                {totalItems > 0 && (
+                  <div className={cx("badge")}>{totalItems}</div>
+                )}
               </NavLink>
             </div>
             <div className={cx("action")}>

@@ -8,8 +8,6 @@ import { modalClose } from "~/store/modalSlice";
 let cx = classNames.bind(styles);
 
 export const modals = {};
-export { default as ProductForm } from "./ProductForm";
-export { default as ConfirmBox } from "./ConfirmBox";
 export { default as CartForm } from "./CartForm";
 
 const Modal = () => {

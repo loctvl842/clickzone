@@ -1,8 +1,7 @@
 import "./init";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
 
 // pages
 import pages from "~/pages";
@@ -10,22 +9,12 @@ import pages from "~/pages";
 import { EmptyLayout } from "~/layout";
 // modal
 import Modal from "~/modal";
-// hook
-import { useCurrentUser } from "~/hook";
-// store
-import { fetchShoppingSession } from "~/store/sessionSlice";
+import { ShoppingSession, CartItems } from "~/providers";
 
 function App() {
-  const dispatch = useDispatch();
-  const user = useCurrentUser();
-  const loading = useSelector((state) => state.user.loading);
-  useEffect(() => {
-    if (user !== null) dispatch(fetchShoppingSession(user.id));
-  }, [user, dispatch]);
-
   return (
-    <>
-      {!loading && (
+    <ShoppingSession>
+      <CartItems>
         <BrowserRouter>
           <Routes>
             {pages.map((page) => {
@@ -46,8 +35,8 @@ function App() {
           </Routes>
           <Modal />
         </BrowserRouter>
-      )}
-    </>
+      </CartItems>
+    </ShoppingSession>
   );
 }
 

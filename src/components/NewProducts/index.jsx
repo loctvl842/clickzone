@@ -22,8 +22,6 @@ const NewProducts = () => {
   const products = useSelector((state) => selectAllProducts(state));
   const productStatus = useSelector((state) => state.product.status);
 
-  const user = useSelector((state) => state.user.data);
-
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const page = params.get("page") ?? 0;
@@ -34,15 +32,10 @@ const NewProducts = () => {
   return (
     <div className={cx("container")}>
       <div className={cx("product-list")}>
-        {user && user.is_admin ? (
-          <div className={cx("product-item")}>
-            <ProductCard.CreateButton />
-          </div>
-        ) : null}
         {products &&
           products.map((p) => (
             <div key={uuidv4()} className={cx("product-item")}>
-              <ProductCard product={p} user={user} />
+              <ProductCard product={p} />
             </div>
           ))}
         {productStatus === "loading" &&

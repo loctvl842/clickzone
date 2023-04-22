@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const modalSlice = createSlice({
-  name: "confirmModal",
+  name: "modal",
   initialState,
   reducers: {
     modalOpen(state, action) {

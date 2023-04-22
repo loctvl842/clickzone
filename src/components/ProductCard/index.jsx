@@ -2,48 +2,17 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-// icons
-import { Delete, Edit, AddCircle } from "@mui/icons-material";
 
 // utils
 import { formatCurrency } from "~/util";
 
 // modal
-import { modals, ProductForm, ConfirmBox } from "~/modal";
-import { removeProduct } from "~/store/productSlice";
-import { modalClose, modalOpen } from "~/store/modalSlice";
 import { useState } from "react";
 
 let cx = classNames.bind(styles);
 
-const ProductCard = ({ product, user }) => {
-  const dispatch = useDispatch();
+const ProductCard = ({ product }) => {
   const [imgLoading, setImgLoading] = useState(true);
-
-  const handleRemoveBtnClick = (e) => {
-    e.preventDefault();
-    modals[ConfirmBox.modal_type] = (
-      <ConfirmBox
-        question={`Are you sure you want to remove <b>${product.name}</b> from your shop?`}
-        confirmBtnText="Remove"
-        onConfirm={handleRemoveConfirm}
-      />
-    );
-    dispatch(modalOpen(ConfirmBox.modal_type));
-  };
-
-  const handleRemoveConfirm = () => {
-    dispatch(removeProduct(product.id));
-    dispatch(modalClose());
-  };
-
-  const handleEditProduct = (e) => {
-    e.preventDefault();
-    modals[ProductForm.modal_type] = <ProductForm product={product} />;
-    dispatch(modalOpen(ProductForm.modal_type));
-  };
 
   return (
     <div className={cx("container")}>
@@ -60,22 +29,6 @@ const ProductCard = ({ product, user }) => {
           to={{ pathname: `/${product.name.trim()}/${product.id}` }}
           className={cx("content")}
         >
-          {user && user.is_admin ? (
-            <div className={cx("actions")}>
-              <ul>
-                <li>
-                  <button className={cx("icon")} onClick={handleRemoveBtnClick}>
-                    <Delete />
-                  </button>
-                </li>
-                <li>
-                  <button className={cx("icon")} onClick={handleEditProduct}>
-                    <Edit />
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : null}
           <div className={cx("card")}>
             <span className={cx("img-wrapper")}>
               <img src={product.image_url} className={cx("image")} alt="" />
@@ -137,33 +90,10 @@ const Skeleton = () => {
   );
 };
 
-const CreateButton = () => {
-  const dispatch = useDispatch();
-  const handleAddNewProductClick = () => {
-    modals[ProductForm.modal_type] = <ProductForm />;
-    dispatch(modalOpen(ProductForm.modal_type));
-  };
-  return (
-    <div className={cx("container")}>
-      <div className={cx("add-btn-wrapper")}>
-        <div className={cx("add-btn")} onClick={handleAddNewProductClick}>
-          <AddCircle style={{ fontSize: 100, userSelect: "none" }} />
-        </div>
-      </div>
-      <div className={cx("content")}>
-        <span className={cx("img-wrapper")}></span>
-        <p className={cx("price-sale")}></p>
-        <span className={cx("name")}></span>
-      </div>
-    </div>
-  );
-};
-
 ProductCard.Loading = () => (
   <div className={cx("container")}>
     <Skeleton />
   </div>
 );
-ProductCard.CreateButton = CreateButton;
 
 export default ProductCard;
