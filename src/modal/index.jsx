@@ -9,6 +9,7 @@ let cx = classNames.bind(styles);
 
 export const modals = {};
 export { default as CartForm } from "./CartForm";
+export { default as VerifyForm } from "./VerifyForm";
 
 const Modal = () => {
   const dispatch = useDispatch();

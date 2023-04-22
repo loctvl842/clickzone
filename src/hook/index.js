@@ -1,5 +1,6 @@
 export { default as useClickOutside } from "./useClickOutside";
 export { default as useCreateOrderDetails } from "./useCreateOrderDetails";
+export { default as useDispatchVerifyCode } from "./useDispatchVerifyCode";
 export { default as useFetchCurrentUser } from "./useFetchCurrentUser";
 export { default as useHotProducts } from "./useHotProducts";
 export { default as useLogin } from "./useLogin";

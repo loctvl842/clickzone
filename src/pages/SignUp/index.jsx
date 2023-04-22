@@ -9,6 +9,10 @@ import { AccountCircle, Mail, Key, West, Phone } from "@mui/icons-material";
 // components
 import { FormControl, Logo } from "~/components";
 
+// modals
+import { modals, VerifyForm } from "~/modal";
+import { modalOpen } from "~/store/modalSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import { authReset } from "~/store/authSlice";
 import { PulseLoader } from "react-spinners";
@@ -16,6 +20,7 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getFormData } from "~/util";
 import { useSignup } from "~/hook";
+import axios from "axios";
 
 let cx = classNames.bind(styles);
 
@@ -25,24 +30,28 @@ const formControls = [
     icon: AccountCircle,
     type: "text",
     placeholder: "Your name",
+    required: true,
   },
   {
     name: "signup_telephone",
     icon: Phone,
     type: "text",
     placeholder: "Your telephone",
+    required: true,
   },
   {
     name: "signup_email",
     icon: Mail,
     type: "email",
     placeholder: "Your email",
+    required: true,
   },
   {
     name: "signup_password",
     icon: Key,
     type: "password",
     placeholder: "Your password",
+    required: true,
   },
 ];
 
@@ -54,12 +63,24 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const formData = getFormData(e.currentTarget);
-    await signup({
-      username: formData.signup_username,
-      email: formData.signup_email,
-      password: formData.signup_password,
-      telephone: formData.signup_telephone,
-    });
+
+    modals[VerifyForm.modal_type] = (
+      <VerifyForm
+        email={formData.signup_email}
+        username={formData.signup_username}
+        callback={() => {
+          return (async () => {
+            await signup({
+              username: formData.signup_username,
+              email: formData.signup_email,
+              password: formData.signup_password,
+              telephone: formData.signup_telephone,
+            });
+          })();
+        }}
+      />
+    );
+    dispatch(modalOpen(VerifyForm.modal_type));
   };
 
   useEffect(() => {
@@ -91,6 +112,7 @@ const SignUp = () => {
                     icon={fc.icon}
                     type={fc.type}
                     placeholder={fc.placeholder}
+                    required={fc.required}
                   />
                 </div>
               ))}

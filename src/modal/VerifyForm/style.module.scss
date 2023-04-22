@@ -1,0 +1,97 @@
+.container {
+  .header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+  .content {
+    padding: 16px;
+    .error {
+      border: 0.5px solid #ff0000;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      color: #ff0000;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .description {
+      font-size: 17px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+    .input-wrapper {
+      display: flex;
+      .input-code {
+        flex: 1;
+        padding-right: 20px;
+      }
+      .message {
+        flex: 1;
+        .text {
+          display: block;
+          font-size: 18px;
+          line-height: 20px;
+          margin-bottom: 10px;
+        }
+        .email {
+          font-size: 15px;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+  .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    border-top: 1px solid #eee;
+    .btn {
+      width: 100px;
+      display: inline-block;
+      padding: 4px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      border-radius: 1px;
+      background: #f7f7f7;
+      border: 1px solid #bebebe;
+      &:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+        border-style: solid;
+      }
+      &--success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        &:hover {
+          color: #fff;
+          background-color: #449d44;
+          border-color: #398439;
+        }
+      }
+    }
+    .btn + .btn {
+      margin-left: 15px;
+    }
+  }
+}

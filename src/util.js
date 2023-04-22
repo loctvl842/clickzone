@@ -15,3 +15,16 @@ export function formatCurrency(amount) {
 export function initArray(size) {
   return Array(parseInt(size)).fill(0);
 }
+
+export function generateVerifyCode() {
+  // Generate a random 6-digit token
+  const value = Math.floor(
+    Math.random() * (999999 - 100000 + 1) + 100000
+  ).toString();
+  const timestamp = Date.now();
+  return { value, timestamp };
+}
+
+export function isVerifyCodeValid(code, duration = 60) {
+  return Date.now() - code.timestamp < duration * 1000;
+}
