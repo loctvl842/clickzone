@@ -28,3 +28,31 @@ export function generateVerifyCode() {
 export function isVerifyCodeValid(code, duration = 60) {
   return Date.now() - code.timestamp < duration * 1000;
 }
+
+export function groupCategories(categories) {
+  const menu = categories.reduce(
+    ({ categoriesObj, hash }, category) => {
+      if (!categoriesObj[category.id] && !hash[category.id]) {
+        categoriesObj[category.id] = {
+          id: category.id,
+          name: category.name,
+        };
+        hash[category.id] = true;
+        if (category.child_id) {
+          categoriesObj[category.id].categories = [];
+        }
+      }
+      if (category.child_id) {
+        const child = {
+          id: category.child_id,
+          name: category.child_name,
+        };
+        categoriesObj[category.id].categories.push(child);
+        hash[child.id] = true;
+      }
+      return { categoriesObj, hash };
+    },
+    { categoriesObj: {}, hash: {} }
+  );
+  return Object.values(menu.categoriesObj);
+}

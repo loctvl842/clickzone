@@ -1,3 +1,4 @@
+export { default as useCategories } from "./useCategories";
 export { default as useClickOutside } from "./useClickOutside";
 export { default as useCreateOrderDetails } from "./useCreateOrderDetails";
 export { default as useDispatchVerifyCode } from "./useDispatchVerifyCode";

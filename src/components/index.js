@@ -10,3 +10,4 @@ export { default as FormControl } from "~/components/FormControl";
 export { default as Paginator } from "~/components/Paginator";
 export { default as NavbarUserActions } from "~/components/NavbarUserActions";
 export { default as CartTable } from "~/components/CartTable";
+export { default as Categories } from "~/components/Categories";

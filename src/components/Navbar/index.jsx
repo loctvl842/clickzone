@@ -2,16 +2,12 @@ import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
 // components
-import { Logo, NavbarUserActions } from "~/components";
+import { Categories, Logo, NavbarUserActions } from "~/components";
 // hooks
 import { useClickOutside, useLogout, useNavbarFloat } from "~/hook";
 
-import { v4 as uuidv4 } from "uuid";
 import { NavLink } from "react-router-dom";
 import { useRef, useState } from "react";
-
-// fake menu
-import { menu_0 } from "./menu";
 
 // icons
 import {
@@ -23,7 +19,6 @@ import {
   Help,
   ArrowDropDown,
   Search,
-  NavigateNext,
   Login,
 } from "@mui/icons-material";
 
@@ -141,37 +136,7 @@ const Navbar = () => {
                 <h2>All Categories</h2>
               </div>
               <div className={cx("categories__menu-0")}>
-                <ul>
-                  {menu_0.map((item_0) => (
-                    <li key={uuidv4()}>
-                      <NavLink to={item_0.link} className={cx("item-0")}>
-                        <span className={cx("active-bar")}></span>
-                        <span>{item_0.title}</span>
-                        {item_0.menu_1 && (
-                          <div className={cx("nav-icon")}>
-                            <NavigateNext fontSize="small" />
-                          </div>
-                        )}
-                      </NavLink>
-                      {item_0.menu_1 && (
-                        <div className={cx("menu-1")}>
-                          <ul>
-                            {item_0.menu_1.map((item_1) => (
-                              <li key={uuidv4()}>
-                                <NavLink
-                                  to={item_1.link}
-                                  className={cx("item-1")}
-                                >
-                                  <span>{item_1.title}</span>
-                                </NavLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                <Categories />
               </div>
             </div>
           </div>
