@@ -6,28 +6,28 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsByPage, selectAllProducts } from "~/store/productSlice";
-import { useLocation } from "react-router-dom";
 
 // components
 import { ProductCard } from "~/components";
 
 // utils
 import { initArray } from "~/util";
+import { useQuery } from "~/hook";
 
 let cx = classNames.bind(styles);
 
-const NewProducts = () => {
+const NewProducts = ({ category_id }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const products = useSelector((state) => selectAllProducts(state));
   const productStatus = useSelector((state) => state.product.status);
+  const query = useQuery();
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const page = params.get("page") ?? 0;
-    const sort = params.get("sort") ?? 0;
-    dispatch(fetchProductsByPage({ sort, page }));
-  }, [dispatch, location]);
+    const sort = query.get("sort") ?? 0;
+    const page = query.get("page") ?? 0;
+    const search_query = query.get("query");
+    dispatch(fetchProductsByPage({ sort, page, category_id, search_query }));
+  }, [dispatch, query, category_id]);
 
   return (
     <div className={cx("container")}>

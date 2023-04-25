@@ -5,9 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const productAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.modified_at.localeCompare(a.modified_at),
-});
+const productAdapter = createEntityAdapter();
 
 const initialState = productAdapter.getInitialState({
   status: "idle",
@@ -39,11 +37,16 @@ export default productSlice.reducer;
 // export const { } = productSlice.actions;
 export const fetchProductsByPage = createAsyncThunk(
   "product/fetchProductsByPage",
-  async ({ sort, page }) => {
+  async ({ sort, page, category_id, search_query }) => {
     const pageSize = import.meta.env.VITE_PAGE_SIZE;
-    const res = await axios.get(
-      `/api/product/get_by_page.php?sort=${sort}&&page=${page}&&num=${pageSize}`
-    );
+    const params = {
+      sort,
+      page,
+      num: pageSize,
+    };
+    if (category_id) params.category_id = category_id;
+    if (search_query) params.search_string = search_query;
+    const res = await axios.get(`/api/product/get_by_page.php`, { params });
     return res.data;
   }
 );

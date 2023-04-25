@@ -1,3 +1,5 @@
+import slugifyLib from "slugify";
+
 export function getFormData(formDataElement) {
   const formData = new FormData(formDataElement);
   const dataArray = [...formData];
@@ -55,4 +57,8 @@ export function groupCategories(categories) {
     { categoriesObj: {}, hash: {} }
   );
   return Object.values(menu.categoriesObj);
+}
+
+export function slugify(slug) {
+  return slugifyLib(slug, { locale: "vi", lower: true });
 }

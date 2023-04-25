@@ -7,10 +7,12 @@ import { HomeSlideShow, HotProduct, NewProducts } from "~/components";
 import { PersistUser } from "~/providers";
 
 import { NavLink } from "react-router-dom";
+import { useTitle } from "~/hook";
 
 let cx = classNames.bind(styles);
 
 const Home = () => {
+  useTitle("ClickZone");
   return (
     <PersistUser requireLoggedIn={false}>
       <div className={cx("container")}>

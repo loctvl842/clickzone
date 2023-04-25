@@ -1,9 +1,8 @@
 import styles from "./style.module.scss";
 import classNames from "classnames/bind";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 
@@ -22,7 +21,6 @@ import { getFormData } from "~/util";
 let cx = classNames.bind(styles);
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const login = useLogin();
   const { fetching, error, message } = useSelector((state) => state.auth);
@@ -42,12 +40,6 @@ const Login = () => {
     }, 5000);
     return () => clearTimeout(timeoutId);
   }, [error, dispatch]);
-
-  useEffect(() => {
-    if (Cookies.get("token") !== undefined) {
-      navigate(-1);
-    }
-  }, [navigate]);
 
   return (
     <div className={cx("container")}>

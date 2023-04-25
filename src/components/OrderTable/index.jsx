@@ -8,14 +8,13 @@ import { NavLink } from "react-router-dom";
 let cx = classNames.bind(styles);
 
 const OrderTable = ({ order }) => {
-  console.log(order);
   return (
     <div className={cx("container")}>
       <div className={cx("order-items")}>
         <table>
           <tbody>
             {order.order_items.map((item) => (
-              <tr key={item.id}>
+              <tr key={item.product_id}>
                 <td
                   style={{
                     width: 50,

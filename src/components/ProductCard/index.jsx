@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import { NavLink } from "react-router-dom";
 
 // utils
-import { formatCurrency } from "~/util";
+import { formatCurrency, slugify } from "~/util";
 
 // modal
 import { useState } from "react";
@@ -26,7 +26,9 @@ const ProductCard = ({ product }) => {
       )}
       {product !== undefined && !imgLoading ? (
         <NavLink
-          to={{ pathname: `/${product.name.trim()}/${product.id}` }}
+          to={{
+            pathname: `/${slugify(product.name)}/p/${product.id}`,
+          }}
           className={cx("content")}
         >
           <div className={cx("card")}>
@@ -68,15 +70,15 @@ const Skeleton = () => {
         <p className={cx("price-sale")}>
           <span
             className={cx("skeleton-box")}
-            style={{ width: 70, height: 17 }}
+            style={{ width: "30%", height: 17, display: "inline-block" }}
           ></span>
           <span
             className={cx("price", "skeleton-box")}
-            style={{ width: 120, height: 17 }}
+            style={{ width: "50%", height: 17 }}
           ></span>
           <span
             className={cx("old-price", "skeleton-box")}
-            style={{ width: 100, height: 12 }}
+            style={{ width: "40%", height: 12 }}
           ></span>
         </p>
         <span className={cx("name")}>

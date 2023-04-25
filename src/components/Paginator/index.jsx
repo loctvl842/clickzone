@@ -9,34 +9,38 @@ import {
   KeyboardDoubleArrowRight,
 } from "@mui/icons-material";
 
-import { NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { usePageCount } from "~/hook";
+import { usePageCount, useQuery } from "~/hook";
 
 const NUM_PAGE = 7;
 
 let cx = classNames.bind(styles);
 
 const generateNumberArray = (currentPage) => {
-  return Array.from({ length: NUM_PAGE }, (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i);
+  return Array.from(
+    { length: NUM_PAGE },
+    (_, i) => currentPage - (NUM_PAGE - 1) / 2 + i
+  );
 };
 
 const Paginator = () => {
+  const location = useLocation();
   const [params] = useSearchParams();
   const pageCount = usePageCount();
   const [currentPage, setCurrentPage] = useState(0);
+  const query = useQuery();
 
   const getNavObject = (pageNumber) => {
-    const sort = params.get("sort");
-    let queryString = "?";
-    if (sort !== null) {
-      queryString = `?sort=${sort}&`;
-    }
-    queryString += `page=${pageNumber}`;
+    query.set("page", pageNumber);
+    query.sort();
     return {
-      pathname: "/all-products",
-      search: queryString,
+      pathname:
+        location.pathname === "/" || location.pathname === "/home"
+          ? "/all-products"
+          : location.pathname,
+      search: query.toString(),
     };
   };
 

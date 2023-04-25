@@ -17,16 +17,20 @@ const pages = [
     content: Home,
     layout: MainLayout,
   },
-  { path: "/all-products", content: AllProducts, layout: MainLayout },
+  {
+    path: ["/all-products", "/:name/c/:category_id", "/search"],
+    content: AllProducts,
+    layout: MainLayout,
+  },
   { path: "/login", content: Login },
   { path: "/signup", content: SignUp },
+  { path: "/cart", content: Cart, layout: ProductCartLayout },
+  { path: "/purchase", content: Purchase, layout: ProductCartLayout },
   {
-    path: "/:name/:productId",
+    path: "/:name/p/:product_id",
     content: SingleProduct,
     layout: ProductCartLayout,
   },
-  { path: "/cart", content: Cart, layout: ProductCartLayout },
-  { path: "/purchase", content: Purchase, layout: ProductCartLayout },
 ];
 
 export default pages;

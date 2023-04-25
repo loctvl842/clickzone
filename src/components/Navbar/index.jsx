@@ -4,9 +4,9 @@ import classNames from "classnames/bind";
 // components
 import { Categories, Logo, NavbarUserActions } from "~/components";
 // hooks
-import { useClickOutside, useLogout, useNavbarFloat } from "~/hook";
+import { useClickOutside, useLogout, useNavbarFloat, useQuery } from "~/hook";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 // icons
@@ -24,18 +24,21 @@ import {
 
 import { useSelector } from "react-redux";
 import { selectTotalCartItems } from "~/store/cartSlice";
+import { getFormData } from "~/util";
 
 let cx = classNames.bind(styles);
 
 const ActionMenu = () => { };
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const isFloat = useNavbarFloat();
   const [userActionVisible, setUserActionVisible] = useState(false);
   const totalItems = useSelector((state) => selectTotalCartItems(state));
-  const logout = useLogout();
   const accountBtnRef = useRef();
   const userActionsRef = useRef();
+  const logout = useLogout();
+  const query = useQuery();
 
   const user = useSelector((state) => state.user.data);
 
@@ -46,6 +49,17 @@ const Navbar = () => {
   const handleAccountBtnClick = () => {
     setUserActionVisible((prevState) => !prevState);
   };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const formData = getFormData(e.currentTarget);
+    query.set("query", formData.search_string);
+    query.delete("page");
+    query.delete("sort");
+    query.delete("category_id");
+    navigate(`/search?${query.toString()}`);
+  };
+
   return (
     <header className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
@@ -71,10 +85,16 @@ const Navbar = () => {
             </NavLink>
           </div>
           <div className={cx("center")}>
-            <form className={cx("header-search")} action="" method="GET">
+            <form
+              className={cx("header-search")}
+              action=""
+              method="GET"
+              onSubmit={handleSearchSubmit}
+            >
               <div className={cx("input-group")}>
                 <input
                   type="text"
+                  name="search_string"
                   autoComplete="off"
                   className={cx("form-control")}
                   placeholder="Search your product..."
