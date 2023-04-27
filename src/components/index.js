@@ -11,3 +11,4 @@ export { default as NewProducts } from "~/components/NewProducts";
 export { default as OrderTable } from "~/components/OrderTable";
 export { default as Paginator } from "~/components/Paginator";
 export { default as ProductCard } from "~/components/ProductCard";
+export { default as SlideBanner } from "~/components/SlideBanner";

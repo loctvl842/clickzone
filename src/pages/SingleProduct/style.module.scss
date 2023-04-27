@@ -16,6 +16,26 @@
   }
 }
 
+.col-9 {
+  float: left;
+  position: relative;
+  width: 100%;
+  @media (min-width: 1200px) {
+    width: 75%;
+  }
+}
+
+.col-3 {
+  float: left;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+  @media (min-width: 1200px) {
+    width: 25%;
+  }
+}
+
 .col-5 {
   float: left;
   width: calc(100% / 12 * 5);

@@ -61,7 +61,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className={cx("container", { "header-affix": isFloat })}>
+    <header id="navbar" className={cx("container", { "header-affix": isFloat })}>
       <div className={cx("wrapper")}>
         <div className={cx("row-1")}>
           <div className={cx("left")}>
