@@ -10,14 +10,14 @@ on:
 jobs:
   release:
     name: release
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/vite' }}
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
           release-type: simple
-          package-name: monokai-pro
+          package-name: clickzone (customer)
       - uses: actions/checkout@v3
       - name: tag stable versions
         if: ${{ steps.release.outputs.release_created }}
