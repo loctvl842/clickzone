@@ -2,11 +2,8 @@ name: CI
 
 on:
   push:
-    branches:
-      - vite
   pull_request:
-    branches:
-      - vite
+
 jobs:
   release:
     name: release
