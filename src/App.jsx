@@ -33,7 +33,6 @@ function App() {
               );
             })}
           </Routes>
-          <Modal />
         </BrowserRouter>
       </CartItems>
     </ShoppingSession>
