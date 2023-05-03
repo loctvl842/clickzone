@@ -10,28 +10,25 @@ on:
 jobs:
   release:
     name: release
-    if: ${{ github.ref == 'refs/heads/vite' }}
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs:
+      - docs
+      - tests
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
           release-type: simple
-          package-name: clickzone (customer)
+          package-name: monokai-pro
       - uses: actions/checkout@v3
-      - name: Update Changelog
+      - name: tag stable versions
         if: ${{ steps.release.outputs.release_created }}
         run: |
-          npm run update-changelog -- --latest-tag ${{ steps.release.outputs.release_tag }} --next-tag ${{ steps.release.outputs.next_release_version }}
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
-          git add CHANGELOG.md
-          git commit -m "Update changelog for ${{ steps.release.outputs.release_tag }}"
-          git push
-      - name: Tag Stable Release
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
+          git remote add gh-token "https://${{ secrets.GITHUB_TOKEN }}@github.com/google-github-actions/release-please-action.git"
           git tag -d stable || true
           git push origin :stable || true
-          git tag -a stable -m "Last Stable Release" ${{ steps.release.outputs.release_tag }}
+          git tag -a stable -m "Last Stable Release"
           git push origin stable
