@@ -33,6 +33,7 @@ const VerifyForm = ({ email, username, callback }) => {
           "The number that you've entered doesn't match your code. Please try again."
         );
       }
+      dispatch(modalClose());
       callback();
     } catch (e) {
       setError(e.message);

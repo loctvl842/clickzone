@@ -105,7 +105,7 @@ const SingleProduct = () => {
                       Code: <b>{product.id}</b>
                     </div>
                     <br />
-                    {product.old_price && (
+                    {product.old_price ? (
                       <p className={cx("old-price")}>
                         <span>Old price: </span>
                         {product.old_price && (
@@ -117,7 +117,7 @@ const SingleProduct = () => {
                         </span>
                         {")"}
                       </p>
-                    )}
+                    ) : null}
                     <p>
                       <span>Price: </span>
                       <span className={cx("new-price")}>
@@ -180,7 +180,9 @@ const SingleProduct = () => {
             </div>
           )}
         </div>
-        <div className={cx("col-3")}>{product && <SlideBanner product={product} />}</div>
+        <div className={cx("col-3")}>
+          {product && <SlideBanner product={product} />}
+        </div>
       </div>
     </PersistUser>
   );
