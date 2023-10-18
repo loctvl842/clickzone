@@ -15,7 +15,7 @@ export function formatCurrency(amount) {
 }
 
 export function initArray(size) {
-  return Array(parseInt(size)).fill(0);
+  return Array(parseInt(size || 0)).fill(0);
 }
 
 export function generateVerifyCode() {
